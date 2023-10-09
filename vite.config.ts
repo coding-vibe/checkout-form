@@ -5,4 +5,13 @@ import eslint from 'vite-plugin-eslint';
 
 export default defineConfig({
   plugins: [react(), svgr(), eslint()],
+  resolve: {
+    alias: {
+      components: '/src/components',
+      constants: '/src/constants',
+      contexts: '/src/contexts',
+      types: '/src/types',
+      utils: '/src/utils',
+    },
+  },
 });

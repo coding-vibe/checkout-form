@@ -2,7 +2,7 @@ import { Form } from 'react-final-form';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { TextField, Select } from 'mui-rff';
-import validation from './utils/validation';
+import { validateIsRequired } from 'utils/validation';
 
 function App() {
   return (
@@ -11,11 +11,11 @@ function App() {
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <TextField
-            fieldProps={{ validate: validation }}
+            fieldProps={{ validate: validateIsRequired }}
             name='firstName'
           />
           <Select
-            fieldProps={{ validate: validation }}
+            fieldProps={{ validate: validateIsRequired }}
             name='test'>
             <MenuItem value={1}>One</MenuItem>
             <MenuItem value={2}>Two</MenuItem>

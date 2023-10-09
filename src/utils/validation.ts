@@ -1,3 +1,2 @@
-const validation = (value: string) => (value ? undefined : 'Required');
-
-export default validation;
+export const validateIsRequired = (value: string) =>
+  value ? undefined : 'Required';
