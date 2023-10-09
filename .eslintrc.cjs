@@ -79,6 +79,15 @@ module.exports = {
         alwaysTryTypes: true,
         project: './tsconfig.json',
       },
+      alias: {
+        map: [
+          ['components', './src/components'],
+          ['constants', './src/constants'],
+          ['contexts', './src/contexts'],
+          ['types', './src/types'],
+          ['utils', './src/utils'],
+        ],
+      }
     }
   },
 }
