@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Form } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import arrayMutators from 'final-form-arrays';
@@ -8,19 +5,19 @@ import Button from '@mui/material/Button';
 import { TextField } from 'mui-rff';
 import {
   maxValue,
-  minValue,
+  // minValue,
   validateEmail,
   validateIsRequired,
   validatePhoneNumber,
 } from 'utils/validation';
 
-const composeValidators =
-  (...validators: any[]) =>
-  (value: any) =>
-    validators.reduce(
-      (error, validator) => error || validator(value),
-      undefined,
-    );
+// const composeValidators =
+//   (...validators: any[]) =>
+//   (value: any) =>
+//     validators.reduce(
+//       (error, validator) => error || validator(value),
+//       undefined,
+//     );
 
 export default function PersonalDetailsScreen() {
   return (
@@ -29,7 +26,7 @@ export default function PersonalDetailsScreen() {
       mutators={{
         ...arrayMutators,
       }}
-      render={({ handleSubmit }) => (
+      render={({ handleSubmit, values, errors }) => (
         <form onSubmit={handleSubmit}>
           <TextField
             fieldProps={{ validate: validateIsRequired }}
@@ -64,18 +61,24 @@ export default function PersonalDetailsScreen() {
           />
           <FieldArray
             name='phoneNumbers'
-            validate={composeValidators(minValue(1))}>
+            validate={(values) =>
+              !values
+                ? `Should be at least 1 phone number`
+                : maxValue(3, values.length)
+            }>
             {({ fields }) => (
               <div>
                 {fields.map((name, index) => (
                   <div key={name}>
                     <TextField
+                      fieldProps={{ validate: validatePhoneNumber }}
                       label={`Phone number ${index + 1}`}
                       name={`${name}.phoneNumber${index + 1}`}
                       placeholder={`Enter phone number ${index + 1}`}
                     />
                     <Button
                       type='button'
+                      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                       onClick={() => fields.remove(index)}>
                       Remove
                     </Button>
@@ -83,7 +86,8 @@ export default function PersonalDetailsScreen() {
                 ))}
                 <Button
                   type='button'
-                  onClick={() => fields.push({})}>
+                  onClick={() => fields.push({})}
+                  disabled={!!fields.length && fields.length >= 3}>
                   Add phone number
                 </Button>
               </div>
@@ -94,6 +98,8 @@ export default function PersonalDetailsScreen() {
             variant='contained'>
             Next step
           </Button>
+          <pre>errors{JSON.stringify(errors, null, 2)}</pre>
+          <pre>{JSON.stringify(values, null, 2)}</pre>
         </form>
       )}
     />
