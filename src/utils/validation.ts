@@ -1,10 +1,14 @@
-export const maxValue = (max: number, value: number) =>
-  value <= max ? undefined : `Should be less than ${max}`;
+import { FieldValidator } from 'final-form';
 
-// export const minValue = (min: number) => (value: number) =>
-//   Number.isNaN(value) || value >= min
-//     ? undefined
-//     : `Should be greater than ${min}`;
+export function composeValidators<T>(...validators: FieldValidator<T>[]) {
+  const fn: FieldValidator<T> = (...args) =>
+    validators.reduce<string | undefined>(
+      (error, validator) => error || (validator(...args) as string | undefined),
+      undefined,
+    );
+
+  return fn;
+}
 
 export const validateEmail = (value: string) => {
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;

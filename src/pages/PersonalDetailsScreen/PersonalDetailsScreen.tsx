@@ -1,23 +1,25 @@
 import { Form } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
+import { ARRAY_ERROR } from 'final-form';
 import arrayMutators from 'final-form-arrays';
 import Button from '@mui/material/Button';
 import { TextField } from 'mui-rff';
 import {
-  maxValue,
-  // minValue,
+  composeValidators,
   validateEmail,
   validateIsRequired,
   validatePhoneNumber,
 } from 'utils/validation';
 
-// const composeValidators =
-//   (...validators: any[]) =>
-//   (value: any) =>
-//     validators.reduce(
-//       (error, validator) => error || validator(value),
-//       undefined,
-//     );
+interface FormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumbers: string[];
+}
+
+const MIN__ARRAY_LENGTH = 1;
+const MAX__ARRAY_LENGTH = 3;
 
 export default function PersonalDetailsScreen() {
   return (
@@ -26,7 +28,30 @@ export default function PersonalDetailsScreen() {
       mutators={{
         ...arrayMutators,
       }}
-      render={({ handleSubmit, values, errors }) => (
+      validate={(values: FormValues) => {
+        const errors = { phoneNumbers: [] };
+        if (!values.phoneNumbers) {
+          errors.phoneNumbers[
+            ARRAY_ERROR
+          ] = `Should be at least ${MIN__ARRAY_LENGTH} phone number`;
+
+          return errors;
+        }
+
+        if (
+          values.phoneNumbers &&
+          values.phoneNumbers.length > MAX__ARRAY_LENGTH
+        ) {
+          errors.phoneNumbers[
+            ARRAY_ERROR
+          ] = `Should be not more than ${MAX__ARRAY_LENGTH} phone numbers`;
+
+          return errors;
+        }
+
+        return undefined;
+      }}
+      render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <TextField
             fieldProps={{ validate: validateIsRequired }}
@@ -42,51 +67,34 @@ export default function PersonalDetailsScreen() {
           />
           <TextField
             fieldProps={{
-              validate: (value: string) => {
-                const errorMessages = [
-                  validateIsRequired(value),
-                  validateEmail(value),
-                ];
-                for (let i = 0; i < errorMessages.length; i += 1)
-                  if (errorMessages[i]) {
-                    return errorMessages[i];
-                  }
-
-                return undefined;
-              },
+              validate: composeValidators(validateIsRequired, validateEmail),
             }}
             label='Email'
             name='email'
             placeholder='Enter email'
           />
-          <FieldArray
-            name='phoneNumbers'
-            validate={(values) =>
-              !values
-                ? `Should be at least 1 phone number`
-                : maxValue(3, values.length)
-            }>
-            {({ fields }) => (
+          <FieldArray<string> name='phoneNumbers'>
+            {({ fields, meta: { error } }) => (
               <div>
                 {fields.map((name, index) => (
                   <div key={name}>
                     <TextField
                       fieldProps={{ validate: validatePhoneNumber }}
                       label={`Phone number ${index + 1}`}
-                      name={`${name}.phoneNumber${index + 1}`}
+                      name={name}
                       placeholder={`Enter phone number ${index + 1}`}
                     />
                     <Button
                       type='button'
-                      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                       onClick={() => fields.remove(index)}>
                       Remove
                     </Button>
                   </div>
                 ))}
+                {error && <div>{error}</div>}
                 <Button
                   type='button'
-                  onClick={() => fields.push({})}
+                  onClick={() => fields.push('')}
                   disabled={!!fields.length && fields.length >= 3}>
                   Add phone number
                 </Button>
@@ -98,8 +106,6 @@ export default function PersonalDetailsScreen() {
             variant='contained'>
             Next step
           </Button>
-          <pre>errors{JSON.stringify(errors, null, 2)}</pre>
-          <pre>{JSON.stringify(values, null, 2)}</pre>
         </form>
       )}
     />
