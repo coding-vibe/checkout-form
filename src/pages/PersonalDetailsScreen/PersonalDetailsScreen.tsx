@@ -1,14 +1,26 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-ignore
-import { Field, Form } from 'react-final-form';
+import { Form } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import arrayMutators from 'final-form-arrays';
 import Button from '@mui/material/Button';
 import { TextField } from 'mui-rff';
-import { validateIsRequired, validateEmail } from 'utils/validation';
+import {
+  maxValue,
+  minValue,
+  validateEmail,
+  validateIsRequired,
+  validatePhoneNumber,
+} from 'utils/validation';
+
+const composeValidators =
+  (...validators: any[]) =>
+  (value: any) =>
+    validators.reduce(
+      (error, validator) => error || validator(value),
+      undefined,
+    );
 
 export default function PersonalDetailsScreen() {
   return (
@@ -33,34 +45,34 @@ export default function PersonalDetailsScreen() {
           />
           <TextField
             fieldProps={{
-              validate: (value: string) => [
-                validateIsRequired(value),
-                validateEmail(value),
-              ],
+              validate: (value: string) => {
+                const errorMessages = [
+                  validateIsRequired(value),
+                  validateEmail(value),
+                ];
+                for (let i = 0; i < errorMessages.length; i += 1)
+                  if (errorMessages[i]) {
+                    return errorMessages[i];
+                  }
+
+                return undefined;
+              },
             }}
             label='Email'
             name='email'
             placeholder='Enter email'
           />
-          <FieldArray name='numbers'>
+          <FieldArray
+            name='phoneNumbers'
+            validate={composeValidators(minValue(1))}>
             {({ fields }) => (
               <div>
                 {fields.map((name, index) => (
                   <div key={name}>
                     <TextField
-                      label='Number 1'
-                      name={`${name}.number1`}
-                      placeholder='Enter number 1'
-                    />
-                    <TextField
-                      label='Number 2'
-                      name={`${name}.number2`}
-                      placeholder='Enter number 2'
-                    />
-                    <TextField
-                      label='Number 3'
-                      name={`${name}.number2`}
-                      placeholder='Enter number 3'
+                      label={`Phone number ${index + 1}`}
+                      name={`${name}.phoneNumber${index + 1}`}
+                      placeholder={`Enter phone number ${index + 1}`}
                     />
                     <Button
                       type='button'
@@ -72,7 +84,7 @@ export default function PersonalDetailsScreen() {
                 <Button
                   type='button'
                   onClick={() => fields.push({})}>
-                  Add Number
+                  Add phone number
                 </Button>
               </div>
             )}

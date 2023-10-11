@@ -1,4 +1,4 @@
-import PersonalDetailsScreen from 'components/PersonalDetailsScreen';
+import PersonalDetailsScreen from 'pages/PersonalDetailsScreen';
 
 function App() {
   return <PersonalDetailsScreen />;
