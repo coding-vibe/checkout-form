@@ -29,11 +29,11 @@ export default function PersonalDetailsScreen() {
         ...arrayMutators,
       }}
       validate={(values: FormValues) => {
-        const errors = { phoneNumbers: [] };
+        const errors = { phoneNumbers: {} };
         if (!values.phoneNumbers) {
-          errors.phoneNumbers[
-            ARRAY_ERROR
-          ] = `Should be at least ${MIN__ARRAY_LENGTH} phone number`;
+          errors.phoneNumbers = {
+            [ARRAY_ERROR]: `Should be at least ${MIN__ARRAY_LENGTH} phone number`,
+          };
 
           return errors;
         }
@@ -42,9 +42,9 @@ export default function PersonalDetailsScreen() {
           values.phoneNumbers &&
           values.phoneNumbers.length > MAX__ARRAY_LENGTH
         ) {
-          errors.phoneNumbers[
-            ARRAY_ERROR
-          ] = `Should be not more than ${MAX__ARRAY_LENGTH} phone numbers`;
+          errors.phoneNumbers = {
+            [ARRAY_ERROR]: `Should be not more than ${MAX__ARRAY_LENGTH} phone numbers`,
+          };
 
           return errors;
         }
@@ -74,7 +74,7 @@ export default function PersonalDetailsScreen() {
             placeholder='Enter email'
           />
           <FieldArray<string> name='phoneNumbers'>
-            {({ fields, meta: { error } }) => (
+            {({ fields, meta: { error, touched } }) => (
               <div>
                 {fields.map((name, index) => (
                   <div key={name}>
@@ -91,7 +91,7 @@ export default function PersonalDetailsScreen() {
                     </Button>
                   </div>
                 ))}
-                {error && <div>{error}</div>}
+                {error && touched && <div>{error}</div>}
                 <Button
                   type='button'
                   onClick={() => fields.push('')}
