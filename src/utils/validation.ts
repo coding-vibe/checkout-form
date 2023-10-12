@@ -3,6 +3,7 @@ import { FieldValidator } from 'final-form';
 export function composeValidators<T>(...validators: FieldValidator<T>[]) {
   const fn: FieldValidator<T> = (...args) =>
     validators.reduce<string | undefined>(
+      // We use type casting, because meta.error type is 'any' and we can't override this
       (error, validator) => error || (validator(...args) as string | undefined),
       undefined,
     );

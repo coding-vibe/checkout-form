@@ -3,6 +3,7 @@ import { FieldArray } from 'react-final-form-arrays';
 import { ARRAY_ERROR } from 'final-form';
 import arrayMutators from 'final-form-arrays';
 import Button from '@mui/material/Button';
+import { FormHelperText } from '@mui/material';
 import { TextField } from 'mui-rff';
 import {
   composeValidators,
@@ -18,38 +19,33 @@ interface FormValues {
   phoneNumbers: string[];
 }
 
-const MIN__ARRAY_LENGTH = 1;
-const MAX__ARRAY_LENGTH = 3;
+const MIN_ARRAY_LENGTH = 1;
+const MAX_ARRAY_LENGTH = 3;
 
 export default function PersonalDetailsScreen() {
   return (
-    <Form
+    <Form<FormValues>
       onSubmit={() => {}}
       mutators={{
         ...arrayMutators,
       }}
-      validate={(values: FormValues) => {
-        const errors = { phoneNumbers: {} };
-        if (!values.phoneNumbers) {
-          errors.phoneNumbers = {
-            [ARRAY_ERROR]: `Should be at least ${MIN__ARRAY_LENGTH} phone number`,
-          };
+      validate={(values) => {
+        let phoneNumberError;
 
-          return errors;
+        if (!values.phoneNumbers) {
+          phoneNumberError = `Should be at least ${MIN_ARRAY_LENGTH} phone number`;
         }
 
         if (
           values.phoneNumbers &&
-          values.phoneNumbers.length > MAX__ARRAY_LENGTH
+          values.phoneNumbers.length > MAX_ARRAY_LENGTH
         ) {
-          errors.phoneNumbers = {
-            [ARRAY_ERROR]: `Should be not more than ${MAX__ARRAY_LENGTH} phone numbers`,
-          };
-
-          return errors;
+          phoneNumberError = `Should be not more than ${MAX_ARRAY_LENGTH} phone numbers`;
         }
 
-        return undefined;
+        return phoneNumberError
+          ? { phoneNumbers: { [ARRAY_ERROR]: phoneNumberError } }
+          : undefined;
       }}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
@@ -58,12 +54,14 @@ export default function PersonalDetailsScreen() {
             label='First Name'
             name='firstName'
             placeholder='Enter first name'
+            sx={{ mb: 2 }}
           />
           <TextField
             fieldProps={{ validate: validateIsRequired }}
             label='Last Name'
             name='lastName'
             placeholder='Enter last name'
+            sx={{ mb: 2 }}
           />
           <TextField
             fieldProps={{
@@ -83,19 +81,25 @@ export default function PersonalDetailsScreen() {
                       label={`Phone number ${index + 1}`}
                       name={name}
                       placeholder={`Enter phone number ${index + 1}`}
+                      sx={{ mt: 2 }}
                     />
                     <Button
-                      type='button'
-                      onClick={() => fields.remove(index)}>
+                      onClick={() => fields.remove(index)}
+                      type='button'>
                       Remove
                     </Button>
                   </div>
                 ))}
-                {error && touched && <div>{error}</div>}
+                {error && !Array.isArray(error) && touched && (
+                  <FormHelperText error>{error}</FormHelperText>
+                )}
                 <Button
-                  type='button'
+                  disabled={
+                    !!fields.length && fields.length >= MAX_ARRAY_LENGTH
+                  }
                   onClick={() => fields.push('')}
-                  disabled={!!fields.length && fields.length >= 3}>
+                  sx={{ my: 2 }}
+                  type='button'>
                   Add phone number
                 </Button>
               </div>
