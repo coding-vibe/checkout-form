@@ -11,6 +11,7 @@ import {
   validateIsRequired,
   validatePhoneNumber,
 } from 'utils/validation';
+import MaskedTextField from 'components/MaskedTextField';
 
 interface FormValues {
   firstName: string;
@@ -25,7 +26,9 @@ const MAX_ARRAY_LENGTH = 3;
 export default function PersonalDetailsScreen() {
   return (
     <Form<FormValues>
-      onSubmit={() => {}}
+      onSubmit={(values) => {
+        console.log(values);
+      }}
       mutators={{
         ...arrayMutators,
       }}
@@ -76,13 +79,20 @@ export default function PersonalDetailsScreen() {
               <div>
                 {fields.map((name, index) => (
                   <div key={name}>
-                    <TextField
+                    <MaskedTextField
                       fieldProps={{ validate: validatePhoneNumber }}
                       label={`Phone number ${index + 1}`}
                       name={name}
                       placeholder={`Enter phone number ${index + 1}`}
                       sx={{ mt: 2 }}
                     />
+                    {/* <TextField
+                      fieldProps={{ validate: validatePhoneNumber }}
+                      label={`Phone number ${index + 1}`}
+                      name={name}
+                      placeholder={`Enter phone number ${index + 1}`}
+                      sx={{ mt: 2 }}
+                    /> */}
                     <Button
                       onClick={() => fields.remove(index)}
                       type='button'>

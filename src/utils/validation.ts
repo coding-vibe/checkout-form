@@ -21,7 +21,7 @@ export const validateIsRequired = (value: string) =>
   value ? undefined : 'Required ';
 
 export const validatePhoneNumber = (value: string) => {
-  const phoneNumberRegex = /^\+[0-9]{2}[0-9]{10}$/;
+  const phoneNumberRegex = /^\+\d{2}\d{10}$/;
 
   return phoneNumberRegex.test(value) ? undefined : 'Invalid phone number';
 };
