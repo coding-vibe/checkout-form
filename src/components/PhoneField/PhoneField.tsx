@@ -5,7 +5,7 @@ import { TextField, TextFieldProps } from 'mui-rff';
 export default function PhoneField({
   name,
   ...props
-}: Pick<TextFieldProps, 'fieldProps' | 'label' | 'name' | 'sx'>) {
+}: Omit<TextFieldProps, 'defaultValue' | 'type' | 'value'>) {
   const {
     input: { onChange, value },
   } = useField<string>(name);
