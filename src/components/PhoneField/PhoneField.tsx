@@ -2,7 +2,10 @@ import { useField } from 'react-final-form';
 import { NumberFormatValues, PatternFormat } from 'react-number-format';
 import { TextField, TextFieldProps } from 'mui-rff';
 
-export default function PhoneField({ name, ...props }: TextFieldProps) {
+export default function PhoneField({
+  name,
+  ...props
+}: Pick<TextFieldProps, 'fieldProps' | 'label' | 'name' | 'sx'>) {
   const {
     input: { onChange, value },
   } = useField<string>(name);
@@ -12,7 +15,6 @@ export default function PhoneField({ name, ...props }: TextFieldProps) {
   return (
     <PatternFormat
       allowEmptyFormatting
-      valueIsNumericString
       customInput={TextField}
       format='+(##) ### ### ## ##'
       onValueChange={handleChange}
