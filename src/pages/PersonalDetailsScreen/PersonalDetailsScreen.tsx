@@ -2,16 +2,16 @@ import { Form } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { ARRAY_ERROR } from 'final-form';
 import arrayMutators from 'final-form-arrays';
-import Button from '@mui/material/Button';
 import { FormHelperText } from '@mui/material';
+import Button from '@mui/material/Button';
 import { TextField } from 'mui-rff';
+import PhoneField from 'components/PhoneField';
 import {
   composeValidators,
   validateEmail,
   validateIsRequired,
   validatePhoneNumber,
 } from 'utils/validation';
-import MaskedTextField from 'components/MaskedTextField';
 
 interface FormValues {
   firstName: string;
@@ -19,11 +19,28 @@ interface FormValues {
   email: string;
   phoneNumbers: string[];
 }
-
-const MIN_ARRAY_LENGTH = 1;
-const MAX_ARRAY_LENGTH = 3;
+const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 
 export default function PersonalDetailsScreen() {
+  const validateForm = (values: FormValues) => {
+    let phoneNumberError;
+
+    if (!values.phoneNumbers) {
+      phoneNumberError = `Should be at least ${phoneNumbersLimits.MIN} phone number`;
+    }
+
+    if (
+      values.phoneNumbers &&
+      values.phoneNumbers.length > phoneNumbersLimits.MAX
+    ) {
+      phoneNumberError = `Should be not more than ${phoneNumbersLimits.MAX} phone numbers`;
+    }
+
+    return phoneNumberError
+      ? { phoneNumbers: { [ARRAY_ERROR]: phoneNumberError } }
+      : undefined;
+  };
+
   return (
     <Form<FormValues>
       onSubmit={(values) => {
@@ -32,24 +49,7 @@ export default function PersonalDetailsScreen() {
       mutators={{
         ...arrayMutators,
       }}
-      validate={(values) => {
-        let phoneNumberError;
-
-        if (!values.phoneNumbers) {
-          phoneNumberError = `Should be at least ${MIN_ARRAY_LENGTH} phone number`;
-        }
-
-        if (
-          values.phoneNumbers &&
-          values.phoneNumbers.length > MAX_ARRAY_LENGTH
-        ) {
-          phoneNumberError = `Should be not more than ${MAX_ARRAY_LENGTH} phone numbers`;
-        }
-
-        return phoneNumberError
-          ? { phoneNumbers: { [ARRAY_ERROR]: phoneNumberError } }
-          : undefined;
-      }}
+      validate={validateForm}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
           <TextField
@@ -79,20 +79,12 @@ export default function PersonalDetailsScreen() {
               <div>
                 {fields.map((name, index) => (
                   <div key={name}>
-                    <MaskedTextField
+                    <PhoneField
                       fieldProps={{ validate: validatePhoneNumber }}
                       label={`Phone number ${index + 1}`}
                       name={name}
-                      placeholder={`Enter phone number ${index + 1}`}
                       sx={{ mt: 2 }}
                     />
-                    {/* <TextField
-                      fieldProps={{ validate: validatePhoneNumber }}
-                      label={`Phone number ${index + 1}`}
-                      name={name}
-                      placeholder={`Enter phone number ${index + 1}`}
-                      sx={{ mt: 2 }}
-                    /> */}
                     <Button
                       onClick={() => fields.remove(index)}
                       type='button'>
@@ -105,7 +97,7 @@ export default function PersonalDetailsScreen() {
                 )}
                 <Button
                   disabled={
-                    !!fields.length && fields.length >= MAX_ARRAY_LENGTH
+                    !!fields.length && fields.length >= phoneNumbersLimits.MAX
                   }
                   onClick={() => fields.push('')}
                   sx={{ my: 2 }}
