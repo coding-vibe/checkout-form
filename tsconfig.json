@@ -11,6 +11,7 @@
       "components/*": ["components/*"],
       "constants/*": ["constants/*"],
       "contexts/*": ["contexts/*"],
+      "pages/*": ["pages/*"],
       "types/*": ["types/*"],
       "utils/*": ["utils/*"],
     },
