@@ -83,7 +83,7 @@ export default function PersonalDetailsScreen() {
                       fieldProps={{ validate: validatePhoneNumber }}
                       label={`Phone number ${index + 1}`}
                       name={name}
-                      sx={{ mt: 2 }}
+                      sx={{ mt: 2, '&:last-child': { mb: 2 } }}
                     />
                     <Button
                       onClick={() => fields.remove(index)}
