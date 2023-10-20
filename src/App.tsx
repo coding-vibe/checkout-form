@@ -1,7 +1,12 @@
+import WizardFormProvider from 'components/WizardFormProvider';
 import PersonalDetailsScreen from 'pages/PersonalDetailsScreen';
 
 function App() {
-  return <PersonalDetailsScreen />;
+  return (
+    <WizardFormProvider>
+      <PersonalDetailsScreen />
+    </WizardFormProvider>
+  );
 }
 
 export default App;

@@ -6,6 +6,7 @@ import { FormHelperText } from '@mui/material';
 import Button from '@mui/material/Button';
 import { TextField } from 'mui-rff';
 import PhoneField from 'components/PhoneField';
+import PersonalDetailsValues from 'types/personalDetailsValues';
 import {
   composeValidators,
   validateEmail,
@@ -13,16 +14,10 @@ import {
   validatePhoneNumber,
 } from 'utils/validation';
 
-interface FormValues {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumbers: string[];
-}
 const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 
 export default function PersonalDetailsScreen() {
-  const validateForm = (values: FormValues) => {
+  const validateForm = (values: PersonalDetailsValues) => {
     let phoneNumberError;
 
     if (!values.phoneNumbers) {
@@ -42,7 +37,7 @@ export default function PersonalDetailsScreen() {
   };
 
   return (
-    <Form<FormValues>
+    <Form<PersonalDetailsValues>
       onSubmit={(values) => {
         console.log(values);
       }}
