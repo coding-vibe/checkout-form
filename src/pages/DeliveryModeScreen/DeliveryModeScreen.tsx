@@ -23,14 +23,14 @@ export default function DeliveryModeScreen() {
             fieldProps={{ validate: validateIsRequired }}
             label='Delivery Type'
             name='deliveryType'
-            placeholder='Choose delivery type'
-            sx={{ mb: 2 }}>
+            placeholder='Choose delivery type'>
             <MenuItem value='postOffice'>Post Office Delivery</MenuItem>
             <MenuItem value='courier'>Courier Delivery</MenuItem>
           </Select>
           <Button
             type='submit'
-            variant='contained'>
+            variant='contained'
+            sx={{ mt: 2 }}>
             Next step
           </Button>
         </form>
