@@ -10,9 +10,7 @@ import { validateIsRequired } from 'utils/validation';
 type PaymentMethod = { paymentMethod: null };
 
 export default function PaymentMethodScreen() {
-  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
-
-  console.log(formValues);
+  const { onSaveFormValues } = useContext(WizardFormContext);
 
   return (
     <Form<PaymentMethod>
@@ -24,13 +22,12 @@ export default function PaymentMethodScreen() {
           <Select
             fieldProps={{ validate: validateIsRequired }}
             label='Payment Method'
-            name='paymentMethod'
-            placeholder='Choose payment method'
-            sx={{ mb: 2 }}>
-            <MenuItem>Cash</MenuItem>
-            <MenuItem>Credit Card</MenuItem>
+            name='paymentMethod'>
+            <MenuItem value='cash'>Cash</MenuItem>
+            <MenuItem value='creditCard'>Credit Card</MenuItem>
           </Select>
           <Button
+            sx={{ mt: 2 }}
             type='submit'
             variant='contained'>
             Next step
