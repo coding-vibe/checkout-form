@@ -20,7 +20,7 @@ import WizardFormContext from 'contexts/WizardFormContext';
 const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 
 export default function PersonalDetailsScreen() {
-  const { onSelectFormValues } = useContext(WizardFormContext);
+  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
   const validateForm = (values: PersonalDetailsValues) => {
     let phoneNumberError;
 
@@ -43,7 +43,7 @@ export default function PersonalDetailsScreen() {
   return (
     <Form<PersonalDetailsValues>
       onSubmit={(values) => {
-        onSelectFormValues(FormScreens.PERSONAL_DETAILS, values);
+        onSaveFormValues(FormScreens.PERSONAL_DETAILS, values);
       }}
       mutators={{
         ...arrayMutators,

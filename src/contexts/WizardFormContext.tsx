@@ -14,12 +14,15 @@ export const initialFormValues = {
   },
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
+export const saveFormValues = <T extends FormScreens>(
+  _: T,
+  __: (typeof initialFormValues)[T],
+) => {};
+
 const initialValue = {
   formValues: initialFormValues,
-  onSelectFormValues: <T extends FormScreens>(
-    _: T,
-    __: (typeof initialFormValues)[T],
-  ) => {},
+  onSaveFormValues: saveFormValues,
 };
 
 const WizardFormContext = createContext<typeof initialValue>(initialValue);

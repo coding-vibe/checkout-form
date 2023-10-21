@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
-import FormScreens from 'constants/formScreens';
 import WizardFormContext, {
   initialFormValues,
+  saveFormValues,
 } from 'contexts/WizardFormContext';
 
 interface Props {
@@ -9,14 +9,11 @@ interface Props {
 }
 
 export default function WizardFormProvider({ children }: Props) {
-  const [formValues, setFormValues] =
+  const [formValues, handleSaveFormValues] =
     useState<typeof initialFormValues>(initialFormValues);
 
-  const onSelectFormValues = <T extends FormScreens>(
-    screen: T,
-    values: (typeof initialFormValues)[T],
-  ) => {
-    setFormValues((prevFormValues) => ({
+  const onSaveFormValues: typeof saveFormValues = (screen, values) => {
+    handleSaveFormValues((prevFormValues) => ({
       ...prevFormValues,
       [screen]: values,
     }));
@@ -27,7 +24,7 @@ export default function WizardFormProvider({ children }: Props) {
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         formValues,
-        onSelectFormValues,
+        onSaveFormValues,
       }}>
       {children}
     </WizardFormContext.Provider>
