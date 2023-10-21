@@ -1,7 +1,30 @@
 import { createContext } from 'react';
-import initialContextValue from 'constants/initialContextValue';
+import FormScreens from 'constants/formScreens';
 
-const WizardFormContext =
-  createContext<typeof initialContextValue>(initialContextValue);
+// eslint-disable-next-line react-refresh/only-export-components
+export const initialFormValues = {
+  [FormScreens.PERSONAL_DETAILS]: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumbers: [''],
+  },
+  [FormScreens.DELIVERY_MODE]: {
+    deliveryMode: null,
+  },
+};
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const saveFormValues = <T extends FormScreens>(
+  _: T,
+  __: (typeof initialFormValues)[T],
+) => {};
+
+const initialValue = {
+  formValues: initialFormValues,
+  onSaveFormValues: saveFormValues,
+};
+
+const WizardFormContext = createContext<typeof initialValue>(initialValue);
 
 export default WizardFormContext;
