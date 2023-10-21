@@ -1,6 +1,7 @@
 enum FormScreens {
   PERSONAL_DETAILS = 'PERSONAL_DETAILS',
   DELIVERY_MODE = 'DELIVERY_MODE',
+  PAYMENT_METHOD = 'PAYMENT_METHOD',
 }
 
 export default FormScreens;
