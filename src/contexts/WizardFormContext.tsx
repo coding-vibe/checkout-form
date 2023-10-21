@@ -10,6 +10,9 @@ export const initialFormValues = {
     email: '',
     phoneNumbers: [''],
   },
+  [FormScreens.DELIVERY_MODE]: {
+    deliveryMode: '',
+  },
 };
 
 const initialValue = {

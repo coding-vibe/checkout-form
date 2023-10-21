@@ -17,8 +17,10 @@ export default function WizardFormProvider({ children }: Props) {
     screenName: FormScreens,
     values: PersonalDetailsValues,
   ) => {
-    const newValue = { [screenName]: values };
-    setFormValues(newValue);
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
+      [screenName]: values,
+    }));
   };
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const formDataStorage = {
