@@ -1,27 +1,29 @@
 import { ReactNode, useState } from 'react';
 import FormScreens from 'constants/formScreens';
-import initialContextValue from 'constants/initialContextValue';
-import WizardFormContext from 'contexts/WizardFormContext';
+import WizardFormContext, {
+  initialFormValues,
+} from 'contexts/WizardFormContext';
 import PersonalDetailsValues from 'types/personalDetailsValues';
 
 interface Props {
   children: ReactNode;
 }
 
-interface FormValues {
-  formValues: { [FormScreens.PERSONAL_DETAILS]: PersonalDetailsValues };
-  setFormValues: (values: PersonalDetailsValues) => {
-    [FormScreens.PERSONAL_DETAILS]: PersonalDetailsValues;
-  };
-}
-
 export default function WizardFormProvider({ children }: Props) {
-  const [formValues, setFormValues] = useState<FormValues>(initialContextValue);
+  const [formValues, setFormValues] =
+    useState<typeof initialFormValues>(initialFormValues);
 
+  const onSelectFormValues = (
+    screenName: FormScreens,
+    values: PersonalDetailsValues,
+  ) => {
+    const newValue = { [screenName]: values };
+    setFormValues(newValue);
+  };
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const formDataStorage = {
     formValues,
-    setFormValues,
+    onSelectFormValues,
   };
 
   return (
