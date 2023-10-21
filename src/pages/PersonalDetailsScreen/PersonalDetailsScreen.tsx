@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { ARRAY_ERROR } from 'final-form';
@@ -6,6 +7,7 @@ import { FormHelperText } from '@mui/material';
 import Button from '@mui/material/Button';
 import { TextField } from 'mui-rff';
 import PhoneField from 'components/PhoneField';
+import FormScreens from 'constants/formScreens';
 import PersonalDetailsValues from 'types/personalDetailsValues';
 import {
   composeValidators,
@@ -13,10 +15,12 @@ import {
   validateIsRequired,
   validatePhoneNumber,
 } from 'utils/validation';
+import WizardFormContext from 'contexts/WizardFormContext';
 
 const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 
 export default function PersonalDetailsScreen() {
+  const { formValues, onSelectFormValues } = useContext(WizardFormContext);
   const validateForm = (values: PersonalDetailsValues) => {
     let phoneNumberError;
 
@@ -36,10 +40,12 @@ export default function PersonalDetailsScreen() {
       : undefined;
   };
 
+  console.log(formValues);
+
   return (
     <Form<PersonalDetailsValues>
       onSubmit={(values) => {
-        console.log(values);
+        onSelectFormValues(FormScreens.PERSONAL_DETAILS, values);
       }}
       mutators={{
         ...arrayMutators,
