@@ -22,14 +22,13 @@ export default function WizardFormProvider({ children }: Props) {
     }));
   };
 
-  // eslint-disable-next-line react/jsx-no-constructed-context-values
-  const formDataStorage = {
-    formValues,
-    onSelectFormValues,
-  };
-
   return (
-    <WizardFormContext.Provider value={formDataStorage}>
+    <WizardFormContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
+      value={{
+        formValues,
+        onSelectFormValues,
+      }}>
       {children}
     </WizardFormContext.Provider>
   );

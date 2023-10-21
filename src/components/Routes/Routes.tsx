@@ -7,7 +7,7 @@ function App() {
   return (
     <ReactRoutes>
       <Route
-        path={routes.HOME}
+        path={routes.ROOT}
         element={<Layout />}>
         <Route
           index

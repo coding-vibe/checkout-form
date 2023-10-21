@@ -20,7 +20,7 @@ import WizardFormContext from 'contexts/WizardFormContext';
 const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 
 export default function PersonalDetailsScreen() {
-  const { formValues, onSelectFormValues } = useContext(WizardFormContext);
+  const { onSelectFormValues } = useContext(WizardFormContext);
   const validateForm = (values: PersonalDetailsValues) => {
     let phoneNumberError;
 
