@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { Form } from 'react-final-form';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { Select } from 'mui-rff';
@@ -30,18 +31,19 @@ export default function PaymentMethodScreen() {
       }}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <Select
-            fieldProps={{ validate: validateIsRequired }}
-            label='Payment Method'
-            name='paymentMethod'
-            sx={{ mb: 2 }}>
-            <MenuItem value={PAYMENT_METHOD_VALUES.cash}>
-              {PAYMENT_METHOD_OPTIONS.cash}
-            </MenuItem>
-            <MenuItem value={PAYMENT_METHOD_VALUES.creditCard}>
-              {PAYMENT_METHOD_OPTIONS.creditCard}
-            </MenuItem>
-          </Select>
+          <Box sx={{ mb: 2 }}>
+            <Select
+              fieldProps={{ validate: validateIsRequired }}
+              label='Payment Method'
+              name='paymentMethod'>
+              <MenuItem value={PAYMENT_METHOD_VALUES.cash}>
+                {PAYMENT_METHOD_OPTIONS.cash}
+              </MenuItem>
+              <MenuItem value={PAYMENT_METHOD_VALUES.creditCard}>
+                {PAYMENT_METHOD_OPTIONS.creditCard}
+              </MenuItem>
+            </Select>
+          </Box>
           <Button
             type='submit'
             variant='contained'>
