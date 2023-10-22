@@ -13,10 +13,14 @@ type PaymentMethodType = (typeof initialFormValues)[FormScreens.PAYMENT_METHOD];
 
 export default function PaymentMethodScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
-  const CASH_PAYMENT_OPTION = 'Cash';
-  const CARD_PAYMENT_OPTION = 'Credit Card';
-  const CASH_PAYMENT_VALUE = 'cash';
-  const CARD_PAYMENT_VALUE = 'creditCard';
+  const PAYMENT_METHOD_OPTIONS = {
+    cash: 'Cash',
+    creditCard: 'Credit Card',
+  };
+  const PAYMENT_METHOD_VALUES = {
+    cash: 'cash',
+    creditCard: 'creditCard',
+  };
 
   return (
     <Form<PaymentMethodType>
@@ -30,11 +34,11 @@ export default function PaymentMethodScreen() {
             label='Payment Method'
             name='paymentMethod'
             sx={{ mb: 2 }}>
-            <MenuItem value={CASH_PAYMENT_VALUE}>
-              {CASH_PAYMENT_OPTION}
+            <MenuItem value={PAYMENT_METHOD_VALUES.cash}>
+              {PAYMENT_METHOD_OPTIONS.cash}
             </MenuItem>
-            <MenuItem value={CARD_PAYMENT_VALUE}>
-              {CARD_PAYMENT_OPTION}
+            <MenuItem value={PAYMENT_METHOD_VALUES.creditCard}>
+              {PAYMENT_METHOD_OPTIONS.creditCard}
             </MenuItem>
           </Select>
           <Button
