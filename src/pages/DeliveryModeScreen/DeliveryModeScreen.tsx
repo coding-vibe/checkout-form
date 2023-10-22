@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { Form } from 'react-final-form';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { Select } from 'mui-rff';
@@ -30,18 +31,19 @@ export default function DeliveryModeScreen() {
       }}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <Select
-            fieldProps={{ validate: validateIsRequired }}
-            label='Delivery Type'
-            name='deliveryType'
-            sx={{ mb: 2 }}>
-            <MenuItem value={DELIVERY_MODE_VALUES.postOffice}>
-              {DELIVERY_MODE_OPTIONS.postOffice}
-            </MenuItem>
-            <MenuItem value={DELIVERY_MODE_VALUES.courier}>
-              {DELIVERY_MODE_OPTIONS.courier}
-            </MenuItem>
-          </Select>
+          <Box sx={{ mb: 2 }}>
+            <Select
+              fieldProps={{ validate: validateIsRequired }}
+              label='Delivery Type'
+              name='deliveryType'>
+              <MenuItem value={DELIVERY_MODE_VALUES.postOffice}>
+                {DELIVERY_MODE_OPTIONS.postOffice}
+              </MenuItem>
+              <MenuItem value={DELIVERY_MODE_VALUES.courier}>
+                {DELIVERY_MODE_OPTIONS.courier}
+              </MenuItem>
+            </Select>
+          </Box>
           <Button
             type='submit'
             variant='contained'>
