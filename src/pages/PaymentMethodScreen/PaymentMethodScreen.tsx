@@ -9,21 +9,22 @@ import WizardFormContext, {
 } from 'contexts/WizardFormContext';
 import { validateIsRequired } from 'utils/validation';
 
-type PaymentMethodType = (typeof initialFormValues)[FormScreens.PAYMENT_METHOD];
+const PAYMENT_METHOD_OPTIONS = {
+  cash: 'Cash',
+  creditCard: 'Credit Card',
+};
+const PAYMENT_METHOD_VALUES = {
+  cash: 'cash',
+  creditCard: 'creditCard',
+};
+
+type PaymentMethod = (typeof initialFormValues)[FormScreens.PAYMENT_METHOD];
 
 export default function PaymentMethodScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
-  const PAYMENT_METHOD_OPTIONS = {
-    cash: 'Cash',
-    creditCard: 'Credit Card',
-  };
-  const PAYMENT_METHOD_VALUES = {
-    cash: 'cash',
-    creditCard: 'creditCard',
-  };
 
   return (
-    <Form<PaymentMethodType>
+    <Form<PaymentMethod>
       onSubmit={(values) => {
         onSaveFormValues(FormScreens.PAYMENT_METHOD, values);
       }}
