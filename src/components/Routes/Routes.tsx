@@ -1,31 +1,36 @@
 import { Navigate, Routes as ReactRoutes, Route } from 'react-router-dom';
 import Layout from 'components/Layout';
-import DeliveryModeScreen from 'pages/DeliveryModeScreen';
-import PersonalDetailsScreen from 'pages/PersonalDetailsScreen';
 import routes from 'constants/routes';
+import DeliveryModeScreen from 'pages/DeliveryModeScreen';
+import PaymentMethodScreen from 'pages/PaymentMethodScreen';
+import PersonalDetailsScreen from 'pages/PersonalDetailsScreen';
 
 function App() {
   return (
     <ReactRoutes>
       <Route
-        path={routes.ROOT}
-        element={<Layout />}>
+        element={<Layout />}
+        path={routes.ROOT}>
         <Route
-          index
           element={
             <Navigate
               to={routes.PERSONAL_DETAILS}
               replace
             />
           }
+          index
         />
         <Route
-          path={routes.PERSONAL_DETAILS}
-          element={<PersonalDetailsScreen />}
-        />
-        <Route
-          path={routes.DELIVERY_MODE}
           element={<DeliveryModeScreen />}
+          path={routes.DELIVERY_MODE}
+        />
+        <Route
+          element={<PaymentMethodScreen />}
+          path={routes.PAYMENT_METHOD}
+        />
+        <Route
+          element={<PersonalDetailsScreen />}
+          path={routes.PERSONAL_DETAILS}
         />
       </Route>
     </ReactRoutes>

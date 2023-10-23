@@ -12,6 +12,9 @@ export const initialFormValues = {
   [FormScreens.DELIVERY_MODE]: {
     deliveryMode: null,
   },
+  [FormScreens.PAYMENT_METHOD]: {
+    paymentMethod: null,
+  },
 };
 
 export type InitialFormValuesType = typeof initialFormValues;
