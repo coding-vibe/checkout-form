@@ -8,19 +8,25 @@ import Button from '@mui/material/Button';
 import { TextField } from 'mui-rff';
 import PhoneField from 'components/PhoneField';
 import FormScreens from 'constants/formScreens';
-import PersonalDetailsValues from 'types/personalDetailsValues';
+import WizardFormContext from 'contexts/WizardFormContext';
 import {
   composeValidators,
   validateEmail,
   validateIsRequired,
   validatePhoneNumber,
 } from 'utils/validation';
-import WizardFormContext from 'contexts/WizardFormContext';
+
+interface PersonalDetailsValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumbers: string[];
+}
 
 const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 
 export default function PersonalDetailsScreen() {
-  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
+  const { onSaveFormValues } = useContext(WizardFormContext);
   const validateForm = (values: PersonalDetailsValues) => {
     let phoneNumberError;
 

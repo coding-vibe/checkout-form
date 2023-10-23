@@ -1,5 +1,6 @@
 import { Navigate, Routes as ReactRoutes, Route } from 'react-router-dom';
 import Layout from 'components/Layout';
+import DeliveryModeScreen from 'pages/DeliveryModeScreen';
 import PersonalDetailsScreen from 'pages/PersonalDetailsScreen';
 import routes from 'constants/routes';
 
@@ -21,6 +22,10 @@ function App() {
         <Route
           path={routes.PERSONAL_DETAILS}
           element={<PersonalDetailsScreen />}
+        />
+        <Route
+          path={routes.DELIVERY_MODE}
+          element={<DeliveryModeScreen />}
         />
       </Route>
     </ReactRoutes>
