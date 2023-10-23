@@ -10,13 +10,13 @@ import WizardFormContext, {
 } from 'contexts/WizardFormContext';
 import { validateIsRequired } from 'utils/validation';
 
-type PaymentMethod = InitialFormValuesType[FormScreens.PAYMENT_METHOD];
+type PaymentMethodType = InitialFormValuesType[FormScreens.PAYMENT_METHOD];
 
 export default function PaymentMethodScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
 
   return (
-    <Form<PaymentMethod>
+    <Form<PaymentMethodType>
       onSubmit={(values) => {
         onSaveFormValues(FormScreens.PAYMENT_METHOD, values);
       }}
