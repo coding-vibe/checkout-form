@@ -14,6 +14,8 @@ export const initialFormValues = {
   },
 };
 
+export type InitialFormValuesType = typeof initialFormValues;
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const saveFormValues = <T extends FormScreens>(
   _: T,

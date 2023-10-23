@@ -2,30 +2,21 @@ import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
 import { Select } from 'mui-rff';
+import DELIVERY_MODE_OPTIONS from 'constants/deliveryModeOptions';
 import FormScreens from 'constants/formScreens';
 import WizardFormContext, {
-  initialFormValues,
+  InitialFormValuesType,
 } from 'contexts/WizardFormContext';
 import { validateIsRequired } from 'utils/validation';
 
-const DELIVERY_MODE_OPTIONS = {
-  postOffice: 'Post Office Delivery',
-  courier: 'Courier Delivery',
-};
-const DELIVERY_MODE_VALUES = {
-  postOffice: 'postOffice',
-  courier: 'courier',
-};
-
-type DeliveryMode = (typeof initialFormValues)[FormScreens.DELIVERY_MODE];
+type DeliveryModeType = InitialFormValuesType[FormScreens.DELIVERY_MODE];
 
 export default function DeliveryModeScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
 
   return (
-    <Form<DeliveryMode>
+    <Form<DeliveryModeType>
       onSubmit={(values) => {
         onSaveFormValues(FormScreens.DELIVERY_MODE, values);
       }}
@@ -33,16 +24,11 @@ export default function DeliveryModeScreen() {
         <form onSubmit={handleSubmit}>
           <Box sx={{ mb: 2 }}>
             <Select
+              data={DELIVERY_MODE_OPTIONS}
               fieldProps={{ validate: validateIsRequired }}
               label='Delivery Type'
-              name='deliveryType'>
-              <MenuItem value={DELIVERY_MODE_VALUES.postOffice}>
-                {DELIVERY_MODE_OPTIONS.postOffice}
-              </MenuItem>
-              <MenuItem value={DELIVERY_MODE_VALUES.courier}>
-                {DELIVERY_MODE_OPTIONS.courier}
-              </MenuItem>
-            </Select>
+              name='deliveryType'
+            />
           </Box>
           <Button
             type='submit'
