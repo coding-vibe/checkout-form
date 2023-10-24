@@ -11,11 +11,11 @@ export function composeValidators<T>(...validators: FieldValidator<T>[]) {
   return fn;
 }
 
-export const validateDigitsNumber =
-  (requiredDigitsNumber: number, dataType: string) => (value: string) => {
-    const digitsNumberRegex = new RegExp(`\\d{${requiredDigitsNumber}}$`);
+export const validateDigitsCount =
+  (requiredDigitsCount: number, entity: string) => (value: string) => {
+    const digitsNumberRegex = new RegExp(`\\d{${requiredDigitsCount}}$`);
 
-    return digitsNumberRegex.test(value) ? undefined : `Invalid ${dataType}`;
+    return digitsNumberRegex.test(value) ? undefined : `Invalid ${entity}`;
   };
 
 export const validateEmail = (value: string) => {

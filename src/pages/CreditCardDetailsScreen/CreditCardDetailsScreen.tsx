@@ -13,6 +13,9 @@ import {
   validateIsRequired,
 } from 'utils/validation';
 
+const CARD_NUMBER_LENGTH = 16;
+const CVV_CODE_LENGTH = 3;
+
 type CreditCardDetailsType =
   InitialFormValuesType[FormScreens.CREDIT_CARD_DETAILS];
 
@@ -30,7 +33,7 @@ export default function CreditCardDetailsScreen() {
             fieldProps={{
               validate: composeValidators(
                 validateIsRequired,
-                validateDigitsNumber(16, 'credit card number'),
+                validateDigitsNumber(CARD_NUMBER_LENGTH, 'credit card number'),
               ),
             }}
             label='Card Number'
@@ -41,7 +44,7 @@ export default function CreditCardDetailsScreen() {
             fieldProps={{
               validate: composeValidators(
                 validateIsRequired,
-                validateDigitsNumber(3, 'CVV code'),
+                validateDigitsNumber(CVV_CODE_LENGTH, 'CVV code'),
               ),
             }}
             label='CVV Code'
