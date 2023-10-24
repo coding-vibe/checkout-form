@@ -11,6 +11,13 @@ export function composeValidators<T>(...validators: FieldValidator<T>[]) {
   return fn;
 }
 
+export const validateDigitsNumber =
+  (requiredDigitsNumber: number, dataType: string) => (value: string) => {
+    const digitsNumberRegex = new RegExp(`\\d{${requiredDigitsNumber}}$`);
+
+    return digitsNumberRegex.test(value) ? undefined : `Invalid ${dataType}`;
+  };
+
 export const validateEmail = (value: string) => {
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
