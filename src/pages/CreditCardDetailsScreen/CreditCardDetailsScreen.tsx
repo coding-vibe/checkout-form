@@ -2,14 +2,15 @@ import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import Button from '@mui/material/Button';
 import { TextField } from 'mui-rff';
-import FormScreens from 'constants/formScreens';
+import CardExpiredDateField from 'components/CardExpiredDateField';
 import CardNumberField from 'components/CardNumberField';
+import FormScreens from 'constants/formScreens';
 import WizardFormContext, {
   InitialFormValuesType,
 } from 'contexts/WizardFormContext';
 import {
   composeValidators,
-  validateDigitsNumber,
+  validateDigitsCount,
   validateIsRequired,
 } from 'utils/validation';
 
@@ -33,7 +34,7 @@ export default function CreditCardDetailsScreen() {
             fieldProps={{
               validate: composeValidators(
                 validateIsRequired,
-                validateDigitsNumber(CARD_NUMBER_LENGTH, 'credit card number'),
+                validateDigitsCount(CARD_NUMBER_LENGTH, 'credit card number'),
               ),
             }}
             label='Card Number'
@@ -44,7 +45,7 @@ export default function CreditCardDetailsScreen() {
             fieldProps={{
               validate: composeValidators(
                 validateIsRequired,
-                validateDigitsNumber(CVV_CODE_LENGTH, 'CVV code'),
+                validateDigitsCount(CVV_CODE_LENGTH, 'CVV code'),
               ),
             }}
             label='CVV Code'
@@ -53,11 +54,10 @@ export default function CreditCardDetailsScreen() {
             sx={{ mb: 2 }}
             type='password'
           />
-          <TextField
+          <CardExpiredDateField
             fieldProps={{ validate: validateIsRequired }}
             label='Expiration Date'
             name='expirationDate'
-            placeholder='Enter expiration date'
             sx={{ mb: 2 }}
           />
           <Button
