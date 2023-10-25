@@ -7,7 +7,7 @@ import {
   PatternFormatProps,
   usePatternFormat,
 } from 'react-number-format';
-import { addMonths, isPast, parse } from 'date-fns';
+import { isPast, parse } from 'date-fns';
 import { TextField, TextFieldProps } from 'mui-rff';
 
 const parseDate = (value: string) => {
@@ -60,10 +60,7 @@ export default function CardExpirationDateField({
   const handleChange = ({ value }: NumberFormatValues) => {
     const parsedDate = parseDate(value);
     const inputDate = `${parsedDate.month}/${parsedDate.year}`;
-    const expirationDate = addMonths(
-      parse(`01/${inputDate}`, 'dd/MM/yy', new Date()),
-      1,
-    );
+    const expirationDate = parse(`01/${inputDate}`, 'dd/MM/yy', new Date());
 
     if (inputDate.length === 5) {
       if (Number(parsedDate.month) > 12 || isPast(expirationDate)) {
