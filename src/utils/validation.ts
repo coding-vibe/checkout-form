@@ -12,10 +12,10 @@ export function composeValidators<T>(...validators: FieldValidator<T>[]) {
 }
 
 export const validateDigitsCount =
-  (requiredDigitsCount: number, entity: string) => (value: string) => {
-    const digitsNumberRegex = new RegExp(`\\d{${requiredDigitsCount}}$`);
+  (count: number, entity: string) => (value: string) => {
+    const digitsCountRegex = new RegExp(`\\d{${count}}$`);
 
-    return digitsNumberRegex.test(value) ? undefined : `Invalid ${entity}`;
+    return digitsCountRegex.test(value) ? undefined : `Invalid ${entity}`;
   };
 
 export const validateEmail = (value: string) => {
