@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useField } from 'react-final-form';
+mport { useField } from 'react-final-form';
 import {
   InputAttributes,
   NumberFormatBase,
@@ -9,51 +8,17 @@ import {
 } from 'react-number-format';
 import { isPast, parse } from 'date-fns';
 import { TextField, TextFieldProps } from 'mui-rff';
-
-const parseDate = (value: string) => {
-  const month = value.substring(0, 2);
-  const year = value.substring(2, 4);
-
-  return {
-    month,
-    year,
-  };
-};
-
-function CardExpiry(props: PatternFormatProps<InputAttributes>) {
-  const { format, ...rest } = usePatternFormat({ ...props, format: '##/##' });
-
-  const expirationDateFormat = (value: string) => {
-    const parsedDate = parseDate(value);
-
-    if (parsedDate.month.length === 1 && Number(parsedDate.month[0]) > 1) {
-      parsedDate.month = `0${parsedDate.month[0]}`;
-    }
-
-    return format?.(`${parsedDate.month}${parsedDate.year}`);
-  };
-
-  return (
-    <NumberFormatBase
-      format={expirationDateFormat}
-      {...rest}
-    />
-  );
-}
-
-interface Error {
-  status: boolean;
-  text: string;
-}
+import CardExpiryFieldFormat from 'components/CardExpiryFieldFormat';
 
 const initialErrorValue = { status: false, text: '' };
 
-export default function CardExpirationDateField({
+export default function CardExpiryField({
   name,
   ...props
 }: Omit<TextFieldProps, 'defaultValue' | 'type' | 'value'>) {
   const {
     input: { onChange, value },
+    meta: { error, touched },
   } = useField<string>(name);
   const [error, setError] = useState<Error>(initialErrorValue);
 
@@ -75,12 +40,12 @@ export default function CardExpirationDateField({
   };
 
   return (
-    <CardExpiry
+    <CardExpiryFieldFormat
       allowEmptyFormatting
       customInput={TextField}
-      error={error.status}
+      error={}
       format='##/##'
-      helperText={error.text}
+      helperText={}
       onValueChange={handleChange}
       mask='_'
       name={name}

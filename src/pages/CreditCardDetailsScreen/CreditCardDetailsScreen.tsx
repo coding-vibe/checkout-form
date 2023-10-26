@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import Button from '@mui/material/Button';
 import { TextField } from 'mui-rff';
-import CardExpirationDateField from 'components/CardExpirationDateField';
+import CardExpiryField from 'components/CardExpiryField';
 import CardNumberField from 'components/CardNumberField';
 import FormScreens from 'constants/formScreens';
 import WizardFormContext, {
@@ -54,7 +54,7 @@ export default function CreditCardDetailsScreen() {
             sx={{ mb: 2 }}
             type='password'
           />
-          <CardExpirationDateField
+          <CardExpiryField
             fieldProps={{ validate: validateIsRequired }}
             label='Expiration Date'
             name='expirationDate'
