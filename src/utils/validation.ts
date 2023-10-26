@@ -16,7 +16,7 @@ export function composeValidators<T>(...validators: FieldValidator<T>[]) {
 export const validateDigitsCount =
   (count: number, entity: string) =>
   (value: string): undefined | string => {
-    const digitsCountRegex = new RegExp(`\\d{${count}}$`);
+    const digitsCountRegex = new RegExp(`^\\d{${count}}$`);
 
     return digitsCountRegex.test(value) ? undefined : `Invalid ${entity}`;
   };
