@@ -5,7 +5,7 @@ import {
 } from 'react-number-format';
 import { TextFieldProps } from 'mui-rff';
 
-export default function FieldFormatter(
+export default function ExpirationDateInput(
   props: PatternFormatProps<
     Omit<TextFieldProps, 'defaultValue' | 'type' | 'value'>
   >,

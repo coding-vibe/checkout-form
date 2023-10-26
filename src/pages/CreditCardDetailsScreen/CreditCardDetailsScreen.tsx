@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import Button from '@mui/material/Button';
-import { TextField } from 'mui-rff';
 import CardExpiryField from 'components/CardExpiryField';
 import CardNumberField from 'components/CardNumberField';
+import CVVCodeField from 'components/CVVCodeField';
 import FormScreens from 'constants/formScreens';
 import WizardFormContext, {
   InitialFormValuesType,
@@ -42,7 +42,7 @@ export default function CreditCardDetailsScreen() {
             name='cardNumber'
             sx={{ mb: 2 }}
           />
-          <TextField
+          <CVVCodeField
             fieldProps={{
               validate: composeValidators(
                 validateIsRequired,

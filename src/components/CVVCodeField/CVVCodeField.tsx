@@ -1,9 +1,8 @@
 import { useField } from 'react-final-form';
-import { NumberFormatValues } from 'react-number-format';
+import { NumberFormatValues, PatternFormat } from 'react-number-format';
 import { TextField, TextFieldProps } from 'mui-rff';
-import ExpirationDateInput from 'components/ExpirationDateInput';
 
-export default function CardExpiryField({
+export default function CVVCodeField({
   name,
   ...props
 }: Omit<TextFieldProps, 'defaultValue' | 'type' | 'value'>) {
@@ -11,17 +10,14 @@ export default function CardExpiryField({
     input: { onChange, value },
   } = useField<string>(name);
 
-  const handleChange = ({ formattedValue }: NumberFormatValues) => {
-    onChange(formattedValue);
-  };
+  const handleChange = ({ value }: NumberFormatValues) => onChange(value);
 
   return (
-    <ExpirationDateInput
+    <PatternFormat
       allowEmptyFormatting
       customInput={TextField}
-      format='##/##'
+      format='###'
       onValueChange={handleChange}
-      mask='_'
       name={name}
       value={value}
       {...props}
