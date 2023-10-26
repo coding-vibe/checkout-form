@@ -53,7 +53,6 @@ export default function CreditCardDetailsScreen() {
             name='cvvCode'
             placeholder='Enter CVV code'
             sx={{ mb: 2 }}
-            type='password'
           />
           <CardExpiryField
             fieldProps={{

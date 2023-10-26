@@ -18,6 +18,7 @@ export default function CVVCodeField({
       customInput={TextField}
       format='###'
       onValueChange={handleChange}
+      mask='*'
       name={name}
       value={value}
       {...props}
