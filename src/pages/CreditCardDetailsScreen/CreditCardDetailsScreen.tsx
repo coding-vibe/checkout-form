@@ -11,6 +11,7 @@ import WizardFormContext, {
 import {
   composeValidators,
   validateDigitsCount,
+  validateIsFutureDate,
   validateIsRequired,
 } from 'utils/validation';
 
@@ -55,9 +56,14 @@ export default function CreditCardDetailsScreen() {
             type='password'
           />
           <CardExpiryField
-            fieldProps={{ validate: validateIsRequired }}
-            label='Expiration Date'
-            name='expirationDate'
+            fieldProps={{
+              validate: composeValidators(
+                validateIsRequired,
+                validateIsFutureDate,
+              ),
+            }}
+            label='Expiry Date'
+            name='expiryDate'
             sx={{ mb: 2 }}
           />
           <Button
