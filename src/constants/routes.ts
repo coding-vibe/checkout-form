@@ -1,8 +1,9 @@
 const routes = {
   ROOT: '/',
-  PERSONAL_DETAILS: '/personal-details',
+  CREDIT_CARD_DETAILS: '/credit-card',
   DELIVERY_MODE: '/delivery-mode',
   PAYMENT_METHOD: '/payment-method',
+  PERSONAL_DETAILS: '/personal-details',
 };
 
 export default routes;

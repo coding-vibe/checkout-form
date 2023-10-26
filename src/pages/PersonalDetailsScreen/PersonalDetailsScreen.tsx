@@ -8,7 +8,9 @@ import Button from '@mui/material/Button';
 import { TextField } from 'mui-rff';
 import PhoneField from 'components/PhoneField';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext from 'contexts/WizardFormContext';
+import WizardFormContext, {
+  InitialFormValuesType,
+} from 'contexts/WizardFormContext';
 import {
   composeValidators,
   validateEmail,
@@ -16,18 +18,13 @@ import {
   validatePhoneNumber,
 } from 'utils/validation';
 
-interface PersonalDetailsValues {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumbers: string[];
-}
-
 const phoneNumbersLimits = { MIN: 1, MAX: 3 };
+
+type PersonalDetailsType = InitialFormValuesType[FormScreens.PERSONAL_DETAILS];
 
 export default function PersonalDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
-  const validateForm = (values: PersonalDetailsValues) => {
+  const validateForm = (values: PersonalDetailsType) => {
     let phoneNumberError;
 
     if (!values.phoneNumbers) {
@@ -47,7 +44,7 @@ export default function PersonalDetailsScreen() {
   };
 
   return (
-    <Form<PersonalDetailsValues>
+    <Form<PersonalDetailsType>
       onSubmit={(values) => {
         onSaveFormValues(FormScreens.PERSONAL_DETAILS, values);
       }}
