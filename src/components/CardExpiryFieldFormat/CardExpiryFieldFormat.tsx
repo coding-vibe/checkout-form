@@ -6,7 +6,7 @@ import {
 } from 'react-number-format';
 import { TextFieldProps } from 'mui-rff';
 
-export default function CardExpiry(
+export default function CardExpiryFieldFormat(
   props: Omit<TextFieldProps, 'defaultValue' | 'type' | 'value'>,
 ) {
   const { format, ...rest } = usePatternFormat({ ...props, format: '##/##' });
