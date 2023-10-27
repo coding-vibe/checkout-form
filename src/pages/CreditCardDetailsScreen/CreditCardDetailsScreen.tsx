@@ -26,14 +26,15 @@ export default function CreditCardDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
 
   return (
-    <div css={classes.wrap}>
-      <Form<CreditCardDetailsType>
-        onSubmit={(values) => {
-          onSaveFormValues(FormScreens.CREDIT_CARD_DETAILS, values);
-        }}
-        render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
+    <Form<CreditCardDetailsType>
+      onSubmit={(values) => {
+        onSaveFormValues(FormScreens.CREDIT_CARD_DETAILS, values);
+      }}
+      render={({ handleSubmit }) => (
+        <form onSubmit={handleSubmit}>
+          <div css={classes.form}>
             <CardNumberField
+              css={classes.field}
               fieldProps={{
                 validate: composeValidators(
                   validateIsRequired,
@@ -42,39 +43,42 @@ export default function CreditCardDetailsScreen() {
               }}
               label='Card Number'
               name='cardNumber'
-              sx={{ mb: 2 }}
+              sx={{ mb: 5 }}
             />
-            <CVVCodeField
-              fieldProps={{
-                validate: composeValidators(
-                  validateIsRequired,
-                  validateDigitsCount(CVV_CODE_LENGTH, 'CVV code'),
-                ),
-              }}
-              label='CVV Code'
-              name='cvvCode'
-              placeholder='Enter CVV code'
-              sx={{ mb: 2 }}
-            />
-            <CardExpiryField
-              fieldProps={{
-                validate: composeValidators(
-                  validateIsRequired,
-                  validateIsFutureDate,
-                ),
-              }}
-              label='Expiry Date'
-              name='expiryDate'
-              sx={{ mb: 2 }}
-            />
-            <Button
-              type='submit'
-              variant='contained'>
-              Next step
-            </Button>
-          </form>
-        )}
-      />
-    </div>
+            <div css={classes.wrap}>
+              <CardExpiryField
+                css={classes.field}
+                fieldProps={{
+                  validate: composeValidators(
+                    validateIsRequired,
+                    validateIsFutureDate,
+                  ),
+                }}
+                label='Expiry Date'
+                name='expiryDate'
+              />
+              <CVVCodeField
+                css={classes.field}
+                fieldProps={{
+                  validate: composeValidators(
+                    validateIsRequired,
+                    validateDigitsCount(CVV_CODE_LENGTH, 'CVV code'),
+                  ),
+                }}
+                label='CVV Code'
+                name='cvvCode'
+                placeholder='Enter CVV code'
+              />
+            </div>
+          </div>
+          <Button
+            sx={{ ml: 1 }}
+            type='submit'
+            variant='contained'>
+            Next step
+          </Button>
+        </form>
+      )}
+    />
   );
 }
