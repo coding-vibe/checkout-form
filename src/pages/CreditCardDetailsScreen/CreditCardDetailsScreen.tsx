@@ -32,7 +32,7 @@ export default function CreditCardDetailsScreen() {
       }}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <div css={classes.form}>
+          <div css={classes.fields}>
             <CardNumberField
               css={classes.field}
               fieldProps={{

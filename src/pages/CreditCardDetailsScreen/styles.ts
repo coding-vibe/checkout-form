@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-export const form = css`
+export const fields = css`
   width: 450px;
   height: 150px;
   margin-bottom: 20px;
