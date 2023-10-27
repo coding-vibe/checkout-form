@@ -6,7 +6,8 @@ export const form = css`
   border-radius: 20px;
   width: 450px;
   height: 150px;
-  background-color: rgba(85, 87, 96, 0.2);
+  background-color: #8ae9b3;
+  background-image: linear-gradient(315deg, #8ae9b3 0%, #c8d6e5 74%);
   box-shadow: 15px 10px 10px rgb(85, 87, 96, 0.1);
 `;
 
