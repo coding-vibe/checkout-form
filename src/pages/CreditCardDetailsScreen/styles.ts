@@ -2,7 +2,6 @@ import { css } from '@emotion/react';
 
 export const fields = css`
   width: 450px;
-  height: 150px;
   margin-bottom: 20px;
   padding: 40px;
   border-radius: 20px;
