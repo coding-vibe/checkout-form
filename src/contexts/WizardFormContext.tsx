@@ -1,7 +1,6 @@
 import { createContext } from 'react';
 import FormScreens from 'constants/formScreens';
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const initialFormValues = {
   [FormScreens.CREDIT_CARD_DETAILS]: {
     cardNumber: null,
@@ -24,9 +23,10 @@ export const initialFormValues = {
 
 export type InitialFormValuesType = typeof initialFormValues;
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const saveFormValues = <T extends FormScreens>(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _: T,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   __: (typeof initialFormValues)[T],
 ) => {};
 
