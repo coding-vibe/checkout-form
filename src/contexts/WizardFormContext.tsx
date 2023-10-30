@@ -7,6 +7,16 @@ export const initialFormValues = {
     cvvCode: null,
     expirationDate: '',
   },
+  [FormScreens.COURIER_DELIVERY_DETAILS]: {
+    date: null,
+    time: null,
+    city: '',
+    street: '',
+    house: '',
+    flat: '',
+    intercom: '',
+    hasElevator: null,
+  },
   [FormScreens.DELIVERY_MODE]: {
     deliveryMode: null,
   },

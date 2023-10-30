@@ -1,4 +1,4 @@
-import { isFuture } from 'date-fns';
+import { differenceInDays, isFuture } from 'date-fns';
 import { FieldValidator } from 'final-form';
 import parseDate from 'utils/parseDate';
 
@@ -35,6 +35,17 @@ export const validateIsFutureDate = (value: string) => {
 
   return isFuture(parsedDate) ? undefined : 'Card expired';
 };
+
+export const isPositiveInteger = (entity: string) => (value: string) => {
+  const positiveInteger = /^(?:[0-9]+\/[0-9]+|[0-9]+|[a-zA-Z]+|\/)+$/;
+
+  return positiveInteger.test(value) ? undefined : `Invalid ${entity} number`;
+};
+
+export const validateMinDate = (value: Date) =>
+  differenceInDays(value, new Date()) >= 2
+    ? undefined
+    : `Courier delivery is available in a minimum of three days`;
 
 export const validateIsRequired = (value: string) =>
   value ? undefined : 'Required';

@@ -1,6 +1,7 @@
 import { Navigate, Routes as ReactRoutes, Route } from 'react-router-dom';
 import Layout from 'components/Layout';
 import routes from 'constants/routes';
+import CourierDeliveryDetailsScreen from 'pages/CourierDeliveryDetailsScreen';
 import CreditCardDetailsScreen from 'pages/CreditCardDetailsScreen';
 import DeliveryModeScreen from 'pages/DeliveryModeScreen';
 import PaymentMethodScreen from 'pages/PaymentMethodScreen';
@@ -20,6 +21,10 @@ function App() {
             />
           }
           index
+        />
+        <Route
+          element={<CourierDeliveryDetailsScreen />}
+          path={routes.COURIER_DELIVERY_DETAILS}
         />
         <Route
           element={<CreditCardDetailsScreen />}
