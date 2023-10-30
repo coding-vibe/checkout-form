@@ -45,7 +45,7 @@ export const isPositiveInteger = (entity: string) => (value: string) => {
 export const validateMinDate = (value: Date) =>
   differenceInDays(value, new Date()) >= 2
     ? undefined
-    : `Courier delivery is available in a minimum of three days`;
+    : `Courier delivery is available in a minimum of 3 days`;
 
 export const validateIsRequired = (value: string) =>
   value ? undefined : 'Required';

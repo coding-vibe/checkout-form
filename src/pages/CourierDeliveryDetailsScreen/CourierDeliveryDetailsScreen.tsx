@@ -36,13 +36,9 @@ export default function DeliveryDetailsScreen() {
             <span>Choose date and time for courier delivery</span>
           </Box>
           <DatePicker
+            defaultValue={MIN_DATE}
             fieldProps={{
-              validate: composeValidators(
-                validateIsRequired,
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                validateMinDate,
-              ),
+              validate: composeValidators(validateIsRequired, validateMinDate),
             }}
             label='Date'
             minDate={MIN_DATE}
@@ -81,10 +77,7 @@ export default function DeliveryDetailsScreen() {
           />
           <TextField
             fieldProps={{
-              validate: composeValidators(
-                validateIsRequired,
-                isPositiveInteger('flat'),
-              ),
+              validate: isPositiveInteger('flat'),
             }}
             label='Flat'
             name='flat'
