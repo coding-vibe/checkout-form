@@ -1,104 +1,129 @@
 import { useContext } from 'react';
 import { Form } from 'react-final-form';
-import { addDays } from 'date-fns';
+import { addDays, format } from 'date-fns';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { DatePicker, TextField, TimePicker, Select } from 'mui-rff';
-import ELEVATOR_AVAILABILITY_OPTIONS from 'constants/elevatorAvailabilityOptions';
+import Typography from '@mui/material/Typography';
+import { Checkboxes, DatePicker, TextField, TimePicker } from 'mui-rff';
 import FormScreens from 'constants/formScreens';
 import WizardFormContext, {
   InitialFormValuesType,
 } from 'contexts/WizardFormContext';
 import {
   composeValidators,
-  isPositiveInteger,
   validateMinDate,
   validateIsRequired,
 } from 'utils/validation';
 
-export const MIN_DATE = addDays(new Date(), 3);
+const MIN_DELIVERY_DAYS = 3;
+const DELIVERY_ERROR_MESSAGE = `Courier delivery is available in a minimum of ${MIN_DELIVERY_DAYS} days`;
+const MIN_DELIVERY_DATE = addDays(new Date(), MIN_DELIVERY_DAYS);
+
+const formatHandler = (value: number) => value || null;
+const parseHandler = (value: string) => value && parseInt(value, 10);
 
 type CourierDeliveryDetailsType =
   InitialFormValuesType[FormScreens.COURIER_DELIVERY_DETAILS];
 
 export default function DeliveryDetailsScreen() {
-  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
-  console.log(formValues);
+  const { onSaveFormValues } = useContext(WizardFormContext);
 
   return (
     <Form<CourierDeliveryDetailsType>
       onSubmit={(values) => {
-        onSaveFormValues(FormScreens.COURIER_DELIVERY_DETAILS, values);
+        const { time } = values;
+        const formattedValues = {
+          ...values,
+          time: format(time, 'p'),
+        };
+        onSaveFormValues(FormScreens.COURIER_DELIVERY_DETAILS, formattedValues);
       }}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <Box sx={{ mb: 2 }}>
-            <span>Choose date and time for courier delivery</span>
-          </Box>
-          <DatePicker
-            defaultValue={MIN_DATE}
-            fieldProps={{
-              validate: composeValidators(validateIsRequired, validateMinDate),
-            }}
-            label='Date'
-            minDate={MIN_DATE}
-            name='date'
-            sx={{ mb: 2 }}
-          />
-          <TimePicker
-            fieldProps={{ validate: validateIsRequired }}
-            label='Time'
-            name='time'
-            sx={{ mb: 2 }}
-          />
-          <Box sx={{ mb: 2 }}>
-            <span>Enter address details for courier delivery</span>
-          </Box>
-          <TextField
-            fieldProps={{ validate: validateIsRequired }}
-            label='City'
-            name='city'
-            placeholder='Enter city name'
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fieldProps={{ validate: validateIsRequired }}
-            label='Street'
-            name='street'
-            placeholder='Enter street name'
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fieldProps={{ validate: validateIsRequired }}
-            label='House'
-            name='house'
-            placeholder='Enter house number'
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fieldProps={{
-              validate: isPositiveInteger('flat'),
-            }}
-            label='Flat'
-            name='flat'
-            placeholder='Enter flat number'
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fieldProps={{ validate: isPositiveInteger('intercom') }}
-            label='Intercom'
-            name='intercom'
-            placeholder='Enter intercom number'
-            sx={{ mb: 2 }}
-          />
-          <Box sx={{ mb: 2 }}>
-            <Select
-              data={ELEVATOR_AVAILABILITY_OPTIONS}
-              fieldProps={{ validate: validateIsRequired }}
-              label='Do you have an elevator?'
-              name='hasElevator'
+          <fieldset>
+            <Box sx={{ mb: 2, color: 'info.dark' }}>
+              <Typography variant='overline'>
+                <legend>Choose date and time for courier delivery</legend>
+              </Typography>
+            </Box>
+            <DatePicker
+              fieldProps={{
+                validate: composeValidators(
+                  validateIsRequired,
+                  validateMinDate(MIN_DELIVERY_DAYS, DELIVERY_ERROR_MESSAGE),
+                ),
+              }}
+              label='Date'
+              minDate={MIN_DELIVERY_DATE}
+              name='date'
+              sx={{ mb: 2 }}
             />
-          </Box>
+            <TimePicker
+              fieldProps={{
+                validate: validateIsRequired,
+              }}
+              label='Time'
+              name='time'
+              sx={{ mb: 2 }}
+            />
+          </fieldset>
+          <fieldset>
+            <Box sx={{ mb: 2, color: 'info.dark' }}>
+              <Typography variant='overline'>
+                <legend>Enter address details for courier delivery</legend>
+              </Typography>
+            </Box>
+            <TextField
+              fieldProps={{ validate: validateIsRequired }}
+              label='City'
+              name='city'
+              placeholder='Enter city name'
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              fieldProps={{ validate: validateIsRequired }}
+              label='Street'
+              name='street'
+              placeholder='Enter street name'
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              fieldProps={{ validate: validateIsRequired }}
+              label='House'
+              name='house'
+              placeholder='Enter house number'
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              fieldProps={{
+                format: formatHandler,
+                parse: parseHandler,
+              }}
+              label='Flat'
+              name='flat'
+              placeholder='Enter flat number'
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              fieldProps={{
+                format: formatHandler,
+                parse: parseHandler,
+              }}
+              label='Intercom'
+              name='intercom'
+              placeholder='Enter intercom number'
+              sx={{ mb: 2 }}
+            />
+            <Box sx={{ mb: 2 }}>
+              <Checkboxes
+                data={{
+                  label: 'There is at least one elevator in the house',
+                  value: true,
+                }}
+                name='hasElevator'
+              />
+            </Box>
+          </fieldset>
           <Button
             type='submit'
             variant='contained'>

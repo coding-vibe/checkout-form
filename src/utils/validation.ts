@@ -1,5 +1,6 @@
 import { differenceInDays, isFuture } from 'date-fns';
 import { FieldValidator } from 'final-form';
+import { isInteger } from 'lodash';
 import parseDate from 'utils/parseDate';
 
 export function composeValidators<T>(...validators: FieldValidator<T>[]) {
@@ -36,16 +37,14 @@ export const validateIsFutureDate = (value: string) => {
   return isFuture(parsedDate) ? undefined : 'Card expired';
 };
 
-export const isPositiveInteger = (entity: string) => (value: string) => {
-  const positiveInteger = /^(?:[0-9]+\/[0-9]+|[0-9]+|[a-zA-Z]+|\/)+$/;
+export const validateMinDate =
+  (count: number, message: string) => (value: Date) =>
+    differenceInDays(value, new Date()) >= count - 1 ? undefined : message;
 
-  return positiveInteger.test(value) ? undefined : `Invalid ${entity} number`;
-};
-
-export const validateMinDate = (value: Date) =>
-  differenceInDays(value, new Date()) >= 2
+export const validateIsPositiveInteger = (entity: string) => (value: number) =>
+  value && isInteger(value) && value > 0
     ? undefined
-    : `Courier delivery is available in a minimum of 3 days`;
+    : `Invalid ${entity} number`;
 
 export const validateIsRequired = (value: string) =>
   value ? undefined : 'Required';
