@@ -4,7 +4,7 @@ const routes = {
   DELIVERY_MODE: '/delivery-mode',
   PAYMENT_METHOD: '/payment-method',
   PERSONAL_DETAILS: '/personal-details',
-  POST_DELIVERY_DETAILS: '/post-delivery-details',
+  POST_DELIVERY_DETAILS: '/post-delivery',
 };
 
 export default routes;
