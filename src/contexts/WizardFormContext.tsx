@@ -10,6 +10,7 @@ export const initialFormValues = {
   [FormScreens.DELIVERY_MODE]: {
     deliveryMode: null,
   },
+  [FormScreens.FORM_SUBMISSION]: null,
   [FormScreens.PAYMENT_METHOD]: {
     paymentMethod: null,
   },
