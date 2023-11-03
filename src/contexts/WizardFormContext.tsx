@@ -19,6 +19,10 @@ export const initialFormValues = {
     email: '',
     phoneNumbers: [''],
   },
+  [FormScreens.POST_DELIVERY_DETAILS]: {
+    postCompany: null,
+    postOffice: null,
+  },
 };
 
 export type InitialFormValuesType = typeof initialFormValues;
