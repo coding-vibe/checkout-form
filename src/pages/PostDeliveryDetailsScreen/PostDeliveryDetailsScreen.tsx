@@ -2,53 +2,73 @@ import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import FormControl from '@mui/material/FormControl/FormControl';
 import { Select } from 'mui-rff';
 import FormScreens from 'constants/formScreens';
 import WizardFormContext, {
   InitialFormValuesType,
 } from 'contexts/WizardFormContext';
 import { validateIsRequired } from 'utils/validation';
-import POST_COMPANIES from './postCompanies';
+import PostCompanies from 'constants/postCompanies';
+import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
+import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
 
-type PostOfficeDeliveryDetails =
+const { ukrposhta, novaPost, meestPoshta } = POST_OFFICES_OPTIONS;
+
+type PostDeliveryDetailsType =
   InitialFormValuesType[FormScreens.POST_DELIVERY_DETAILS];
 
-export default function PostOfficeDeliveryDetailsScreen() {
+const getPostOfficeOptions = (postCompany: PostCompanies) => {
+  switch (postCompany) {
+    case 'ukrposhta':
+      return ukrposhta;
+    case 'novaPost':
+      return novaPost;
+    case 'meestPoshta':
+      return meestPoshta;
+    default:
+      throw new Error('New post company found');
+  }
+};
+
+export default function PostDeliveryDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
 
   return (
-    <Form<PostOfficeDeliveryDetails>
+    <Form<PostDeliveryDetailsType>
       onSubmit={(values) => {
         onSaveFormValues(FormScreens.POST_DELIVERY_DETAILS, values);
       }}
-      render={({ handleSubmit }) => (
+      render={({ form, handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <FormControl>
-            <Box sx={{ mb: 2 }}>
-              <Select
-                data={POST_COMPANIES}
-                fieldProps={{ validate: validateIsRequired }}
-                label='Post Company'
-                name='postCompany'
-              />
-            </Box>
-          </FormControl>
-          <FormControl>
-            <Box sx={{ mb: 2 }}>
-              <Select
-                data={POST_OFFICES}
-                fieldProps={{ validate: validateIsRequired }}
-                label='Post Office'
-                name='postOffice'
-              />
-            </Box>
-            <Button
-              type='submit'
-              variant='contained'>
-              Next step
-            </Button>
-          </FormControl>
+          <Box sx={{ mb: 2 }}>
+            <Select
+              data={POST_COMPANIES_OPTIONS}
+              fieldProps={{ validate: validateIsRequired }}
+              label='Post Company'
+              name='postCompany'
+            />
+          </Box>
+          <Box sx={{ mb: 2 }}>
+            <Select
+              data={
+                form.getFieldState('postCompany')?.value
+                  ? getPostOfficeOptions(
+                      form.getFieldState('postCompany')?.value,
+                    )
+                  : []
+              }
+              fieldProps={{
+                validate: validateIsRequired,
+              }}
+              label='Post Office'
+              name='postOffice'
+            />
+          </Box>
+          <Button
+            type='submit'
+            variant='contained'>
+            Next step
+          </Button>
         </form>
       )}
     />
