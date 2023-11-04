@@ -8,7 +8,7 @@ export const initialFormValues = {
     expirationDate: '',
   },
   [FormScreens.COURIER_DELIVERY_DETAILS]: {
-    date: Date,
+    date: new Date(),
     time: '',
     city: '',
     street: '',

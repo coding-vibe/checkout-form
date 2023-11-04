@@ -13,8 +13,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <CssBaseline />
         <WizardFormProvider>
-          <CssBaseline />
           <Routes />
         </WizardFormProvider>
       </LocalizationProvider>
