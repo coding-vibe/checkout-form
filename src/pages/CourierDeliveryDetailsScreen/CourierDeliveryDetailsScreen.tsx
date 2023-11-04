@@ -14,6 +14,7 @@ import {
   validateMinDate,
   validateIsRequired,
 } from 'utils/validation';
+import * as classes from './styles';
 
 const MIN_DELIVERY_DAYS = 3;
 const DELIVERY_ERROR_MESSAGE = `Courier delivery is available in a minimum of ${MIN_DELIVERY_DAYS} days`;
@@ -29,7 +30,7 @@ export default function DeliveryDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
 
   return (
-    <Form<CourierDeliveryDetailsType>
+    <Form<Omit<CourierDeliveryDetailsType, 'time'> & { time: Date }>
       onSubmit={(values) => {
         const { time } = values;
         const formattedValues = {
@@ -40,7 +41,7 @@ export default function DeliveryDetailsScreen() {
       }}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          <fieldset>
+          <fieldset css={classes.fieldset}>
             <Box sx={{ mb: 2, color: 'info.dark' }}>
               <Typography variant='overline'>
                 <legend>Choose date and time for courier delivery</legend>
@@ -48,7 +49,7 @@ export default function DeliveryDetailsScreen() {
             </Box>
             <DatePicker
               fieldProps={{
-                validate: composeValidators(
+                validate: composeValidators<Date>(
                   validateIsRequired,
                   validateMinDate(MIN_DELIVERY_DAYS, DELIVERY_ERROR_MESSAGE),
                 ),
@@ -64,10 +65,9 @@ export default function DeliveryDetailsScreen() {
               }}
               label='Time'
               name='time'
-              sx={{ mb: 2 }}
             />
           </fieldset>
-          <fieldset>
+          <fieldset css={classes.fieldset}>
             <Box sx={{ mb: 2, color: 'info.dark' }}>
               <Typography variant='overline'>
                 <legend>Enter address details for courier delivery</legend>
@@ -114,15 +114,13 @@ export default function DeliveryDetailsScreen() {
               placeholder='Enter intercom number'
               sx={{ mb: 2 }}
             />
-            <Box sx={{ mb: 2 }}>
-              <Checkboxes
-                data={{
-                  label: 'There is at least one elevator in the house',
-                  value: true,
-                }}
-                name='hasElevator'
-              />
-            </Box>
+            <Checkboxes
+              data={{
+                label: 'There is at least one elevator in the house',
+                value: true,
+              }}
+              name='hasElevator'
+            />
           </fieldset>
           <Button
             type='submit'

@@ -1,6 +1,5 @@
 import { differenceInDays, isFuture } from 'date-fns';
 import { FieldValidator } from 'final-form';
-import { isInteger } from 'lodash';
 import parseDate from 'utils/parseDate';
 
 export function composeValidators<T>(...validators: FieldValidator<T>[]) {
@@ -38,15 +37,12 @@ export const validateIsFutureDate = (value: string) => {
 };
 
 export const validateMinDate =
-  (count: number, message: string) => (value: Date) =>
-    differenceInDays(value, new Date()) >= count - 1 ? undefined : message;
+  (deltaFromNowInDays: number, message: string) => (value: Date) =>
+    differenceInDays(value, new Date()) >= deltaFromNowInDays - 1
+      ? undefined
+      : message;
 
-export const validateIsPositiveInteger = (entity: string) => (value: number) =>
-  value && isInteger(value) && value > 0
-    ? undefined
-    : `Invalid ${entity} number`;
-
-export const validateIsRequired = (value: string) =>
+export const validateIsRequired = (value: unknown) =>
   value ? undefined : 'Required';
 
 export const validatePhoneNumber = (value: string) => {
