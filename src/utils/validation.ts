@@ -1,4 +1,4 @@
-import { isFuture } from 'date-fns';
+import { differenceInDays, isFuture } from 'date-fns';
 import { FieldValidator } from 'final-form';
 import parseDate from 'utils/parseDate';
 
@@ -36,7 +36,13 @@ export const validateIsFutureDate = (value: string) => {
   return isFuture(parsedDate) ? undefined : 'Card expired';
 };
 
-export const validateIsRequired = (value: string) =>
+export const validateMinDate =
+  (deltaFromNowInDays: number, message: string) => (value: Date) =>
+    differenceInDays(value, new Date()) >= deltaFromNowInDays - 1
+      ? undefined
+      : message;
+
+export const validateIsRequired = (value: unknown) =>
   value ? undefined : 'Required';
 
 export const validatePhoneNumber = (value: string) => {
