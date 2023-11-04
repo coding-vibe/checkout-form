@@ -38,7 +38,7 @@ export default function PostDeliveryDetailsScreen() {
       onSubmit={(values) => {
         onSaveFormValues(FormScreens.POST_DELIVERY_DETAILS, values);
       }}
-      render={({ form, handleSubmit }) => (
+      render={({ handleSubmit, values }) => (
         <form onSubmit={handleSubmit}>
           <Box sx={{ mb: 2 }}>
             <Select
@@ -51,10 +51,8 @@ export default function PostDeliveryDetailsScreen() {
           <Box sx={{ mb: 2 }}>
             <Select
               data={
-                form.getFieldState('postCompany')?.value
-                  ? getPostOfficeOptions(
-                      form.getFieldState('postCompany')?.value,
-                    )
+                values.postCompany
+                  ? getPostOfficeOptions(values.postCompany)
                   : []
               }
               fieldProps={{
