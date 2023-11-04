@@ -12,19 +12,17 @@ import PostCompanies from 'constants/postCompanies';
 import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
 import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
 
-const { ukrposhta, novaPost, meestPoshta } = POST_OFFICES_OPTIONS;
-
 type PostDeliveryDetailsType =
   InitialFormValuesType[FormScreens.POST_DELIVERY_DETAILS];
 
 const getPostOfficeOptions = (postCompany: PostCompanies) => {
   switch (postCompany) {
-    case 'ukrposhta':
-      return ukrposhta;
-    case 'novaPost':
-      return novaPost;
-    case 'meestPoshta':
-      return meestPoshta;
+    case PostCompanies.UKRPOSHTA:
+      return POST_OFFICES_OPTIONS.ukrposhta;
+    case PostCompanies.NOVA_POST:
+      return POST_OFFICES_OPTIONS.novaPost;
+    case PostCompanies.MEEST_POSHTA:
+      return POST_OFFICES_OPTIONS.meestPoshta;
     default:
       throw new Error('New post company found');
   }

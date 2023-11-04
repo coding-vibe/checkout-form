@@ -1,9 +1,7 @@
 import PostCompanies from 'constants/postCompanies';
 
-const { UKRPOSHTA, NOVA_POST, MEEST_POSHTA } = PostCompanies;
-
 const POST_OFFICES_OPTIONS = {
-  [UKRPOSHTA]: [
+  [PostCompanies.UKRPOSHTA]: [
     { label: '01001: Khreshchatyk str., 22', value: '01001' },
     { label: '01008: Sadovaya str., 3', value: '01008' },
     { label: '01010: Hryhoriya Tsaryka str., 5', value: '01010' },
@@ -15,7 +13,7 @@ const POST_OFFICES_OPTIONS = {
     { label: '04214: Heroiv Dnipra str., 53', value: '04214' },
     { label: '04215: Svobody Avenue, 26', value: '04215' },
   ],
-  [NOVA_POST]: [
+  [PostCompanies.NOVA_POST]: [
     { label: '1: Pyrohivsky Shlyakh str., 135', value: '1' },
     { label: '2: Bohatyrska str., 11', value: '2' },
     { label: '3: Kalachivska str., 13 (Old Darnytsia)', value: '3' },
@@ -39,7 +37,7 @@ const POST_OFFICES_OPTIONS = {
     },
     { label: '10: Vasylia Zhukovskoho str., 22-A', value: '10' },
   ],
-  [MEEST_POSHTA]: [
+  [PostCompanies.MEEST_POSHTA]: [
     { label: '1: Kharchenko Yevgena str., 47-A', value: '1' },
     { label: '2: Shcherbakivskogo (Shcherbakova) str., 45', value: '2' },
     { label: '3: Butlierova Akademika str., 8-B', value: '3' },
