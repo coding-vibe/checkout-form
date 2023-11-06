@@ -8,6 +8,7 @@ import { Checkboxes, DatePicker, TextField, TimePicker } from 'mui-rff';
 import FormScreens from 'constants/formScreens';
 import WizardFormContext, {
   InitialFormValuesType,
+  initialFormValues,
 } from 'contexts/WizardFormContext';
 import {
   composeValidators,
@@ -23,14 +24,17 @@ const MIN_DELIVERY_DATE = addDays(new Date(), MIN_DELIVERY_DAYS);
 const formatHandler = (value: number) => value || null;
 const parseHandler = (value: string) => value && parseInt(value, 10);
 
-type CourierDeliveryDetailsType =
+type InitialValuesType =
   InitialFormValuesType[FormScreens.COURIER_DELIVERY_DETAILS];
+
+type SubmitValuesType = Omit<InitialValuesType, 'time'> & { time: Date };
 
 export default function DeliveryDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
 
   return (
-    <Form<Omit<CourierDeliveryDetailsType, 'time'> & { time: Date }>
+    <Form<SubmitValuesType, InitialValuesType>
+      initialValues={initialFormValues[FormScreens.COURIER_DELIVERY_DETAILS]}
       onSubmit={(values) => {
         const { time } = values;
         const formattedValues = {
