@@ -3,21 +3,21 @@ import FormScreens from 'constants/formScreens';
 
 export const initialFormValues = {
   [FormScreens.PERSONAL_DETAILS]: {
-    firstName: 'Mariia',
-    lastName: 'Korniakova',
-    email: 'k.m@gmail.com',
-    phoneNumbers: ['+380634241240'],
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumbers: [''],
   },
   [FormScreens.DELIVERY_MODE]: {
-    deliveryMode: 'post',
+    deliveryMode: null,
   },
   [FormScreens.PAYMENT_METHOD]: {
-    paymentMethod: 'credit card',
+    paymentMethod: null,
   },
   [FormScreens.CREDIT_CARD_DETAILS]: {
-    cardNumber: '1111 1111 1111 1111 1111',
-    cvvCode: '111',
-    expirationDate: '27/16',
+    cardNumber: null,
+    cvvCode: null,
+    expirationDate: '',
   },
   [FormScreens.FORM_SUBMISSION]: {
     isAgree: false,
