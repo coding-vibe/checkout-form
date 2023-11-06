@@ -1,18 +1,18 @@
 import { useContext } from 'react';
 import { Form } from 'react-final-form';
-import { Checkboxes } from 'mui-rff';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Tooltip from '@mui/material/Tooltip';
+import { Checkboxes } from 'mui-rff';
+import FormScreens from 'constants/formScreens';
+import routes from 'constants/routes';
 import WizardFormContext, {
   InitialFormValuesType,
   initialFormValues,
 } from 'contexts/WizardFormContext';
-import FormScreens from 'constants/formScreens';
-import routes from 'constants/routes';
 import { validateIsRequired } from 'utils/validation';
 import * as classes from './styles';
 
@@ -62,10 +62,12 @@ export default function FormSubmissionScreen() {
           <form onSubmit={handleSubmit}>
             <Box sx={{ mb: 2 }}>
               <Checkboxes
-                fieldProps={{ validate: validateIsRequired }}
                 data={{
                   label: 'I agree with the delivery rules',
                   value: true,
+                }}
+                fieldProps={{
+                  validate: validateIsRequired,
                 }}
                 name='isAgree'
               />
