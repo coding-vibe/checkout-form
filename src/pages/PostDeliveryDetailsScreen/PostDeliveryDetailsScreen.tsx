@@ -30,28 +30,6 @@ const getPostOfficeOptions = (postCompany: PostCompanies | null) => {
   }
 };
 
-interface Props {
-  postCompany?: PostCompanies | null;
-}
-
-function PostOfficeSelection({ postCompany }: Props) {
-  return (
-    <Box sx={{ mb: 2 }}>
-      <Select
-        data={getPostOfficeOptions(postCompany)}
-        disabled={!postCompany}
-        fieldProps={{ validate: validateIsRequired }}
-        label='Post Office'
-        name='postOffice'
-      />
-    </Box>
-  );
-}
-
-PostOfficeSelection.defaultProps = {
-  postCompany: null,
-};
-
 type PostDeliveryDetailsType =
   InitialFormValuesType[FormScreens.POST_DELIVERY_DETAILS];
 
@@ -76,15 +54,28 @@ export default function PostDeliveryDetailsScreen() {
                 name='postCompany'
               />
             </Box>
-            {values.postCompany ? (
-              <PostOfficeSelection postCompany={values.postCompany} />
-            ) : (
-              <Tooltip title='Choose a post company'>
-                <span>
-                  <PostOfficeSelection />
-                </span>
-              </Tooltip>
-            )}
+            <Box sx={{ mb: 2 }}>
+              {values.postCompany ? (
+                <Select
+                  data={getPostOfficeOptions(values.postCompany)}
+                  fieldProps={{ validate: validateIsRequired }}
+                  label='Post Office'
+                  name='postOffice'
+                />
+              ) : (
+                <Tooltip title='Choose a post company'>
+                  <span>
+                    <Select
+                      data={getPostOfficeOptions(values.postCompany)}
+                      disabled
+                      fieldProps={{ validate: validateIsRequired }}
+                      label='Post Office'
+                      name='postOffice'
+                    />
+                  </span>
+                </Tooltip>
+              )}
+            </Box>
             <Button
               disabled={submitting || pristine}
               type='submit'
