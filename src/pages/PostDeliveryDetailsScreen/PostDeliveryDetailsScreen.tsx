@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { forwardRef, useContext } from 'react';
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -31,27 +31,26 @@ interface Props {
   postCompany?: PostCompanies | null;
 }
 
-function PostOfficeSelection({ postCompany }: Props) {
-  return (
-    <Box sx={{ mb: 2 }}>
-      {postCompany ? (
-        <Select
-          data={getPostOfficeOptions(postCompany)}
-          fieldProps={{ validate: validateIsRequired }}
-          label='Post Office'
-          name='postOffice'
-        />
-      ) : (
-        <Select
-          disabled
-          data={[]}
-          label='Post Office'
-          name='postOffice'
-        />
-      )}
-    </Box>
-  );
-}
+const PostOfficeSelection = forwardRef(({ postCompany }: Props, ref) => (
+  <Box sx={{ mb: 2 }}>
+    {postCompany ? (
+      <Select
+        data={getPostOfficeOptions(postCompany)}
+        fieldProps={{ validate: validateIsRequired }}
+        label='Post Office'
+        name='postOffice'
+      />
+    ) : (
+      <Select
+        disabled
+        data={[]}
+        label='Post Office'
+        name='postOffice'
+        ref={ref}
+      />
+    )}
+  </Box>
+));
 
 PostOfficeSelection.defaultProps = {
   postCompany: null,
