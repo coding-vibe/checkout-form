@@ -2,24 +2,24 @@ import { createContext } from 'react';
 import FormScreens from 'constants/formScreens';
 
 export const initialFormValues = {
-  [FormScreens.CREDIT_CARD_DETAILS]: {
-    cardNumber: null,
-    cvvCode: null,
-    expirationDate: '',
+  [FormScreens.PERSONAL_DETAILS]: {
+    firstName: 'Mariia',
+    lastName: 'Korniakova',
+    email: 'k.m@gmail.com',
+    phoneNumbers: ['+380634241240'],
   },
   [FormScreens.DELIVERY_MODE]: {
-    deliveryMode: null,
+    deliveryMode: 'post',
+  },
+  [FormScreens.PAYMENT_METHOD]: {
+    paymentMethod: 'credit card',
+  },
+  [FormScreens.CREDIT_CARD_DETAILS]: {
+    cardNumber: '1111 1111 1111 1111 1111',
+    cvvCode: '111',
+    expirationDate: '27/16',
   },
   [FormScreens.FORM_SUBMISSION]: null,
-  [FormScreens.PAYMENT_METHOD]: {
-    paymentMethod: null,
-  },
-  [FormScreens.PERSONAL_DETAILS]: {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumbers: [''],
-  },
 };
 
 export type InitialFormValuesType = typeof initialFormValues;
