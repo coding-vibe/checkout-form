@@ -6,6 +6,7 @@ import CreditCardDetailsScreen from 'pages/CreditCardDetailsScreen';
 import DeliveryModeScreen from 'pages/DeliveryModeScreen';
 import PaymentMethodScreen from 'pages/PaymentMethodScreen';
 import PersonalDetailsScreen from 'pages/PersonalDetailsScreen';
+import PostDeliveryDetailsScreen from 'pages/PostDeliveryDetailsScreen';
 
 function App() {
   return (
@@ -41,6 +42,10 @@ function App() {
         <Route
           element={<PersonalDetailsScreen />}
           path={routes.PERSONAL_DETAILS}
+        />
+        <Route
+          element={<PostDeliveryDetailsScreen />}
+          path={routes.POST_DELIVERY_DETAILS}
         />
       </Route>
     </ReactRoutes>
