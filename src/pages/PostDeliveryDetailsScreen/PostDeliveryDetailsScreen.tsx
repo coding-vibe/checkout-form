@@ -14,27 +14,27 @@ import PostCompanies from 'constants/postCompanies';
 import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
 import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
 
-const getPostOfficeOptions = (postCompany: PostCompanies | null) => {
-  if (!postCompany) {
-    return [];
-  }
-  switch (postCompany) {
-    case PostCompanies.UKRPOSHTA:
-      return POST_OFFICES_OPTIONS.ukrposhta;
-    case PostCompanies.NOVA_POST:
-      return POST_OFFICES_OPTIONS.novaPost;
-    case PostCompanies.MEEST_POSHTA:
-      return POST_OFFICES_OPTIONS.meestPoshta;
-    default:
-      throw new Error('New post company found');
-  }
-};
-
 type PostDeliveryDetailsType =
   InitialFormValuesType[FormScreens.POST_DELIVERY_DETAILS];
 
 export default function PostDeliveryDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
+
+  const getPostOfficeOptions = (postCompany: PostCompanies | null) => {
+    if (!postCompany) {
+      return [];
+    }
+    switch (postCompany) {
+      case PostCompanies.UKRPOSHTA:
+        return POST_OFFICES_OPTIONS.ukrposhta;
+      case PostCompanies.NOVA_POST:
+        return POST_OFFICES_OPTIONS.novaPost;
+      case PostCompanies.MEEST_POSHTA:
+        return POST_OFFICES_OPTIONS.meestPoshta;
+      default:
+        throw new Error('New post company found');
+    }
+  };
 
   return (
     <Form<PostDeliveryDetailsType>
