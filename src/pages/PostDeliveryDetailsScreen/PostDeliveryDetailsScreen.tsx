@@ -1,4 +1,4 @@
-import { forwardRef, useContext } from 'react';
+import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -14,7 +14,10 @@ import PostCompanies from 'constants/postCompanies';
 import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
 import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
 
-const getPostOfficeOptions = (postCompany: PostCompanies) => {
+const getPostOfficeOptions = (postCompany: PostCompanies | null) => {
+  if (!postCompany) {
+    return [];
+  }
   switch (postCompany) {
     case PostCompanies.UKRPOSHTA:
       return POST_OFFICES_OPTIONS.ukrposhta;
@@ -31,26 +34,19 @@ interface Props {
   postCompany?: PostCompanies | null;
 }
 
-const PostOfficeSelection = forwardRef(({ postCompany }: Props, ref) => (
-  <Box sx={{ mb: 2 }}>
-    {postCompany ? (
+function PostOfficeSelection({ postCompany }: Props) {
+  return (
+    <Box sx={{ mb: 2 }}>
       <Select
         data={getPostOfficeOptions(postCompany)}
+        disabled={!postCompany}
         fieldProps={{ validate: validateIsRequired }}
         label='Post Office'
         name='postOffice'
       />
-    ) : (
-      <Select
-        disabled
-        data={[]}
-        label='Post Office'
-        name='postOffice'
-        ref={ref}
-      />
-    )}
-  </Box>
-));
+    </Box>
+  );
+}
 
 PostOfficeSelection.defaultProps = {
   postCompany: null,
@@ -69,7 +65,6 @@ export default function PostDeliveryDetailsScreen() {
       }}
       render={({ handleSubmit, pristine, submitting, values }) => (
         <>
-          <CustomFormSpy postCompany={values.postCompany} />
           <form onSubmit={handleSubmit}>
             <Box sx={{ mb: 2 }}>
               <Select
@@ -85,7 +80,9 @@ export default function PostDeliveryDetailsScreen() {
               <PostOfficeSelection postCompany={values.postCompany} />
             ) : (
               <Tooltip title='Choose a post company'>
-                <PostOfficeSelection />
+                <span>
+                  <PostOfficeSelection />
+                </span>
               </Tooltip>
             )}
             <Button
@@ -95,6 +92,7 @@ export default function PostDeliveryDetailsScreen() {
               Next step
             </Button>
           </form>
+          <CustomFormSpy postCompany={values.postCompany} />
         </>
       )}
     />
