@@ -19,7 +19,9 @@ export const initialFormValues = {
     cvvCode: '111',
     expirationDate: '27/16',
   },
-  [FormScreens.FORM_SUBMISSION]: null,
+  [FormScreens.FORM_SUBMISSION]: {
+    isAgree: '',
+  },
 };
 
 export type InitialFormValuesType = typeof initialFormValues;
