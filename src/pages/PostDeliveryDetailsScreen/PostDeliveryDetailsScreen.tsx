@@ -14,9 +14,6 @@ import PostCompanies from 'constants/postCompanies';
 import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
 import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
 
-type PostDeliveryDetailsType =
-  InitialFormValuesType[FormScreens.POST_DELIVERY_DETAILS];
-
 const getPostOfficeOptions = (postCompany: PostCompanies) => {
   switch (postCompany) {
     case PostCompanies.UKRPOSHTA:
@@ -34,7 +31,7 @@ interface Props {
   postCompany?: PostCompanies | null;
 }
 
-function PostOfficesSelect({ postCompany }: Props) {
+function PostOfficeSelection({ postCompany }: Props) {
   return (
     <Box sx={{ mb: 2 }}>
       {postCompany ? (
@@ -56,9 +53,12 @@ function PostOfficesSelect({ postCompany }: Props) {
   );
 }
 
-PostOfficesSelect.defaultProps = {
+PostOfficeSelection.defaultProps = {
   postCompany: null,
 };
+
+type PostDeliveryDetailsType =
+  InitialFormValuesType[FormScreens.POST_DELIVERY_DETAILS];
 
 export default function PostDeliveryDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
@@ -83,10 +83,10 @@ export default function PostDeliveryDetailsScreen() {
               />
             </Box>
             {values.postCompany ? (
-              <PostOfficesSelect postCompany={values.postCompany} />
+              <PostOfficeSelection postCompany={values.postCompany} />
             ) : (
               <Tooltip title='Choose a post company'>
-                <PostOfficesSelect />
+                <PostOfficeSelection />
               </Tooltip>
             )}
             <Button
