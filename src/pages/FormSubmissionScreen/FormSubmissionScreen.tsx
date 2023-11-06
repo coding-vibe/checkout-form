@@ -9,6 +9,7 @@ import Paper from '@mui/material/Paper';
 import Tooltip from '@mui/material/Tooltip';
 import WizardFormContext, {
   InitialFormValuesType,
+  initialFormValues,
 } from 'contexts/WizardFormContext';
 import FormScreens from 'constants/formScreens';
 import routes from 'constants/routes';
@@ -53,6 +54,7 @@ export default function FormSubmissionScreen() {
         ) : null,
       )}
       <Form<FormSubmissionType>
+        initialValues={initialFormValues[FormScreens.FORM_SUBMISSION]}
         onSubmit={(values) => {
           onSaveFormValues(FormScreens.FORM_SUBMISSION, values);
         }}

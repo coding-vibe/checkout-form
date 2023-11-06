@@ -20,7 +20,7 @@ export const initialFormValues = {
     expirationDate: '27/16',
   },
   [FormScreens.FORM_SUBMISSION]: {
-    isAgree: '',
+    isAgree: false,
   },
 };
 
