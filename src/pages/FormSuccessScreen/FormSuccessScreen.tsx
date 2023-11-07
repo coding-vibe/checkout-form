@@ -19,7 +19,7 @@ export default function FormSuccessScreen() {
       />
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <h1 css={classes.title}>Thank you&nbsp;</h1>
-        <AwesomeIcon sx={{ fontSize: 41 }} />
+        <AwesomeIcon sx={{ fontSize: 40 }} />
       </Box>
       <span css={classes.mainText}>
         We have received your submission, and we will be in touch soon!

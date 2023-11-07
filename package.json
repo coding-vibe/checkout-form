@@ -17,9 +17,11 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.12",
+    "@mui/x-date-pickers": "^6.17.0",
     "date-fns": "^2.30.0",
     "final-form": "^4.20.10",
     "final-form-arrays": "^3.1.0",
+    "lodash": "^4.17.21",
     "mui-rff": "^7.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,6 +32,7 @@
     "serve": "^14.2.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.200",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

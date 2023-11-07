@@ -8,6 +8,16 @@ export const initialFormValues = {
     email: '',
     phoneNumbers: [''],
   },
+  [FormScreens.COURIER_DELIVERY_DETAILS]: {
+    date: new Date(),
+    time: '',
+    city: '',
+    street: '',
+    house: '',
+    flat: null,
+    intercom: null,
+    hasElevator: false,
+  },
   [FormScreens.DELIVERY_MODE]: {
     deliveryMode: null,
   },
@@ -21,6 +31,10 @@ export const initialFormValues = {
   },
   [FormScreens.FORM_SUBMISSION]: {
     isAgree: false,
+  },
+  [FormScreens.POST_DELIVERY_DETAILS]: {
+    postCompany: null,
+    postOffice: null,
   },
 };
 
