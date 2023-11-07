@@ -8,6 +8,11 @@ export const wrap = css`
   margin-top: 100px;
 `;
 
+export const image = css`
+  height: 400px;
+  width: 400px;
+`;
+
 export const title = css`
   margin: 0;
   font-size: 40px;
