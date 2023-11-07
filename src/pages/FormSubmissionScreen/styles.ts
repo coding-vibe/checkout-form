@@ -10,6 +10,7 @@ export const mainTitle = css`
 
 export const title = css`
   font-size: 16px;
+  text-transform: capitalize;
 `;
 
 export const fieldName = css`

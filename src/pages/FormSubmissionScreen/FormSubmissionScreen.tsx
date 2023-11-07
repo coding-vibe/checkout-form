@@ -30,7 +30,6 @@ export default function FormSubmissionScreen() {
         screenName !== 'FORM_SUBMISSION' ? (
           <Paper
             sx={{ p: 1, mb: 1 }}
-            // eslint-disable-next-line react/no-array-index-key
             key={Object.keys(screenInfo)[index]}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <h2 css={classes.title}>{screenName}&nbsp;</h2>
@@ -75,7 +74,7 @@ export default function FormSubmissionScreen() {
             <Button
               type='submit'
               variant='contained'>
-              Next step
+              Submit
             </Button>
           </form>
         )}
