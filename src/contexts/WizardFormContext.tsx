@@ -26,7 +26,7 @@ export const initialFormValues = {
 
 export type InitialFormValuesType = typeof initialFormValues;
 
-export const saveFormValues = <T extends FormScreens>(
+export const saveFormValues = <T extends Exclude<FormScreens, 'FORM_SUCCESS'>>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _: T,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

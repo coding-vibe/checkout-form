@@ -4,6 +4,7 @@ import routes from 'constants/routes';
 import CreditCardDetailsScreen from 'pages/CreditCardDetailsScreen';
 import DeliveryModeScreen from 'pages/DeliveryModeScreen';
 import FormSubmissionScreen from 'pages/FormSubmissionScreen';
+import FormSuccessScreen from 'pages/FormSuccessScreen';
 import PaymentMethodScreen from 'pages/PaymentMethodScreen';
 import PersonalDetailsScreen from 'pages/PersonalDetailsScreen';
 
@@ -33,6 +34,10 @@ function App() {
         <Route
           element={<FormSubmissionScreen />}
           path={routes.FORM_SUBMISSION}
+        />
+        <Route
+          element={<FormSuccessScreen />}
+          path={routes.FORM_SUCCESS}
         />
         <Route
           element={<PaymentMethodScreen />}
