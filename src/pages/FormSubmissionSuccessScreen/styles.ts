@@ -8,6 +8,15 @@ export const wrap = css`
   margin-top: 100px;
 `;
 
+export const titleBox = css`
+  display: flex;
+  align-items: center;
+`;
+
+export const icon = css`
+  font-size: 40px;
+`;
+
 export const image = css`
   height: 400px;
   width: 400px;
