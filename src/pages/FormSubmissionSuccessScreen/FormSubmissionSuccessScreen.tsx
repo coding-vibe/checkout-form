@@ -23,12 +23,12 @@ export default function FormSubmissionSuccessScreen() {
         We have received your submission, and we will be in touch soon!
       </span>
       {formValues.PAYMENT_METHOD.paymentMethod ===
-      PaymentMethods.CREDIT_CARD ? (
+        PaymentMethods.CREDIT_CARD && (
         <span css={classes.text}>
           *&nbsp;In few seconds you will be redirected to the payment provider
           for the payment confirmation
         </span>
-      ) : null}
+      )}
     </div>
   );
 }
