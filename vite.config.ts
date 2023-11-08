@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [react(), svgr(), eslint()],
   resolve: {
     alias: {
+      assets: '/src/assets',
       components: '/src/components',
       constants: '/src/constants',
       contexts: '/src/contexts',

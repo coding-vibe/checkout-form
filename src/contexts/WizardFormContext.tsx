@@ -2,13 +2,17 @@ import { createContext } from 'react';
 import FormScreens from 'constants/formScreens';
 
 export const initialFormValues = {
-  [FormScreens.CREDIT_CARD_DETAILS]: {
-    cardNumber: null,
-    cvvCode: null,
-    expirationDate: '',
+  [FormScreens.PERSONAL_DETAILS]: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumbers: [''],
+  },
+  [FormScreens.DELIVERY_MODE]: {
+    deliveryMode: null,
   },
   [FormScreens.COURIER_DELIVERY_DETAILS]: {
-    date: new Date(),
+    date: null,
     time: '',
     city: '',
     street: '',
@@ -17,27 +21,26 @@ export const initialFormValues = {
     intercom: null,
     hasElevator: false,
   },
-  [FormScreens.DELIVERY_MODE]: {
-    deliveryMode: null,
+  [FormScreens.POST_DELIVERY_DETAILS]: {
+    postCompany: null,
+    postOffice: null,
   },
   [FormScreens.PAYMENT_METHOD]: {
     paymentMethod: null,
   },
-  [FormScreens.PERSONAL_DETAILS]: {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumbers: [''],
+  [FormScreens.CREDIT_CARD_DETAILS]: {
+    cardNumber: null,
+    cvvCode: null,
+    expirationDate: '',
   },
-  [FormScreens.POST_DELIVERY_DETAILS]: {
-    postCompany: null,
-    postOffice: null,
+  [FormScreens.FORM_SUBMISSION]: {
+    isAgree: false,
   },
 };
 
 export type InitialFormValuesType = typeof initialFormValues;
 
-export const saveFormValues = <T extends FormScreens>(
+export const saveFormValues = <T extends Exclude<FormScreens, 'FORM_SUCCESS'>>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _: T,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
