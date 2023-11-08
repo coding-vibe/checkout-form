@@ -1,42 +1,42 @@
 import { createContext } from 'react';
 import FormScreens from 'constants/formScreens';
 
-type InitialFormValues = {
-  [key in FormScreens]: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumbers: string[];
-  };
-  [key in FormScreens]: {
-    deliveryMode: null;
-  };
-  [key in FormScreens]: {
-    date: null;
-    time: string;
-    city: string;
-    street: string;
-    house: string;
-    flat: null;
-    intercom: null;
-    hasElevator: boolean;
-  };
-  [key in FormScreens]: {
-    postCompany: null;
-    postOffice: null;
-  };
-  [key in FormScreens]: {
-    paymentMethod: null;
-  };
-  [key in FormScreens]: {
-    cardNumber: null;
-    cvvCode: null;
-    expirationDate: string;
-  };
-  [key in FormScreens]: {
-    isAgree: boolean;
-  };
-};
+// type InitialFormValues = {
+//   [key in FormScreens]: {
+//     firstName: string;
+//     lastName: string;
+//     email: string;
+//     phoneNumbers: string[];
+//   };
+//   [key in FormScreens]: {
+//     deliveryMode: null;
+//   };
+//   [key in FormScreens]: {
+//     date: null;
+//     time: string;
+//     city: string;
+//     street: string;
+//     house: string;
+//     flat: null;
+//     intercom: null;
+//     hasElevator: boolean;
+//   };
+//   [key in FormScreens]: {
+//     postCompany: null;
+//     postOffice: null;
+//   };
+//   [key in FormScreens]: {
+//     paymentMethod: null;
+//   };
+//   [key in FormScreens]: {
+//     cardNumber: null;
+//     cvvCode: null;
+//     expirationDate: string;
+//   };
+//   [key in FormScreens]: {
+//     isAgree: boolean;
+//   };
+// };
 
 export const initialFormValues = {
   [FormScreens.PERSONAL_DETAILS]: {
