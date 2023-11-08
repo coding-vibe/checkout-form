@@ -1,10 +1,10 @@
-import RecordedFormData from 'components/RecordedFormData';
+import FullOrderDetails from 'components/FullOrderDetails';
 import SubmissionForm from 'components/SubmissionForm';
 
 export default function FormSubmissionScreen() {
   return (
     <div>
-      <RecordedFormData />
+      <FullOrderDetails />
       <SubmissionForm />
     </div>
   );

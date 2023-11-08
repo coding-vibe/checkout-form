@@ -9,7 +9,7 @@ import routes from 'constants/routes';
 import WizardFormContext from 'contexts/WizardFormContext';
 import * as classes from './styles';
 
-export default function RecordedFormData() {
+export default function FullOrderDetails() {
   const { formValues } = useContext(WizardFormContext);
 
   return (
@@ -18,11 +18,12 @@ export default function RecordedFormData() {
         <h1 css={classes.mainTitle}>Verify recorded form data</h1>
       </Paper>
       {Object.entries(formValues).map(([screenName, screenInfo]) =>
-        (screenName as FormScreens) !== FormScreens.FORM_SUBMISSION ? (
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+        screenName !== FormScreens.FORM_SUBMISSION ? (
           <Paper
             sx={{ p: 1, mb: 1 }}
             key={screenName}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <div css={classes.wrap}>
               <h2 css={classes.title}>{screenName}&nbsp;</h2>
               <Tooltip
                 title={`Click to return to ${screenName.toLowerCase()} section`}>
@@ -32,10 +33,12 @@ export default function RecordedFormData() {
                   <ArrowBackIcon />
                 </Link>
               </Tooltip>
-            </Box>
+            </div>
             {!!screenInfo &&
               Object.entries(screenInfo).map(([fieldName, fieldValue]) => (
-                <Box sx={{ p: 1 }}>
+                <Box
+                  key={fieldName}
+                  sx={{ p: 1 }}>
                   <span css={classes.fieldName}>{fieldName}:&nbsp;</span>
                   <span css={classes.fieldValue}>{fieldValue}</span>
                 </Box>

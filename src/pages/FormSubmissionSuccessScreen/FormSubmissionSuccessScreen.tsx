@@ -5,7 +5,7 @@ import PaymentMethods from 'constants/paymentMethods';
 import WizardFormContext from 'contexts/WizardFormContext';
 import * as classes from './styles';
 
-export default function FormSuccessScreen() {
+export default function FormSubmissionSuccessScreen() {
   const { formValues } = useContext(WizardFormContext);
 
   return (
@@ -13,7 +13,7 @@ export default function FormSuccessScreen() {
       <img
         alt='rocket'
         css={classes.image}
-        src='/public/rocket.png'
+        src='/rocket.png'
       />
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <h1 css={classes.title}>Thank you&nbsp;</h1>

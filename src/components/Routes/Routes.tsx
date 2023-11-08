@@ -5,7 +5,7 @@ import CourierDeliveryDetailsScreen from 'pages/CourierDeliveryDetailsScreen';
 import CreditCardDetailsScreen from 'pages/CreditCardDetailsScreen';
 import DeliveryModeScreen from 'pages/DeliveryModeScreen';
 import FormSubmissionScreen from 'pages/FormSubmissionScreen';
-import FormSuccessScreen from 'pages/FormSuccessScreen';
+import FormSubmissionSuccessScreen from 'pages/FormSubmissionSuccessScreen';
 import PaymentMethodScreen from 'pages/PaymentMethodScreen';
 import PersonalDetailsScreen from 'pages/PersonalDetailsScreen';
 import PostDeliveryDetailsScreen from 'pages/PostDeliveryDetailsScreen';
@@ -42,7 +42,7 @@ function App() {
           path={routes.FORM_SUBMISSION}
         />
         <Route
-          element={<FormSuccessScreen />}
+          element={<FormSubmissionSuccessScreen />}
           path={routes.FORM_SUCCESS}
         />
         <Route

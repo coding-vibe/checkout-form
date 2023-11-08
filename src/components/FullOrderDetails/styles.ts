@@ -8,6 +8,11 @@ export const mainTitle = css`
   text-transform: capitalize;
 `;
 
+export const wrap = css`
+  display: flex;
+  align-items: center;
+`;
+
 export const title = css`
   font-size: 16px;
   text-transform: capitalize;
