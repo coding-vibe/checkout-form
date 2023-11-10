@@ -33,7 +33,6 @@ function getActiveStep(path: string) {
 
 export default function Layout() {
   const location = useLocation();
-  console.log(location.pathname);
 
   return (
     <Stepper
