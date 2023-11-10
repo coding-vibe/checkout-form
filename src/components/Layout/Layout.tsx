@@ -1,65 +1,53 @@
+import { useContext } from 'react';
 import { Outlet, Navigate, useLocation } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Step from '@mui/material/Step';
 import Stepper from '@mui/material/Stepper';
 import StepContent from '@mui/material/StepContent';
 import StepLabel from '@mui/material/StepLabel';
 import FormScreens from 'constants/formScreens';
 import routes from 'constants/routes';
+import WizardFormContext from 'contexts/WizardFormContext';
 
 const STEPS = Object.keys(FormScreens);
 
-function getActiveStep(path: string) {
-  switch (path) {
-    case '/personal-details':
-      return 0;
-    case '/delivery-mode':
-      return 1;
-    case '/courier-delivery':
-      return 2;
-    case '/post-office-delivery':
-      return 3;
-    case '/payment-method':
-      return 4;
-    case '/form-submission':
-      return 5;
-    case '/form-success':
-      return 6;
-    default:
-      return 0;
-  }
-}
-
 export default function Layout() {
+  const { formValues } = useContext(WizardFormContext);
+
+  function getActiveStep(path: string) {
+    switch (path) {
+      case routes.PERSONAL_DETAILS:
+        return formValues.PERSONAL_DETAILS.order;
+      case routes.DELIVERY_MODE:
+        return formValues.DELIVERY_MODE.order;
+      case routes.COURIER_DELIVERY_DETAILS:
+        return formValues.COURIER_DELIVERY_DETAILS.order;
+      case routes.POST_DELIVERY_DETAILS:
+        return formValues.POST_DELIVERY_DETAILS.order;
+      case routes.PAYMENT_METHOD:
+        return formValues.PAYMENT_METHOD.order;
+      case routes.CREDIT_CARD_DETAILS:
+        return formValues.CREDIT_CARD_DETAILS.order;
+      case routes.FORM_SUBMISSION:
+        return formValues.FORM_SUBMISSION.order;
+      case routes.FORM_SUCCESS:
+        return formValues.FORM_SUCCESS.order;
+      default:
+        return formValues.PERSONAL_DETAILS.order;
+    }
+  }
+
   const location = useLocation();
 
   return (
     <Stepper
       activeStep={getActiveStep(location.pathname)}
       orientation='vertical'>
-      {STEPS.map((step, index) => (
+      {STEPS.map((step) => (
         <Step key={step}>
           <StepLabel>{step}</StepLabel>
           <StepContent>
             <Outlet />
             <Navigate to={routes[step as FormScreens]} />
-            <Box sx={{ mb: 2 }}>
-              <div>
-                <Button
-                  variant='contained'
-                  // onClick={handleNext}
-                  sx={{ mt: 1, mr: 1 }}>
-                  {index === STEPS.length - 1 ? 'Finish' : 'Continue'}
-                </Button>
-                <Button
-                  disabled={index === 0}
-                  // onClick={handleBack}
-                  sx={{ mt: 1, mr: 1 }}>
-                  Back
-                </Button>
-              </div>
-            </Box>
           </StepContent>
         </Step>
       ))}

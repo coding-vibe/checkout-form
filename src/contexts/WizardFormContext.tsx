@@ -3,38 +3,51 @@ import FormScreens from 'constants/formScreens';
 
 export const initialFormValues = {
   [FormScreens.PERSONAL_DETAILS]: {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumbers: [''],
+    order: 0,
+    values: { firstName: '', lastName: '', email: '', phoneNumbers: [''] },
   },
   [FormScreens.DELIVERY_MODE]: {
-    deliveryMode: null,
+    order: 1,
+    values: { deliveryMode: null },
   },
   [FormScreens.COURIER_DELIVERY_DETAILS]: {
-    date: null,
-    time: '',
-    city: '',
-    street: '',
-    house: '',
-    flat: null,
-    intercom: null,
-    hasElevator: false,
+    order: 2,
+    values: {
+      date: null,
+      time: '',
+      city: '',
+      street: '',
+      house: '',
+      flat: null,
+      intercom: null,
+      hasElevator: false,
+    },
   },
   [FormScreens.POST_DELIVERY_DETAILS]: {
-    postCompany: null,
-    postOffice: null,
+    order: 3,
+    values: {
+      postCompany: null,
+      postOffice: null,
+    },
   },
   [FormScreens.PAYMENT_METHOD]: {
-    paymentMethod: null,
+    order: 4,
+    values: { paymentMethod: null },
   },
   [FormScreens.CREDIT_CARD_DETAILS]: {
-    cardNumber: null,
-    cvvCode: null,
-    expirationDate: '',
+    order: 5,
+    values: {
+      cardNumber: null,
+      cvvCode: null,
+      expirationDate: '',
+    },
   },
   [FormScreens.FORM_SUBMISSION]: {
-    isAgree: false,
+    order: 6,
+    values: { isAgree: false },
+  },
+  [FormScreens.FORM_SUCCESS]: {
+    order: 7,
   },
 };
 

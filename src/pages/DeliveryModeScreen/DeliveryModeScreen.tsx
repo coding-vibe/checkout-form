@@ -13,7 +13,8 @@ import { validateIsRequired } from 'utils/validation';
 type DeliveryModeType = InitialFormValuesType[FormScreens.DELIVERY_MODE];
 
 export default function DeliveryModeScreen() {
-  const { onSaveFormValues } = useContext(WizardFormContext);
+  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
+  console.log(formValues.DELIVERY_MODE);
 
   return (
     <Form<DeliveryModeType>

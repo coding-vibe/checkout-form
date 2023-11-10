@@ -27,13 +27,13 @@ export default function PersonalDetailsScreen() {
   const validateForm = (values: PersonalDetailsType) => {
     let phoneNumberError;
 
-    if (!values.phoneNumbers) {
+    if (!values.values?.phoneNumbers) {
       phoneNumberError = `Should be at least ${phoneNumbersLimits.MIN} phone number`;
     }
 
     if (
-      values.phoneNumbers &&
-      values.phoneNumbers.length > phoneNumbersLimits.MAX
+      values.values?.phoneNumbers &&
+      values.values.phoneNumbers.length > phoneNumbersLimits.MAX
     ) {
       phoneNumberError = `Should be not more than ${phoneNumbersLimits.MAX} phone numbers`;
     }

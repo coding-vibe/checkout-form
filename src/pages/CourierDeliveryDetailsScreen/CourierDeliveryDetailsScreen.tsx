@@ -27,7 +27,10 @@ const parseHandler = (value: string) => value && parseInt(value, 10);
 type InitialValuesType =
   InitialFormValuesType[FormScreens.COURIER_DELIVERY_DETAILS];
 
-type SubmitValuesType = Omit<InitialValuesType, 'time'> & { time: Date };
+type SubmitValuesType = {
+  order: InitialValuesType['order'];
+  values: Omit<InitialValuesType['values'], 'time'> & { time: Date };
+};
 
 export default function DeliveryDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
@@ -36,7 +39,7 @@ export default function DeliveryDetailsScreen() {
     <Form<SubmitValuesType, InitialValuesType>
       initialValues={initialFormValues[FormScreens.COURIER_DELIVERY_DETAILS]}
       onSubmit={(values) => {
-        const { time } = values;
+        const { time } = values.values;
         const formattedValues = {
           ...values,
           time: format(time, 'p'),

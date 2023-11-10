@@ -55,9 +55,9 @@ export default function PostDeliveryDetailsScreen() {
               />
             </Box>
             <Box sx={{ mb: 2 }}>
-              {values.postCompany ? (
+              {values.values?.postCompany ? (
                 <Select
-                  data={getPostOfficeOptions(values.postCompany)}
+                  data={getPostOfficeOptions(values.values.postCompany)}
                   fieldProps={{ validate: validateIsRequired }}
                   label='Post Office'
                   name='postOffice'
@@ -66,7 +66,7 @@ export default function PostDeliveryDetailsScreen() {
                 <Tooltip title='Choose a post company'>
                   <span>
                     <Select
-                      data={getPostOfficeOptions(values.postCompany)}
+                      data={getPostOfficeOptions(values.values?.postCompany)}
                       disabled
                       fieldProps={{ validate: validateIsRequired }}
                       label='Post Office'
@@ -83,7 +83,7 @@ export default function PostDeliveryDetailsScreen() {
               Next step
             </Button>
           </form>
-          <CustomFormSpy postCompany={values.postCompany} />
+          <CustomFormSpy postCompany={values.values?.postCompany} />
         </>
       )}
     />

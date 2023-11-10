@@ -23,8 +23,9 @@ export default function FullOrderDetails() {
         <h1 css={classes.mainTitle}>Verify recorded form data</h1>
       </Paper>
       {Object.entries<InitialFormObjValue>(formValues).map(
-        ([screenName, screenInfo]) =>
-          (screenName as FormScreens) !== FormScreens.FORM_SUBMISSION && (
+        ([screenName, { values }]) =>
+          (screenName as FormScreens) !==
+            (FormScreens.FORM_SUBMISSION || FormScreens.FORM_SUCCESS) && (
             <Paper
               sx={{ p: 1, mb: 1 }}
               key={screenName}>
@@ -39,7 +40,7 @@ export default function FullOrderDetails() {
                   </Link>
                 </Tooltip>
               </div>
-              {Object.entries(screenInfo).map(([fieldName, fieldValue]) => (
+              {Object.entries(values).map(([fieldName, fieldValue]) => (
                 <Box
                   key={fieldName}
                   sx={{ p: 1 }}>
