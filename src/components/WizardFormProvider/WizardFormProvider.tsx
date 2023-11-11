@@ -15,7 +15,10 @@ export default function WizardFormProvider({ children }: Props) {
   const onSaveFormValues: typeof saveFormValues = (screen, values) => {
     handleSaveFormValues((prevFormValues) => ({
       ...prevFormValues,
-      [screen]: values,
+      [screen]: {
+        ...prevFormValues[screen],
+        values,
+      },
     }));
   };
 

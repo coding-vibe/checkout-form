@@ -39,18 +39,20 @@ export default function Layout() {
   const location = useLocation();
 
   return (
-    <Stepper
-      activeStep={getActiveStep(location.pathname)}
-      orientation='vertical'>
-      {STEPS.map((step) => (
-        <Step key={step}>
-          <StepLabel>{step}</StepLabel>
-          <StepContent>
-            <Outlet />
-            <Navigate to={routes[step as FormScreens]} />
-          </StepContent>
-        </Step>
-      ))}
-    </Stepper>
+    <div>
+      <Stepper
+        activeStep={getActiveStep(location.pathname)}
+        orientation='vertical'>
+        {STEPS.map((step) => (
+          <Step key={step}>
+            <StepLabel>{step}</StepLabel>
+            <StepContent>
+              <Navigate to={routes[step as FormScreens]} />
+            </StepContent>
+          </Step>
+        ))}
+      </Stepper>
+      <Outlet />
+    </div>
   );
 }

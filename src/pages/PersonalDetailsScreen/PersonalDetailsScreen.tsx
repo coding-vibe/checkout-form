@@ -20,20 +20,21 @@ import {
 
 const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 
-type PersonalDetailsType = InitialFormValuesType[FormScreens.PERSONAL_DETAILS];
+type PersonalDetailsType =
+  InitialFormValuesType[FormScreens.PERSONAL_DETAILS]['values'];
 
 export default function PersonalDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
   const validateForm = (values: PersonalDetailsType) => {
     let phoneNumberError;
 
-    if (!values.values?.phoneNumbers) {
+    if (!values.phoneNumbers) {
       phoneNumberError = `Should be at least ${phoneNumbersLimits.MIN} phone number`;
     }
 
     if (
-      values.values?.phoneNumbers &&
-      values.values.phoneNumbers.length > phoneNumbersLimits.MAX
+      values.phoneNumbers &&
+      values.phoneNumbers.length > phoneNumbersLimits.MAX
     ) {
       phoneNumberError = `Should be not more than ${phoneNumbersLimits.MAX} phone numbers`;
     }

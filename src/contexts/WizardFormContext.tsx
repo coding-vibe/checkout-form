@@ -57,7 +57,7 @@ export const saveFormValues = <T extends Exclude<FormScreens, 'FORM_SUCCESS'>>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _: T,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  __: (typeof initialFormValues)[T],
+  __: (typeof initialFormValues)[T]['values'],
 ) => {};
 
 const initialValue = {

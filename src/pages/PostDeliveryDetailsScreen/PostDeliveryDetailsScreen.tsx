@@ -15,7 +15,7 @@ import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
 import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
 
 type PostDeliveryDetailsType =
-  InitialFormValuesType[FormScreens.POST_DELIVERY_DETAILS];
+  InitialFormValuesType[FormScreens.POST_DELIVERY_DETAILS]['values'];
 
 export default function PostDeliveryDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
@@ -55,9 +55,9 @@ export default function PostDeliveryDetailsScreen() {
               />
             </Box>
             <Box sx={{ mb: 2 }}>
-              {values.values?.postCompany ? (
+              {values.postCompany ? (
                 <Select
-                  data={getPostOfficeOptions(values.values.postCompany)}
+                  data={getPostOfficeOptions(values.postCompany)}
                   fieldProps={{ validate: validateIsRequired }}
                   label='Post Office'
                   name='postOffice'
@@ -66,7 +66,7 @@ export default function PostDeliveryDetailsScreen() {
                 <Tooltip title='Choose a post company'>
                   <span>
                     <Select
-                      data={getPostOfficeOptions(values.values?.postCompany)}
+                      data={getPostOfficeOptions(values.postCompany)}
                       disabled
                       fieldProps={{ validate: validateIsRequired }}
                       label='Post Office'
@@ -83,7 +83,7 @@ export default function PostDeliveryDetailsScreen() {
               Next step
             </Button>
           </form>
-          <CustomFormSpy postCompany={values.values?.postCompany} />
+          <CustomFormSpy postCompany={values.postCompany} />
         </>
       )}
     />

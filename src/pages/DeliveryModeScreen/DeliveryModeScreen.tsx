@@ -10,11 +10,11 @@ import WizardFormContext, {
 } from 'contexts/WizardFormContext';
 import { validateIsRequired } from 'utils/validation';
 
-type DeliveryModeType = InitialFormValuesType[FormScreens.DELIVERY_MODE];
+type DeliveryModeType =
+  InitialFormValuesType[FormScreens.DELIVERY_MODE]['values'];
 
 export default function DeliveryModeScreen() {
-  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
-  console.log(formValues.DELIVERY_MODE);
+  const { onSaveFormValues } = useContext(WizardFormContext);
 
   return (
     <Form<DeliveryModeType>

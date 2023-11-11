@@ -20,7 +20,7 @@ const CARD_NUMBER_LENGTH = 16;
 const CVV_CODE_LENGTH = 3;
 
 type CreditCardDetailsType =
-  InitialFormValuesType[FormScreens.CREDIT_CARD_DETAILS];
+  InitialFormValuesType[FormScreens.CREDIT_CARD_DETAILS]['values'];
 
 export default function CreditCardDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
