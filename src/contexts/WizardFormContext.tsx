@@ -1,17 +1,18 @@
 import { createContext } from 'react';
 import FormScreens from 'constants/formScreens';
+import StepOrder from 'constants/stepOrder';
 
 export const initialFormValues = {
   [FormScreens.PERSONAL_DETAILS]: {
-    order: 0,
+    order: StepOrder.PERSONAL_DETAILS,
     values: { firstName: '', lastName: '', email: '', phoneNumbers: [''] },
   },
   [FormScreens.DELIVERY_MODE]: {
-    order: 1,
+    order: StepOrder.DELIVERY_MODE,
     values: { deliveryMode: null },
   },
   [FormScreens.COURIER_DELIVERY_DETAILS]: {
-    order: 2,
+    order: StepOrder.COURIER_DELIVERY_DETAILS,
     values: {
       date: null,
       time: '',
@@ -24,18 +25,18 @@ export const initialFormValues = {
     },
   },
   [FormScreens.POST_DELIVERY_DETAILS]: {
-    order: 3,
+    order: StepOrder.POST_DELIVERY_DETAILS,
     values: {
       postCompany: null,
       postOffice: null,
     },
   },
   [FormScreens.PAYMENT_METHOD]: {
-    order: 4,
+    order: StepOrder.PAYMENT_METHOD,
     values: { paymentMethod: null },
   },
   [FormScreens.CREDIT_CARD_DETAILS]: {
-    order: 5,
+    order: StepOrder.CREDIT_CARD_DETAILS,
     values: {
       cardNumber: null,
       cvvCode: null,
@@ -43,11 +44,11 @@ export const initialFormValues = {
     },
   },
   [FormScreens.FORM_SUBMISSION]: {
-    order: 6,
+    order: StepOrder.FORM_SUBMISSION,
     values: { isAgree: false },
   },
   [FormScreens.FORM_SUCCESS]: {
-    order: 7,
+    order: StepOrder.FORM_SUCCESS,
   },
 };
 

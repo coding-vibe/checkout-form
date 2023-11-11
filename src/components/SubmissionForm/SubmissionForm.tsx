@@ -10,14 +10,15 @@ import WizardFormContext, {
 } from 'contexts/WizardFormContext';
 import { validateIsRequired } from 'utils/validation';
 
-type FormSubmissionType = InitialFormValuesType[FormScreens.FORM_SUBMISSION];
+type FormSubmissionType =
+  InitialFormValuesType[FormScreens.FORM_SUBMISSION]['values'];
 
 export default function SubmissionForm() {
   const { onSaveFormValues } = useContext(WizardFormContext);
 
   return (
     <Form<FormSubmissionType>
-      initialValues={initialFormValues[FormScreens.FORM_SUBMISSION]}
+      initialValues={initialFormValues[FormScreens.FORM_SUBMISSION].values}
       onSubmit={(values) => {
         onSaveFormValues(FormScreens.FORM_SUBMISSION, values);
       }}
