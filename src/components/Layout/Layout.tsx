@@ -19,14 +19,8 @@ export default function Layout() {
         return formValues.PERSONAL_DETAILS.order;
       case routes.DELIVERY_MODE:
         return formValues.DELIVERY_MODE.order;
-      case routes.COURIER_DELIVERY_DETAILS:
-        return formValues.COURIER_DELIVERY_DETAILS.order;
-      case routes.POST_DELIVERY_DETAILS:
-        return formValues.POST_DELIVERY_DETAILS.order;
       case routes.PAYMENT_METHOD:
         return formValues.PAYMENT_METHOD.order;
-      case routes.CREDIT_CARD_DETAILS:
-        return formValues.CREDIT_CARD_DETAILS.order;
       case routes.FORM_SUBMISSION:
         return formValues.FORM_SUBMISSION.order;
       case routes.FORM_SUCCESS:
