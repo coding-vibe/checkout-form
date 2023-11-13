@@ -17,14 +17,10 @@ import * as classes from './styles';
 const CARD_NUMBER_LENGTH = 16;
 const CVV_CODE_LENGTH = 3;
 
-type CreditCardDetailsType = {
-  cardNumber: null;
-  cvvCode: null;
-  expirationDate: string;
-};
-
 export default function CreditCardDetailsScreen() {
-  const { onSaveFormValues } = useContext(WizardFormContext);
+  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
+
+  type CreditCardDetailsType = typeof formValues.PAYMENT_METHOD.subStep;
 
   return (
     <Form<CreditCardDetailsType>

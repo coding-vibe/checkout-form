@@ -28,16 +28,15 @@ export const initialFormValues = {
 
 export type InitialFormValuesType = typeof initialFormValues;
 
+type PickEnum<T, K extends T> = {
+  [P in keyof K]: P extends K ? P : never;
+};
+
 export const saveFormValues = <
   T extends Exclude<FormScreens, 'FORM_SUCCESS'>,
-  U extends Exclude<
+  U extends PickEnum<
     FormScreens,
-    | 'PERSONAL_DETAILS'
-    | 'COURIER_DELIVERY_DETAILS'
-    | 'POST_DELIVERY_DETAILS'
-    | 'CREDIT_CARD_DETAILS'
-    | 'FORM_SUBMISSION'
-    | 'FORM_SUCCESS'
+    FormScreens.DELIVERY_MODE | FormScreens.PAYMENT_METHOD
   >,
 >(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

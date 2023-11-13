@@ -41,6 +41,8 @@ export default function WizardFormProvider({ children }: Props) {
         },
       });
 
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       return parent ? updateFormValues(parent) : updateFormValues(screen);
     });
   };
@@ -53,14 +55,26 @@ export default function WizardFormProvider({ children }: Props) {
         formValues.DELIVERY_MODE.values.deliveryType === DeliveryModes.COURIER
           ? {
               subStep: {
-              id: FormScreens.COURIER_DELIVERY_DETAILS,
-                values: ???
+                id: FormScreens.COURIER_DELIVERY_DETAILS,
+                values: {
+                  date: null,
+                  time: '',
+                  city: '',
+                  street: '',
+                  house: '',
+                  flat: null,
+                  intercom: null,
+                  hasElevator: false,
+                },
               },
             }
           : {
               subStep: {
                 id: FormScreens.POST_DELIVERY_DETAILS,
-                values: ???
+                values: {
+                  postCompany: null,
+                  postOffice: null,
+                },
               },
             };
 
@@ -78,18 +92,17 @@ export default function WizardFormProvider({ children }: Props) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     handleSaveFormValues((prevFormValues) => {
-      const update =
-        formValues.PAYMENT_METHOD.values.paymentMethod ===
-        PaymentMethods.CREDIT_CARD
-          ? {
-              subStep: {
-                id: FormScreens.PAYMENT_METHOD,
-               values: ???
-              },
-            }
-          : {
-              subStep: null,
-            };
+      const update = formValues.PAYMENT_METHOD.values.paymentMethod ===
+        PaymentMethods.CREDIT_CARD && {
+        subStep: {
+          id: FormScreens.PAYMENT_METHOD,
+          values: {
+            cardNumber: null,
+            cvvCode: null,
+            expirationDate: '',
+          },
+        },
+      };
 
       return {
         ...prevFormValues,

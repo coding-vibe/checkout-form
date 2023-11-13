@@ -21,26 +21,29 @@ const MIN_DELIVERY_DATE = addDays(new Date(), MIN_DELIVERY_DAYS);
 const formatHandler = (value: number) => value || null;
 const parseHandler = (value: string) => value && parseInt(value, 10);
 
-type DeliveryDetailsType = {
-  date: null;
-  time: string;
-  city: string;
-  street: string;
-  house: string;
-  flat: null;
-  intercom: null;
-  hasElevator: boolean;
-};
-
-type UpdatedDeliveryDetailsType = Omit<DeliveryDetailsType, 'time'> & {
-  time: Date;
-};
+// type DeliveryDetailsType = {
+//   date: null;
+//   time: string;
+//   city: string;
+//   street: string;
+//   house: string;
+//   flat: null;
+//   intercom: null;
+//   hasElevator: boolean;
+// };
 
 export default function DeliveryDetailsScreen() {
-  const { onSaveFormValues } = useContext(WizardFormContext);
+  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
+
+  type DeliveryDetailsType = Omit<
+    typeof formValues.DELIVERY_MODE.subStep,
+    'time'
+  > & {
+    time: Date;
+  };
 
   return (
-    <Form<UpdatedDeliveryDetailsType>
+    <Form<DeliveryDetailsType>
       onSubmit={(values) => {
         const { time } = values;
         const formattedValues = {

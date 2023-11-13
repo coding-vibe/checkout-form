@@ -48,7 +48,7 @@ export default function PersonalDetailsScreen() {
   return (
     <Form<PersonalDetailsType>
       onSubmit={(values) => {
-        onSaveFormValues(FormScreens.PERSONAL_DETAILS, values, null);
+        onSaveFormValues(FormScreens.PERSONAL_DETAILS, values);
       }}
       mutators={{
         ...arrayMutators,

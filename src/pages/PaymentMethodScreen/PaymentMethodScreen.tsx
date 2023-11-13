@@ -19,7 +19,7 @@ export default function PaymentMethodScreen() {
   return (
     <Form<PaymentMethodType>
       onSubmit={(values) => {
-        onSaveFormValues(FormScreens.PAYMENT_METHOD, values, null);
+        onSaveFormValues(FormScreens.PAYMENT_METHOD, values);
       }}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>

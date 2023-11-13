@@ -12,13 +12,10 @@ import PostCompanies from 'constants/postCompanies';
 import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
 import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
 
-type PostDeliveryDetailsType = {
-  postCompany: null;
-  postOffice: null;
-};
-
 export default function PostDeliveryDetailsScreen() {
-  const { onSaveFormValues } = useContext(WizardFormContext);
+  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
+
+  type PostDeliveryDetailsType = typeof formValues.DELIVERY_MODE.subStep;
 
   const getPostOfficeOptions = (postCompany: PostCompanies | null) => {
     if (!postCompany) {
@@ -59,8 +56,14 @@ export default function PostDeliveryDetailsScreen() {
               />
             </Box>
             <Box sx={{ mb: 2 }}>
-              {values.postCompany ? (
+              {values &&
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              values.postCompany ? (
                 <Select
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                   data={getPostOfficeOptions(values.postCompany)}
                   fieldProps={{ validate: validateIsRequired }}
                   label='Post Office'
@@ -70,7 +73,12 @@ export default function PostDeliveryDetailsScreen() {
                 <Tooltip title='Choose a post company'>
                   <span>
                     <Select
-                      data={getPostOfficeOptions(values.postCompany)}
+                      data={getPostOfficeOptions(
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-ignore
+                        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                        values.postCompany,
+                      )}
                       disabled
                       fieldProps={{ validate: validateIsRequired }}
                       label='Post Office'
@@ -87,7 +95,14 @@ export default function PostDeliveryDetailsScreen() {
               Next step
             </Button>
           </form>
-          <CustomFormSpy postCompany={values.postCompany} />
+          <CustomFormSpy
+            postCompany={
+              values &&
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              values.postCompany
+            }
+          />
         </>
       )}
     />

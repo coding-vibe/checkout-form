@@ -1,3 +1,4 @@
+// TODO: Remove substeps
 enum ScreensOrder {
   PERSONAL_DETAILS,
   DELIVERY_MODE,
