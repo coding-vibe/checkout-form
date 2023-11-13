@@ -5,6 +5,7 @@ import { ARRAY_ERROR } from 'final-form';
 import arrayMutators from 'final-form-arrays';
 import { FormHelperText } from '@mui/material';
 import Button from '@mui/material/Button';
+import withFormHandler from 'components/FormHandler';
 import { TextField } from 'mui-rff';
 import PhoneField from 'components/PhoneField';
 import FormScreens from 'constants/formScreens';
@@ -121,3 +122,5 @@ export default function PersonalDetailsScreen() {
     />
   );
 }
+
+const hoc = withFormHandler(FormScreens.PERSONAL_DETAILS)(PersonalDetails);
