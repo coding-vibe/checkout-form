@@ -25,6 +25,7 @@ type PersonalDetailsType =
 
 export default function PersonalDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
+
   const validateForm = (values: PersonalDetailsType) => {
     let phoneNumberError;
 
@@ -47,7 +48,7 @@ export default function PersonalDetailsScreen() {
   return (
     <Form<PersonalDetailsType>
       onSubmit={(values) => {
-        onSaveFormValues(FormScreens.PERSONAL_DETAILS, values);
+        onSaveFormValues(FormScreens.PERSONAL_DETAILS, values, null);
       }}
       mutators={{
         ...arrayMutators,

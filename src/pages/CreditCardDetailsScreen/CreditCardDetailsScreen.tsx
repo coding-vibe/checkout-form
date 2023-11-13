@@ -5,9 +5,7 @@ import CardExpiryField from 'components/CardExpiryField';
 import CardNumberField from 'components/CardNumberField';
 import CVVCodeField from 'components/CVVCodeField';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext, {
-  InitialFormValuesType,
-} from 'contexts/WizardFormContext';
+import WizardFormContext from 'contexts/WizardFormContext';
 import {
   composeValidators,
   validateDigitsCount,
@@ -19,8 +17,11 @@ import * as classes from './styles';
 const CARD_NUMBER_LENGTH = 16;
 const CVV_CODE_LENGTH = 3;
 
-type CreditCardDetailsType =
-  InitialFormValuesType[FormScreens.CREDIT_CARD_DETAILS]['values'];
+type CreditCardDetailsType = {
+  cardNumber: null;
+  cvvCode: null;
+  expirationDate: string;
+};
 
 export default function CreditCardDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
@@ -28,7 +29,11 @@ export default function CreditCardDetailsScreen() {
   return (
     <Form<CreditCardDetailsType>
       onSubmit={(values) => {
-        onSaveFormValues(FormScreens.CREDIT_CARD_DETAILS, values);
+        onSaveFormValues(
+          FormScreens.CREDIT_CARD_DETAILS,
+          values,
+          FormScreens.PAYMENT_METHOD,
+        );
       }}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>

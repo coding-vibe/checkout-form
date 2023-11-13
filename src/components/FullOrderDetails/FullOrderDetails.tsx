@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import omit from 'lodash/omit';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -11,31 +12,25 @@ import WizardFormContext, {
 } from 'contexts/WizardFormContext';
 import * as classes from './styles';
 
-type ExcludeKeys<T, K> = { [P in Exclude<keyof T, K>]: T[P] };
-
-type FormScreenValueType = ExcludeKeys<
+type FullOrderDetailsType = InitialFormValuesType[keyof Omit<
   InitialFormValuesType,
   FormScreens.FORM_SUBMISSION | FormScreens.FORM_SUCCESS
->;
+>];
 
 export default function FullOrderDetails() {
-  const {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    [FormScreens.FORM_SUBMISSION]: _,
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    [FormScreens.FORM_SUCCESS]: __,
-    ...formValues
-  } = useContext(WizardFormContext).formValues;
-  const orderDetails = {
-    ...formValues,
-  };
+  const { formValues } = useContext(WizardFormContext);
+  const orderDetails = omit(
+    formValues,
+    FormScreens.FORM_SUBMISSION,
+    FormScreens.FORM_SUCCESS,
+  );
 
   return (
     <div>
       <Paper>
         <h1 css={classes.mainTitle}>Verify recorded form data</h1>
       </Paper>
-      {Object.entries<FormScreenValueType>(orderDetails)
+      {Object.entries<FullOrderDetailsType>(orderDetails)
         .filter(
           ([screenName]) =>
             (screenName as FormScreens) !== FormScreens.FORM_SUBMISSION ||

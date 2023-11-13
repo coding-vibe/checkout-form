@@ -19,7 +19,7 @@ export default function DeliveryModeScreen() {
   return (
     <Form<DeliveryModeType>
       onSubmit={(values) => {
-        onSaveFormValues(FormScreens.DELIVERY_MODE, values);
+        onSaveFormValues(FormScreens.DELIVERY_MODE, values, null);
       }}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>

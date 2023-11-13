@@ -3,6 +3,9 @@ import WizardFormContext, {
   initialFormValues,
   saveFormValues,
 } from 'contexts/WizardFormContext';
+import FormScreens from 'constants/formScreens';
+import DeliveryModes from 'constants/deliveryModes';
+import PaymentMethods from 'constants/paymentMethods';
 
 interface Props {
   children: ReactNode;
@@ -12,32 +15,91 @@ export default function WizardFormProvider({ children }: Props) {
   const [formValues, handleSaveFormValues] =
     useState<typeof initialFormValues>(initialFormValues);
 
-  const onSaveFormValues: typeof saveFormValues = (screen, screenValues) => {
+  const onSaveFormValues: typeof saveFormValues = (
+    screen,
+    screenValues,
+    parent = null,
+  ) => {
     handleSaveFormValues((prevFormValues) => {
-      const update = prevFormValues[screen].subSteps
-        ? prevFormValues[screen].subSteps.map((substep) => {
-            const { id } = substep;
-            if (id === screen) {
-              return { ...substep, values: screenValues };
-            }
-            substep;
-          })
-        : { screenValues };
+      const updateScreenValues = parent
+        ? {
+            subStep: {
+              id: screen,
+              values: screenValues,
+            },
+          }
+        : { values: screenValues };
 
-      return {
+      const updateFormValues = (screen: FormScreens) => ({
         ...prevFormValues,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         [screen]: {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           ...prevFormValues[screen],
-          update,
+          ...updateScreenValues,
         },
-      };
+      });
+
+      return parent ? updateFormValues(parent) : updateFormValues(screen);
     });
   };
 
-  useEffect(() => {}, [
-    formValues.DELIVERY_MODE.values.deliveryMode,
-    formValues.PAYMENT_METHOD.values.paymentMethod,
-  ]);
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    handleSaveFormValues((prevFormValues) => {
+      const update =
+        formValues.DELIVERY_MODE.values.deliveryType === DeliveryModes.COURIER
+          ? {
+              subStep: {
+              id: FormScreens.COURIER_DELIVERY_DETAILS,
+                values: ???
+              },
+            }
+          : {
+              subStep: {
+                id: FormScreens.POST_DELIVERY_DETAILS,
+                values: ???
+              },
+            };
+
+      return {
+        ...prevFormValues,
+        [FormScreens.DELIVERY_MODE]: {
+          ...prevFormValues.DELIVERY_MODE,
+          ...update,
+        },
+      };
+    });
+  }, [formValues.DELIVERY_MODE.values]);
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    handleSaveFormValues((prevFormValues) => {
+      const update =
+        formValues.PAYMENT_METHOD.values.paymentMethod ===
+        PaymentMethods.CREDIT_CARD
+          ? {
+              subStep: {
+                id: FormScreens.PAYMENT_METHOD,
+               values: ???
+              },
+            }
+          : {
+              subStep: null,
+            };
+
+      return {
+        ...prevFormValues,
+        [FormScreens.PAYMENT_METHOD]: {
+          ...prevFormValues.PAYMENT_METHOD,
+          ...update,
+        },
+      };
+    });
+  }, [formValues.PAYMENT_METHOD.values]);
 
   return (
     <WizardFormContext.Provider

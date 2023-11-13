@@ -6,16 +6,16 @@ import Tooltip from '@mui/material/Tooltip';
 import { Select } from 'mui-rff';
 import CustomFormSpy from 'components/CustomFormSpy';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext, {
-  InitialFormValuesType,
-} from 'contexts/WizardFormContext';
+import WizardFormContext from 'contexts/WizardFormContext';
 import { validateIsRequired } from 'utils/validation';
 import PostCompanies from 'constants/postCompanies';
 import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
 import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
 
-type PostDeliveryDetailsType =
-  InitialFormValuesType[FormScreens.POST_DELIVERY_DETAILS]['values'];
+type PostDeliveryDetailsType = {
+  postCompany: null;
+  postOffice: null;
+};
 
 export default function PostDeliveryDetailsScreen() {
   const { onSaveFormValues } = useContext(WizardFormContext);
@@ -39,7 +39,11 @@ export default function PostDeliveryDetailsScreen() {
   return (
     <Form<PostDeliveryDetailsType>
       onSubmit={(values) => {
-        onSaveFormValues(FormScreens.POST_DELIVERY_DETAILS, values);
+        onSaveFormValues(
+          FormScreens.POST_DELIVERY_DETAILS,
+          values,
+          FormScreens.DELIVERY_MODE,
+        );
       }}
       render={({ handleSubmit, pristine, submitting, values }) => (
         <>
