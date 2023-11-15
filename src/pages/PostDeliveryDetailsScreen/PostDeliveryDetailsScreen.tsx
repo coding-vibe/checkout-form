@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import { Select } from 'mui-rff';
 import CustomFormSpy from 'components/CustomFormSpy';
+import withFormHandler from 'components/FormHandler';
 import FormScreens from 'constants/formScreens';
 import WizardFormContext from 'contexts/WizardFormContext';
 import { validateIsRequired } from 'utils/validation';
@@ -12,10 +12,20 @@ import PostCompanies from 'constants/postCompanies';
 import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
 import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
 
-export default function PostDeliveryDetailsScreen() {
-  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
+interface PostDeliveryDetailsType {
+  postCompany: null;
+  postOffice: null;
+}
 
-  type PostDeliveryDetailsType = typeof formValues.DELIVERY_MODE.subStep;
+interface Props {
+  initialValues: PostDeliveryDetailsType;
+  onSubmit: (values: PostDeliveryDetailsType) => void;
+  screen: FormScreens;
+}
+
+function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
+  const { formValues } = useContext(WizardFormContext);
+  console.log(formValues);
 
   const getPostOfficeOptions = (postCompany: PostCompanies | null) => {
     if (!postCompany) {
@@ -35,16 +45,13 @@ export default function PostDeliveryDetailsScreen() {
 
   return (
     <Form<PostDeliveryDetailsType>
-      onSubmit={(values) => {
-        onSaveFormValues(
-          FormScreens.POST_DELIVERY_DETAILS,
-          values,
-          FormScreens.DELIVERY_MODE,
-        );
-      }}
-      render={({ handleSubmit, pristine, submitting, values }) => (
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      render={({ handleSubmit, values }) => (
         <>
-          <form onSubmit={handleSubmit}>
+          <form
+            id={screen}
+            onSubmit={handleSubmit}>
             <Box sx={{ mb: 2 }}>
               <Select
                 data={POST_COMPANIES_OPTIONS}
@@ -61,9 +68,6 @@ export default function PostDeliveryDetailsScreen() {
               // @ts-ignore
               values.postCompany ? (
                 <Select
-                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                   data={getPostOfficeOptions(values.postCompany)}
                   fieldProps={{ validate: validateIsRequired }}
                   label='Post Office'
@@ -73,12 +77,7 @@ export default function PostDeliveryDetailsScreen() {
                 <Tooltip title='Choose a post company'>
                   <span>
                     <Select
-                      data={getPostOfficeOptions(
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
-                        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                        values.postCompany,
-                      )}
+                      data={getPostOfficeOptions(values.postCompany)}
                       disabled
                       fieldProps={{ validate: validateIsRequired }}
                       label='Post Office'
@@ -88,23 +87,17 @@ export default function PostDeliveryDetailsScreen() {
                 </Tooltip>
               )}
             </Box>
-            <Button
-              disabled={submitting || pristine}
-              type='submit'
-              variant='contained'>
-              Next step
-            </Button>
           </form>
-          <CustomFormSpy
-            postCompany={
-              values &&
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              values.postCompany
-            }
-          />
+          <CustomFormSpy postCompany={values && values.postCompany} />
         </>
       )}
     />
   );
 }
+
+const EnhancedPostDeliveryDetailsScreen = withFormHandler({
+  screen: FormScreens.POST_DELIVERY_DETAILS,
+  parentScreen: FormScreens.DELIVERY_MODE,
+})(PostDeliveryDetailsScreen);
+
+export default EnhancedPostDeliveryDetailsScreen;

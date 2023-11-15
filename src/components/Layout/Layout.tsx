@@ -26,7 +26,7 @@ export default function Layout() {
       case routes.FORM_SUCCESS:
         return formValues.FORM_SUCCESS.order;
       default:
-        return formValues.PERSONAL_DETAILS.order;
+        return 3;
     }
   }
 

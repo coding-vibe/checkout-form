@@ -1,17 +1,14 @@
-import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { ARRAY_ERROR } from 'final-form';
 import arrayMutators from 'final-form-arrays';
-import { FormHelperText } from '@mui/material';
 import Button from '@mui/material/Button';
-import withFormHandler from 'components/FormHandler';
+import FormHelperText from '@mui/material/FormHelperText';
 import { TextField } from 'mui-rff';
+import withFormHandler from 'components/FormHandler';
 import PhoneField from 'components/PhoneField';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext, {
-  InitialFormValuesType,
-} from 'contexts/WizardFormContext';
+import { InitialFormValuesType } from 'contexts/WizardFormContext';
 import {
   composeValidators,
   validateEmail,
@@ -24,9 +21,13 @@ const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 type PersonalDetailsType =
   InitialFormValuesType[FormScreens.PERSONAL_DETAILS]['values'];
 
-export default function PersonalDetailsScreen() {
-  const { onSaveFormValues } = useContext(WizardFormContext);
+interface Props {
+  initialValues: PersonalDetailsType;
+  onSubmit: (values: PersonalDetailsType) => void;
+  screen: FormScreens;
+}
 
+function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   const validateForm = (values: PersonalDetailsType) => {
     let phoneNumberError;
 
@@ -48,15 +49,16 @@ export default function PersonalDetailsScreen() {
 
   return (
     <Form<PersonalDetailsType>
-      onSubmit={(values) => {
-        onSaveFormValues(FormScreens.PERSONAL_DETAILS, values);
-      }}
+      initialValues={initialValues}
+      onSubmit={onSubmit}
       mutators={{
         ...arrayMutators,
       }}
       validate={validateForm}
       render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
+        <form
+          id={screen}
+          onSubmit={handleSubmit}>
           <TextField
             fieldProps={{ validate: validateIsRequired }}
             label='First Name'
@@ -112,15 +114,14 @@ export default function PersonalDetailsScreen() {
               </div>
             )}
           </FieldArray>
-          <Button
-            type='submit'
-            variant='contained'>
-            Next step
-          </Button>
         </form>
       )}
     />
   );
 }
 
-const hoc = withFormHandler(FormScreens.PERSONAL_DETAILS)(PersonalDetails);
+const EnhancedPersonalDetailsScreen = withFormHandler({
+  screen: FormScreens.PERSONAL_DETAILS,
+})(PersonalDetailsScreen);
+
+export default EnhancedPersonalDetailsScreen;

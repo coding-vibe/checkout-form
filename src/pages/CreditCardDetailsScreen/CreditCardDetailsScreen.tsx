@@ -1,11 +1,9 @@
-import { useContext } from 'react';
 import { Form } from 'react-final-form';
-import Button from '@mui/material/Button';
 import CardExpiryField from 'components/CardExpiryField';
 import CardNumberField from 'components/CardNumberField';
 import CVVCodeField from 'components/CVVCodeField';
+import withFormHandler from 'components/FormHandler';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext from 'contexts/WizardFormContext';
 import {
   composeValidators,
   validateDigitsCount,
@@ -17,22 +15,27 @@ import * as classes from './styles';
 const CARD_NUMBER_LENGTH = 16;
 const CVV_CODE_LENGTH = 3;
 
-export default function CreditCardDetailsScreen() {
-  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
+interface CreditCardDetailsType {
+  cardNumber: null;
+  cvvCode: null;
+  expirationDate: string;
+}
 
-  type CreditCardDetailsType = typeof formValues.PAYMENT_METHOD.subStep;
+interface Props {
+  initialValues: CreditCardDetailsType;
+  onSubmit: (values: CreditCardDetailsType) => void;
+  screen: FormScreens;
+}
 
+function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <Form<CreditCardDetailsType>
-      onSubmit={(values) => {
-        onSaveFormValues(
-          FormScreens.CREDIT_CARD_DETAILS,
-          values,
-          FormScreens.PAYMENT_METHOD,
-        );
-      }}
+      initialValues={initialValues}
+      onSubmit={onSubmit}
       render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
+        <form
+          id={screen}
+          onSubmit={handleSubmit}>
           <div css={classes.fields}>
             <CardNumberField
               css={classes.field}
@@ -72,14 +75,15 @@ export default function CreditCardDetailsScreen() {
               />
             </div>
           </div>
-          <Button
-            sx={{ ml: 1 }}
-            type='submit'
-            variant='contained'>
-            Next step
-          </Button>
         </form>
       )}
     />
   );
 }
+
+const EnhancedCreditCardDetailsScreen = withFormHandler({
+  screen: FormScreens.CREDIT_CARD_DETAILS,
+  parentScreen: FormScreens.PAYMENT_METHOD,
+})(CreditCardDetailsScreen);
+
+export default EnhancedCreditCardDetailsScreen;

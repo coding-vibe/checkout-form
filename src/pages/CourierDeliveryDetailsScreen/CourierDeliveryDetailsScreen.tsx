@@ -1,12 +1,10 @@
-import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import { addDays, format } from 'date-fns';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Checkboxes, DatePicker, TextField, TimePicker } from 'mui-rff';
+import withFormHandler from 'components/FormHandler';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext from 'contexts/WizardFormContext';
 import {
   composeValidators,
   validateMinDate,
@@ -21,43 +19,50 @@ const MIN_DELIVERY_DATE = addDays(new Date(), MIN_DELIVERY_DAYS);
 const formatHandler = (value: number) => value || null;
 const parseHandler = (value: string) => value && parseInt(value, 10);
 
-// type DeliveryDetailsType = {
-//   date: null;
-//   time: string;
-//   city: string;
-//   street: string;
-//   house: string;
-//   flat: null;
-//   intercom: null;
-//   hasElevator: boolean;
-// };
+interface InitialCourierDeliveryDetailsType {
+  date: null;
+  time: string;
+  city: string;
+  street: string;
+  house: string;
+  flat: null;
+  intercom: null;
+  hasElevator: boolean;
+}
 
-export default function DeliveryDetailsScreen() {
-  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
+type SubmitCourierDeliveryDetailsType = Omit<
+  InitialCourierDeliveryDetailsType,
+  'time'
+> & {
+  time: Date;
+};
 
-  type DeliveryDetailsType = Omit<
-    typeof formValues.DELIVERY_MODE.subStep,
-    'time'
-  > & {
-    time: Date;
-  };
+interface Props {
+  initialValues: InitialCourierDeliveryDetailsType;
+  onSubmit: (values: InitialCourierDeliveryDetailsType) => void;
+  screen: FormScreens;
+}
 
+function CourierDeliveryDetailsScreen({
+  initialValues,
+  onSubmit,
+  screen,
+}: Props) {
   return (
-    <Form<DeliveryDetailsType>
+    <Form<SubmitCourierDeliveryDetailsType, InitialCourierDeliveryDetailsType>
+      initialValues={initialValues}
       onSubmit={(values) => {
         const { time } = values;
         const formattedValues = {
           ...values,
           time: format(time, 'p'),
         };
-        onSaveFormValues(
-          FormScreens.COURIER_DELIVERY_DETAILS,
-          formattedValues,
-          FormScreens.DELIVERY_MODE,
-        );
+        onSubmit(formattedValues);
       }}
       render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
+        <form
+          id={screen}
+          onSubmit={handleSubmit}>
           <fieldset css={classes.fieldset}>
             <Box sx={{ mb: 2, color: 'info.dark' }}>
               <Typography variant='overline'>
@@ -139,13 +144,15 @@ export default function DeliveryDetailsScreen() {
               name='hasElevator'
             />
           </fieldset>
-          <Button
-            type='submit'
-            variant='contained'>
-            Next step
-          </Button>
         </form>
       )}
     />
   );
 }
+
+const EnhancedCourierDeliveryDetailsScreen = withFormHandler({
+  screen: FormScreens.COURIER_DELIVERY_DETAILS,
+  parentScreen: FormScreens.DELIVERY_MODE,
+})(CourierDeliveryDetailsScreen);
+
+export default EnhancedCourierDeliveryDetailsScreen;

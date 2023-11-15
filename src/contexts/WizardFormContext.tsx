@@ -28,17 +28,18 @@ export const initialFormValues = {
 
 export type InitialFormValuesType = typeof initialFormValues;
 
+export type Screens = Exclude<FormScreens, 'FORM_SUCCESS'>;
+
 type PickEnum<T, K extends T> = {
   [P in keyof K]: P extends K ? P : never;
 };
 
-export const saveFormValues = <
-  T extends Exclude<FormScreens, 'FORM_SUCCESS'>,
-  U extends PickEnum<
-    FormScreens,
-    FormScreens.DELIVERY_MODE | FormScreens.PAYMENT_METHOD
-  >,
->(
+export type ParentScreens = PickEnum<
+  FormScreens,
+  FormScreens.DELIVERY_MODE | FormScreens.PAYMENT_METHOD
+>;
+
+export const saveFormValues = <T extends Screens, U extends ParentScreens>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _: T,
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

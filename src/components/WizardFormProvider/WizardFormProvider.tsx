@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import WizardFormContext, {
   initialFormValues,
+  InitialFormValuesType,
   saveFormValues,
 } from 'contexts/WizardFormContext';
 import FormScreens from 'constants/formScreens';
@@ -13,7 +14,7 @@ interface Props {
 
 export default function WizardFormProvider({ children }: Props) {
   const [formValues, handleSaveFormValues] =
-    useState<typeof initialFormValues>(initialFormValues);
+    useState<InitialFormValuesType>(initialFormValues);
 
   const onSaveFormValues: typeof saveFormValues = (
     screen,
@@ -51,9 +52,12 @@ export default function WizardFormProvider({ children }: Props) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     handleSaveFormValues((prevFormValues) => {
-      const update =
-        formValues.DELIVERY_MODE.values.deliveryType === DeliveryModes.COURIER
-          ? {
+      const { deliveryType } = formValues.DELIVERY_MODE.values;
+
+      const update = () => {
+        if (deliveryType) {
+          if (deliveryType === DeliveryModes.COURIER)
+            return {
               subStep: {
                 id: FormScreens.COURIER_DELIVERY_DETAILS,
                 values: {
@@ -67,22 +71,27 @@ export default function WizardFormProvider({ children }: Props) {
                   hasElevator: false,
                 },
               },
-            }
-          : {
-              subStep: {
-                id: FormScreens.POST_DELIVERY_DETAILS,
-                values: {
-                  postCompany: null,
-                  postOffice: null,
-                },
-              },
             };
+
+          return {
+            subStep: {
+              id: FormScreens.POST_DELIVERY_DETAILS,
+              values: {
+                postCompany: null,
+                postOffice: null,
+              },
+            },
+          };
+        }
+
+        return null;
+      };
 
       return {
         ...prevFormValues,
         [FormScreens.DELIVERY_MODE]: {
           ...prevFormValues.DELIVERY_MODE,
-          ...update,
+          ...update(),
         },
       };
     });

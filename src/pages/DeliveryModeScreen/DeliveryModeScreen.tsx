@@ -1,28 +1,30 @@
-import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { Select } from 'mui-rff';
+import withFormHandler from 'components/FormHandler';
 import DELIVERY_MODE_OPTIONS from 'constants/deliveryModeOptions';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext, {
-  InitialFormValuesType,
-} from 'contexts/WizardFormContext';
+import { InitialFormValuesType } from 'contexts/WizardFormContext';
 import { validateIsRequired } from 'utils/validation';
 
 type DeliveryModeType =
   InitialFormValuesType[FormScreens.DELIVERY_MODE]['values'];
 
-export default function DeliveryModeScreen() {
-  const { onSaveFormValues } = useContext(WizardFormContext);
+interface Props {
+  initialValues: DeliveryModeType;
+  onSubmit: (values: DeliveryModeType) => void;
+  screen: FormScreens;
+}
 
+function DeliveryModeScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <Form<DeliveryModeType>
-      onSubmit={(values) => {
-        onSaveFormValues(FormScreens.DELIVERY_MODE, values);
-      }}
+      initialValues={initialValues}
+      onSubmit={onSubmit}
       render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
+        <form
+          id={screen}
+          onSubmit={handleSubmit}>
           <Box sx={{ mb: 2 }}>
             <Select
               data={DELIVERY_MODE_OPTIONS}
@@ -31,13 +33,14 @@ export default function DeliveryModeScreen() {
               name='deliveryType'
             />
           </Box>
-          <Button
-            type='submit'
-            variant='contained'>
-            Next step
-          </Button>
         </form>
       )}
     />
   );
 }
+
+const EnhancedDeliveryModeScreen = withFormHandler({
+  screen: FormScreens.DELIVERY_MODE,
+})(DeliveryModeScreen);
+
+export default EnhancedDeliveryModeScreen;
