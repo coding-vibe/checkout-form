@@ -5,7 +5,7 @@ import arrayMutators from 'final-form-arrays';
 import Button from '@mui/material/Button';
 import FormHelperText from '@mui/material/FormHelperText';
 import { TextField } from 'mui-rff';
-import withFormHandler from 'components/FormHandler';
+import withFormHandler from 'components/withFormHandler';
 import PhoneField from 'components/PhoneField';
 import FormScreens from 'constants/formScreens';
 import { InitialFormValuesType } from 'contexts/WizardFormContext';
@@ -120,8 +120,6 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-const EnhancedPersonalDetailsScreen = withFormHandler({
+export default withFormHandler({
   screen: FormScreens.PERSONAL_DETAILS,
 })(PersonalDetailsScreen);
-
-export default EnhancedPersonalDetailsScreen;

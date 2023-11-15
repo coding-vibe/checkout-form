@@ -40,7 +40,7 @@ const withFormHandler =
         ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          formValues.PERSONAL_DETAILS.order
+          formValues[parentScreen].subStep?.values
         : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access

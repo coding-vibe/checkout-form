@@ -1,12 +1,10 @@
-import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import { Select } from 'mui-rff';
 import CustomFormSpy from 'components/CustomFormSpy';
-import withFormHandler from 'components/FormHandler';
+import withFormHandler from 'components/withFormHandler';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext from 'contexts/WizardFormContext';
 import { validateIsRequired } from 'utils/validation';
 import PostCompanies from 'constants/postCompanies';
 import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
@@ -24,9 +22,6 @@ interface Props {
 }
 
 function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
-  const { formValues } = useContext(WizardFormContext);
-  console.log(formValues);
-
   const getPostOfficeOptions = (postCompany: PostCompanies | null) => {
     if (!postCompany) {
       return [];
@@ -88,16 +83,14 @@ function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
               )}
             </Box>
           </form>
-          <CustomFormSpy postCompany={values && values.postCompany} />
+          <CustomFormSpy postCompany={values.postCompany} />
         </>
       )}
     />
   );
 }
 
-const EnhancedPostDeliveryDetailsScreen = withFormHandler({
+export default withFormHandler({
   screen: FormScreens.POST_DELIVERY_DETAILS,
   parentScreen: FormScreens.DELIVERY_MODE,
 })(PostDeliveryDetailsScreen);
-
-export default EnhancedPostDeliveryDetailsScreen;

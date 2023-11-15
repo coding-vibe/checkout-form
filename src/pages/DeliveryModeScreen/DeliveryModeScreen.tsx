@@ -1,7 +1,7 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import { Select } from 'mui-rff';
-import withFormHandler from 'components/FormHandler';
+import withFormHandler from 'components/withFormHandler';
 import DELIVERY_MODE_OPTIONS from 'constants/deliveryModeOptions';
 import FormScreens from 'constants/formScreens';
 import { InitialFormValuesType } from 'contexts/WizardFormContext';
@@ -39,8 +39,6 @@ function DeliveryModeScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-const EnhancedDeliveryModeScreen = withFormHandler({
+export default withFormHandler({
   screen: FormScreens.DELIVERY_MODE,
 })(DeliveryModeScreen);
-
-export default EnhancedDeliveryModeScreen;

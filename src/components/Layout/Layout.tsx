@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Outlet, Navigate, useLocation } from 'react-router-dom';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import Step from '@mui/material/Step';
 import Stepper from '@mui/material/Stepper';
 import StepContent from '@mui/material/StepContent';
@@ -26,7 +26,7 @@ export default function Layout() {
       case routes.FORM_SUCCESS:
         return formValues.FORM_SUCCESS.order;
       default:
-        return 3;
+        return formValues.PERSONAL_DETAILS.order;
     }
   }
 
@@ -39,10 +39,10 @@ export default function Layout() {
         orientation='vertical'>
         {STEPS.map((step) => (
           <Step key={step}>
-            <StepLabel>{step}</StepLabel>
-            <StepContent>
-              <Navigate to={routes[step as FormScreens]} />
-            </StepContent>
+            <StepLabel>
+              <Link to={routes[step as FormScreens]}> {step}</Link>
+            </StepLabel>
+            <StepContent />
           </Step>
         ))}
       </Stepper>

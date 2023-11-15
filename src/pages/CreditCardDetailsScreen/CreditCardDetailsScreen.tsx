@@ -2,7 +2,7 @@ import { Form } from 'react-final-form';
 import CardExpiryField from 'components/CardExpiryField';
 import CardNumberField from 'components/CardNumberField';
 import CVVCodeField from 'components/CVVCodeField';
-import withFormHandler from 'components/FormHandler';
+import withFormHandler from 'components/withFormHandler';
 import FormScreens from 'constants/formScreens';
 import {
   composeValidators,
@@ -81,9 +81,7 @@ function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-const EnhancedCreditCardDetailsScreen = withFormHandler({
+export default withFormHandler({
   screen: FormScreens.CREDIT_CARD_DETAILS,
   parentScreen: FormScreens.PAYMENT_METHOD,
 })(CreditCardDetailsScreen);
-
-export default EnhancedCreditCardDetailsScreen;

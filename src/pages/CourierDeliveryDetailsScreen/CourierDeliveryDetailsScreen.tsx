@@ -3,7 +3,7 @@ import { addDays, format } from 'date-fns';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Checkboxes, DatePicker, TextField, TimePicker } from 'mui-rff';
-import withFormHandler from 'components/FormHandler';
+import withFormHandler from 'components/withFormHandler';
 import FormScreens from 'constants/formScreens';
 import {
   composeValidators,
@@ -150,9 +150,7 @@ function CourierDeliveryDetailsScreen({
   );
 }
 
-const EnhancedCourierDeliveryDetailsScreen = withFormHandler({
+export default withFormHandler({
   screen: FormScreens.COURIER_DELIVERY_DETAILS,
   parentScreen: FormScreens.DELIVERY_MODE,
 })(CourierDeliveryDetailsScreen);
-
-export default EnhancedCourierDeliveryDetailsScreen;

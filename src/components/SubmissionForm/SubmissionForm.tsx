@@ -1,7 +1,7 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import { Checkboxes } from 'mui-rff';
-import withFormHandler from 'components/FormHandler';
+import withFormHandler from 'components/withFormHandler';
 import FormScreens from 'constants/formScreens';
 import { InitialFormValuesType } from 'contexts/WizardFormContext';
 import { validateIsRequired } from 'utils/validation';
@@ -42,8 +42,6 @@ function SubmissionForm({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-const EnhancedSubmissionForm = withFormHandler({
+export default withFormHandler({
   screen: FormScreens.FORM_SUBMISSION,
 })(SubmissionForm);
-
-export default EnhancedSubmissionForm;

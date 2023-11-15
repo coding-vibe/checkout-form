@@ -1,7 +1,7 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import { Select } from 'mui-rff';
-import withFormHandler from 'components/FormHandler';
+import withFormHandler from 'components/withFormHandler';
 import FormScreens from 'constants/formScreens';
 import PAYMENT_METHODS_OPTIONS from 'constants/paymentMethodOptions';
 import { InitialFormValuesType } from 'contexts/WizardFormContext';
@@ -39,8 +39,6 @@ function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-const EnhancedPaymentMethodScreen = withFormHandler({
+export default withFormHandler({
   screen: FormScreens.PAYMENT_METHOD,
 })(PaymentMethodScreen);
-
-export default EnhancedPaymentMethodScreen;
