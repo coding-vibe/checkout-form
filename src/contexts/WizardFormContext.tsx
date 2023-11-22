@@ -5,21 +5,21 @@ import StepOrder from 'constants/stepOrder';
 export const initialFormValues = {
   [FormScreens.PERSONAL_DETAILS]: {
     order: StepOrder.PERSONAL_DETAILS,
-    values: { firstName: '', lastName: '', email: '', phoneNumbers: [''] },
+    values: { phoneNumbers: [''] },
   },
   [FormScreens.DELIVERY_MODE]: {
     order: StepOrder.DELIVERY_MODE,
-    values: { deliveryType: null },
+    values: {},
     subStep: null,
   },
   [FormScreens.PAYMENT_METHOD]: {
     order: StepOrder.PAYMENT_METHOD,
-    values: { paymentMethod: null },
+    values: {},
     subStep: null,
   },
   [FormScreens.FORM_SUBMISSION]: {
     order: StepOrder.FORM_SUBMISSION,
-    values: { isAgree: false },
+    values: {},
   },
   [FormScreens.FORM_SUCCESS]: {
     order: StepOrder.FORM_SUCCESS,
