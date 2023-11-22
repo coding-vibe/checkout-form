@@ -1,6 +1,35 @@
 import { createContext } from 'react';
 import FormScreens from 'constants/formScreens';
 import StepOrder from 'constants/stepOrder';
+import {
+  CourierDeliveryDetailsInitialValues,
+  CourierDeliveryDetailsSubmitValues,
+} from 'types/courierDeliveryDetailsValues';
+import {
+  CreditCardDetailsInitialValues,
+  CreditCardDetailsSubmitValues,
+} from 'types/creditCardDetailsValues';
+import {
+  DeliveryModeInitialValues,
+  DeliveryModeSubmitValues,
+} from 'types/deliveryModeValues';
+import FormScreenValueType from 'types/formScreenValue';
+import {
+  FormSubmissionInitialValues,
+  FormSubmissionSubmitValues,
+} from 'types/formSubmissionValues';
+import {
+  PaymentMethodInitialValues,
+  PaymentMethodSubmitValues,
+} from 'types/paymentMethodValues';
+import {
+  PersonalDetailsInitialValues,
+  PersonalDetailsSubmitValues,
+} from 'types/personalDetailsValues';
+import {
+  PostDeliveryDetailsInitialValues,
+  PostDeliveryDetailsSubmitValues,
+} from 'types/postDeliveryDetails';
 
 export const FormValues = {
   [FormScreens.PERSONAL_DETAILS]: {
@@ -26,7 +55,52 @@ export const FormValues = {
   },
 };
 
-export type InitialFormValuesType = typeof FormValues;
+export interface FormValuesType {
+  [FormScreens.PERSONAL_DETAILS]: {
+    order: StepOrder.PERSONAL_DETAILS;
+    values: FormScreenValueType<
+      PersonalDetailsSubmitValues,
+      PersonalDetailsInitialValues
+    >;
+  };
+  [FormScreens.DELIVERY_MODE]: {
+    order: StepOrder.DELIVERY_MODE;
+    values: FormScreenValueType<
+      DeliveryModeSubmitValues,
+      DeliveryModeInitialValues
+    >;
+    subStep:
+      | FormScreenValueType<
+          CourierDeliveryDetailsSubmitValues,
+          CourierDeliveryDetailsInitialValues
+        >
+      | FormScreenValueType<
+          PostDeliveryDetailsSubmitValues,
+          PostDeliveryDetailsInitialValues
+        >;
+  };
+  [FormScreens.PAYMENT_METHOD]: {
+    order: StepOrder.PAYMENT_METHOD;
+    values: FormScreenValueType<
+      PaymentMethodSubmitValues,
+      PaymentMethodInitialValues
+    >;
+    subStep: FormScreenValueType<
+      CreditCardDetailsSubmitValues,
+      CreditCardDetailsInitialValues
+    >;
+  };
+  [FormScreens.FORM_SUBMISSION]: {
+    order: StepOrder.FORM_SUBMISSION;
+    values: FormScreenValueType<
+      FormSubmissionSubmitValues,
+      FormSubmissionInitialValues
+    >;
+  };
+  [FormScreens.FORM_SUCCESS]: {
+    order: StepOrder.FORM_SUCCESS;
+  };
+}
 
 export type Screens = Exclude<FormScreens, 'FORM_SUCCESS'>;
 
