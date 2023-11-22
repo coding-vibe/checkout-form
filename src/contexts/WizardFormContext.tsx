@@ -2,7 +2,7 @@ import { createContext } from 'react';
 import FormScreens from 'constants/formScreens';
 import StepOrder from 'constants/stepOrder';
 
-export const initialFormValues = {
+export const FormValues = {
   [FormScreens.PERSONAL_DETAILS]: {
     order: StepOrder.PERSONAL_DETAILS,
     values: { phoneNumbers: [''] },
@@ -26,7 +26,7 @@ export const initialFormValues = {
   },
 };
 
-export type InitialFormValuesType = typeof initialFormValues;
+export type InitialFormValuesType = typeof FormValues;
 
 export type Screens = Exclude<FormScreens, 'FORM_SUCCESS'>;
 
@@ -51,7 +51,7 @@ export const saveFormValues = <T extends Screens, U extends ParentScreens>(
 ) => {};
 
 const initialValue = {
-  formValues: initialFormValues,
+  formValues: FormValues,
   onSaveFormValues: saveFormValues,
 };
 
