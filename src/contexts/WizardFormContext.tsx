@@ -119,7 +119,7 @@ export const saveFormValues = <T extends Screens, U extends ParentScreens>(
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  __: InitialFormValuesType[T]['values'] | object,
+  __: FormValuesType[T]['values'] | object,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ___?: U | null,
 ) => {};
