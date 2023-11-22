@@ -104,14 +104,9 @@ export interface FormValuesType {
 
 export type Screens = Exclude<FormScreens, 'FORM_SUCCESS'>;
 
-type PickEnum<T, K extends T> = {
-  [P in keyof K]: P extends K ? P : never;
-};
-
-export type ParentScreens = PickEnum<
-  FormScreens,
-  FormScreens.DELIVERY_MODE | FormScreens.PAYMENT_METHOD
->;
+export type ParentScreens =
+  | FormScreens.DELIVERY_MODE
+  | FormScreens.PAYMENT_METHOD;
 
 export const saveFormValues = <T extends Screens, U extends ParentScreens>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
