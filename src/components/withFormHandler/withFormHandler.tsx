@@ -14,7 +14,7 @@ const withFormHandler =
   ({ screen, parentScreen }: ComponentConfigProps) =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  (Component) =>
+  <SubmitFormValues, InitialFormValues>(Component) =>
   // eslint-disable-next-line react/function-component-definition
   () => {
     const { formValues, onSaveFormValues } = useContext(WizardFormContext);
@@ -47,7 +47,7 @@ const withFormHandler =
 
     return (
       <>
-        <Component
+        <Component<SubmitFormValues, InitialFormValues>
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           initialValues={getInitialValues()}
           onSubmit={handleSubmit}

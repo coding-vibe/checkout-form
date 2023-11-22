@@ -31,6 +31,54 @@ import {
   PostDeliveryDetailsSubmitValues,
 } from 'types/postDeliveryDetails';
 
+export interface FormValuesType {
+  [FormScreens.PERSONAL_DETAILS]: {
+    order: StepOrder.PERSONAL_DETAILS;
+    values: FormScreenValueType<
+      PersonalDetailsSubmitValues,
+      PersonalDetailsInitialValues
+    >;
+  };
+  [FormScreens.DELIVERY_MODE]: {
+    order: StepOrder.DELIVERY_MODE;
+    values: FormScreenValueType<
+      DeliveryModeSubmitValues,
+      DeliveryModeInitialValues
+    >;
+    subStep:
+      | FormScreenValueType<
+          CourierDeliveryDetailsSubmitValues,
+          CourierDeliveryDetailsInitialValues
+        >
+      | FormScreenValueType<
+          PostDeliveryDetailsSubmitValues,
+          PostDeliveryDetailsInitialValues
+        >
+      | null;
+  };
+  [FormScreens.PAYMENT_METHOD]: {
+    order: StepOrder.PAYMENT_METHOD;
+    values: FormScreenValueType<
+      PaymentMethodSubmitValues,
+      PaymentMethodInitialValues
+    >;
+    subStep: FormScreenValueType<
+      CreditCardDetailsSubmitValues,
+      CreditCardDetailsInitialValues
+    > | null;
+  };
+  [FormScreens.FORM_SUBMISSION]: {
+    order: StepOrder.FORM_SUBMISSION;
+    values: FormScreenValueType<
+      FormSubmissionSubmitValues,
+      FormSubmissionInitialValues
+    >;
+  };
+  [FormScreens.FORM_SUCCESS]: {
+    order: StepOrder.FORM_SUCCESS;
+  };
+}
+
 export const FormValues = {
   [FormScreens.PERSONAL_DETAILS]: {
     order: StepOrder.PERSONAL_DETAILS,
@@ -54,53 +102,6 @@ export const FormValues = {
     order: StepOrder.FORM_SUCCESS,
   },
 };
-
-export interface FormValuesType {
-  [FormScreens.PERSONAL_DETAILS]: {
-    order: StepOrder.PERSONAL_DETAILS;
-    values: FormScreenValueType<
-      PersonalDetailsSubmitValues,
-      PersonalDetailsInitialValues
-    >;
-  };
-  [FormScreens.DELIVERY_MODE]: {
-    order: StepOrder.DELIVERY_MODE;
-    values: FormScreenValueType<
-      DeliveryModeSubmitValues,
-      DeliveryModeInitialValues
-    >;
-    subStep:
-      | FormScreenValueType<
-          CourierDeliveryDetailsSubmitValues,
-          CourierDeliveryDetailsInitialValues
-        >
-      | FormScreenValueType<
-          PostDeliveryDetailsSubmitValues,
-          PostDeliveryDetailsInitialValues
-        >;
-  };
-  [FormScreens.PAYMENT_METHOD]: {
-    order: StepOrder.PAYMENT_METHOD;
-    values: FormScreenValueType<
-      PaymentMethodSubmitValues,
-      PaymentMethodInitialValues
-    >;
-    subStep: FormScreenValueType<
-      CreditCardDetailsSubmitValues,
-      CreditCardDetailsInitialValues
-    >;
-  };
-  [FormScreens.FORM_SUBMISSION]: {
-    order: StepOrder.FORM_SUBMISSION;
-    values: FormScreenValueType<
-      FormSubmissionSubmitValues,
-      FormSubmissionInitialValues
-    >;
-  };
-  [FormScreens.FORM_SUCCESS]: {
-    order: StepOrder.FORM_SUCCESS;
-  };
-}
 
 export type Screens = Exclude<FormScreens, 'FORM_SUCCESS'>;
 

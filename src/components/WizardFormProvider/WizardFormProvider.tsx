@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import WizardFormContext, {
-  initialFormValues,
-  InitialFormValuesType,
+  FormValues,
+  FormValuesType,
   saveFormValues,
 } from 'contexts/WizardFormContext';
 import FormScreens from 'constants/formScreens';
@@ -14,7 +14,9 @@ interface Props {
 
 export default function WizardFormProvider({ children }: Props) {
   const [formValues, handleSaveFormValues] =
-    useState<InitialFormValuesType>(initialFormValues);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    useState<FormValuesType>(FormValues);
 
   const onSaveFormValues: typeof saveFormValues = (
     screen,
@@ -127,6 +129,8 @@ export default function WizardFormProvider({ children }: Props) {
     <WizardFormContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         formValues,
         onSaveFormValues,
       }}>
