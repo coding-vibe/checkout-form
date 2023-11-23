@@ -73,13 +73,28 @@ export type ParentScreens =
   | FormScreens.DELIVERY_MODE
   | FormScreens.PAYMENT_METHOD;
 
+export type SubmitFormValuesType<Screen> =
+  Screen extends FormScreens.COURIER_DELIVERY_DETAILS
+    ? CourierDeliveryDetailsSubmitValues
+    : Screen extends FormScreens.CREDIT_CARD_DETAILS
+    ? CreditCardDetailsSubmitValues
+    : Screen extends FormScreens.DELIVERY_MODE
+    ? DeliveryModeSubmitValues
+    : Screen extends FormScreens.FORM_SUBMISSION
+    ? FormSubmissionSubmitValues
+    : Screen extends FormScreens.PAYMENT_METHOD
+    ? PaymentMethodSubmitValues
+    : Screen extends FormScreens.PERSONAL_DETAILS
+    ? PersonalDetailsSubmitValues
+    : Screen extends FormScreens.POST_DELIVERY_DETAILS
+    ? PostDeliveryDetailsSubmitValues
+    : never;
+
 export const saveFormValues = <T extends Screens, U extends ParentScreens>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _: T,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  __: FormValuesType[T]['values'] | object,
+  __: SubmitFormValuesType<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ___?: U | null,
 ) => {};
