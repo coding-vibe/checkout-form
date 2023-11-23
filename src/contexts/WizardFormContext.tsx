@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import FormScreens from 'constants/formScreens';
 import StepOrder from 'constants/stepOrder';
-import CourierDeliveryDetailsSubmit from 'types/courierDeliveryDetails';
+import CourierDeliveryDetailsSubmitValues from 'types/courierDeliveryDetails';
 import CreditCardDetailsSubmitValues from 'types/creditCardDetails';
 import DeliveryModeSubmitValues from 'types/deliveryMode';
 import FormScreenValueType from 'types/formScreenValue';
@@ -25,7 +25,7 @@ export interface FormValuesType {
     order: StepOrder.DELIVERY_MODE;
     values: FormScreenValueType<DeliveryModeSubmitValues>;
     subStep:
-      | FormScreenValueType<CourierDeliveryDetailsSubmit>
+      | FormScreenValueType<CourierDeliveryDetailsSubmitValues>
       | FormScreenValueType<PostDeliveryDetailsSubmitValues>
       | null;
   };

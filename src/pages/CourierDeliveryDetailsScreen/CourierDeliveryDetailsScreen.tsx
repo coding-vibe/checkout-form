@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import { Checkboxes, DatePicker, TextField, TimePicker } from 'mui-rff';
 import withFormHandler from 'components/withFormHandler';
 import FormScreens from 'constants/formScreens';
+import CourierDeliveryDetailsSubmitValues from 'types/courierDeliveryDetails';
+import FormScreen from 'types/formScreen';
 import {
   composeValidators,
   validateMinDate,
@@ -19,37 +21,16 @@ const MIN_DELIVERY_DATE = addDays(new Date(), MIN_DELIVERY_DAYS);
 const formatHandler = (value: number) => value || null;
 const parseHandler = (value: string) => value && parseInt(value, 10);
 
-interface InitialCourierDeliveryDetailsType {
-  date: null;
-  time: string;
-  city: string;
-  street: string;
-  house: string;
-  flat: null;
-  intercom: null;
-  hasElevator: boolean;
-}
+interface Props<SubmitValues, InitialValues>
+  extends FormScreen<SubmitValues, InitialValues> {}
 
-type SubmitCourierDeliveryDetailsType = Omit<
-  InitialCourierDeliveryDetailsType,
-  'time'
-> & {
-  time: Date;
-};
-
-interface Props {
-  initialValues: InitialCourierDeliveryDetailsType;
-  onSubmit: (values: InitialCourierDeliveryDetailsType) => void;
-  screen: FormScreens;
-}
-
-function CourierDeliveryDetailsScreen({
+function CourierDeliveryDetailsScreen<SubmitValues, InitialValues>({
   initialValues,
   onSubmit,
   screen,
-}: Props) {
+}: Props<SubmitValues, InitialValues>) {
   return (
-    <Form<SubmitCourierDeliveryDetailsType, InitialCourierDeliveryDetailsType>
+    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
       initialValues={initialValues}
       onSubmit={(values) => {
         const { time } = values;
@@ -150,7 +131,10 @@ function CourierDeliveryDetailsScreen({
   );
 }
 
-export default withFormHandler({
+export default withFormHandler<
+  CourierDeliveryDetailsSubmitValues,
+  Record<string, never>
+>({
   screen: FormScreens.COURIER_DELIVERY_DETAILS,
   parentScreen: FormScreens.DELIVERY_MODE,
 })(CourierDeliveryDetailsScreen);
