@@ -1,35 +1,17 @@
 import { createContext } from 'react';
 import FormScreens from 'constants/formScreens';
 import StepOrder from 'constants/stepOrder';
-import {
-  CourierDeliveryDetailsInitialValues,
-  CourierDeliveryDetailsSubmitValues,
-} from 'types/courierDeliveryDetailsValues';
-import {
-  CreditCardDetailsInitialValues,
-  CreditCardDetailsSubmitValues,
-} from 'types/creditCardDetailsValues';
-import {
-  DeliveryModeInitialValues,
-  DeliveryModeSubmitValues,
-} from 'types/deliveryModeValues';
+import CourierDeliveryDetailsSubmit from 'types/courierDeliveryDetails';
+import CreditCardDetailsSubmitValues from 'types/creditCardDetails';
+import DeliveryModeSubmitValues from 'types/deliveryMode';
 import FormScreenValueType from 'types/formScreenValue';
-import {
-  FormSubmissionInitialValues,
-  FormSubmissionSubmitValues,
-} from 'types/formSubmissionValues';
-import {
-  PaymentMethodInitialValues,
-  PaymentMethodSubmitValues,
-} from 'types/paymentMethodValues';
+import FormSubmissionSubmitValues from 'types/formSubmission';
+import PaymentMethodSubmitValues from 'types/paymentMethod';
 import {
   PersonalDetailsInitialValues,
   PersonalDetailsSubmitValues,
-} from 'types/personalDetailsValues';
-import {
-  PostDeliveryDetailsInitialValues,
-  PostDeliveryDetailsSubmitValues,
-} from 'types/postDeliveryDetails';
+} from 'types/personalDetails';
+import PostDeliveryDetailsSubmitValues from 'types/postDeliveryDetails';
 
 export interface FormValuesType {
   [FormScreens.PERSONAL_DETAILS]: {
@@ -41,45 +23,27 @@ export interface FormValuesType {
   };
   [FormScreens.DELIVERY_MODE]: {
     order: StepOrder.DELIVERY_MODE;
-    values: FormScreenValueType<
-      DeliveryModeSubmitValues,
-      DeliveryModeInitialValues
-    >;
+    values: FormScreenValueType<DeliveryModeSubmitValues>;
     subStep:
-      | FormScreenValueType<
-          CourierDeliveryDetailsSubmitValues,
-          CourierDeliveryDetailsInitialValues
-        >
-      | FormScreenValueType<
-          PostDeliveryDetailsSubmitValues,
-          PostDeliveryDetailsInitialValues
-        >
+      | FormScreenValueType<CourierDeliveryDetailsSubmit>
+      | FormScreenValueType<PostDeliveryDetailsSubmitValues>
       | null;
   };
   [FormScreens.PAYMENT_METHOD]: {
     order: StepOrder.PAYMENT_METHOD;
-    values: FormScreenValueType<
-      PaymentMethodSubmitValues,
-      PaymentMethodInitialValues
-    >;
-    subStep: FormScreenValueType<
-      CreditCardDetailsSubmitValues,
-      CreditCardDetailsInitialValues
-    > | null;
+    values: FormScreenValueType<PaymentMethodSubmitValues>;
+    subStep: FormScreenValueType<CreditCardDetailsSubmitValues> | null;
   };
   [FormScreens.FORM_SUBMISSION]: {
     order: StepOrder.FORM_SUBMISSION;
-    values: FormScreenValueType<
-      FormSubmissionSubmitValues,
-      FormSubmissionInitialValues
-    >;
+    values: FormScreenValueType<FormSubmissionSubmitValues>;
   };
   [FormScreens.FORM_SUCCESS]: {
     order: StepOrder.FORM_SUCCESS;
   };
 }
 
-export const FormValues = {
+export const FormValues: FormValuesType = {
   [FormScreens.PERSONAL_DETAILS]: {
     order: StepOrder.PERSONAL_DETAILS,
     values: { phoneNumbers: [''] },

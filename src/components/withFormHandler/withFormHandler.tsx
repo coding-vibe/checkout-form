@@ -11,10 +11,13 @@ interface ComponentConfigProps {
 }
 
 const withFormHandler =
-  ({ screen, parentScreen }: ComponentConfigProps) =>
+  <SubmitFormValues, InitialFormValues>({
+    screen,
+    parentScreen,
+  }: ComponentConfigProps) =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  <SubmitFormValues, InitialFormValues>(Component) =>
+  (Component) =>
   // eslint-disable-next-line react/function-component-definition
   () => {
     const { formValues, onSaveFormValues } = useContext(WizardFormContext);
@@ -29,10 +32,12 @@ const withFormHandler =
         // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
         | (typeof formValues)[parentScreen]['subStep']['values'],
     ) => {
+      // eslint-disable-next-line no-debugger
+      debugger;
       onSaveFormValues(screen, values, parentScreen);
     };
 
-    const getInitialValues = () =>
+    const getInitialValues = (): InitialFormValues =>
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -48,7 +53,6 @@ const withFormHandler =
     return (
       <>
         <Component<SubmitFormValues, InitialFormValues>
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
           initialValues={getInitialValues()}
           onSubmit={handleSubmit}
           screen={screen}
