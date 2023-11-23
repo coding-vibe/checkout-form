@@ -5,23 +5,21 @@ import { Select } from 'mui-rff';
 import CustomFormSpy from 'components/CustomFormSpy';
 import withFormHandler from 'components/withFormHandler';
 import FormScreens from 'constants/formScreens';
-import { validateIsRequired } from 'utils/validation';
 import PostCompanies from 'constants/postCompanies';
 import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
 import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
+import PostDeliveryDetailsSubmitValues from 'types/postDeliveryDetails';
+import FormScreen from 'types/formScreen';
+import { validateIsRequired } from 'utils/validation';
 
-interface PostDeliveryDetailsType {
-  postCompany: null;
-  postOffice: null;
-}
+interface Props<SubmitValues, InitialValues>
+  extends FormScreen<SubmitValues, InitialValues> {}
 
-interface Props {
-  initialValues: PostDeliveryDetailsType;
-  onSubmit: (values: PostDeliveryDetailsType) => void;
-  screen: FormScreens;
-}
-
-function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
+function PostDeliveryDetailsScreen<SubmitValues, InitialValues>({
+  initialValues,
+  onSubmit,
+  screen,
+}: Props<SubmitValues, InitialValues>) {
   const getPostOfficeOptions = (postCompany: PostCompanies | null) => {
     if (!postCompany) {
       return [];
@@ -39,7 +37,7 @@ function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   };
 
   return (
-    <Form<PostDeliveryDetailsType>
+    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
       initialValues={initialValues}
       onSubmit={onSubmit}
       render={({ handleSubmit, values }) => (
@@ -90,7 +88,7 @@ function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler({
+withFormHandler<PostDeliveryDetailsSubmitValues, Record<string, never>>({
   screen: FormScreens.POST_DELIVERY_DETAILS,
   parentScreen: FormScreens.DELIVERY_MODE,
 })(PostDeliveryDetailsScreen);

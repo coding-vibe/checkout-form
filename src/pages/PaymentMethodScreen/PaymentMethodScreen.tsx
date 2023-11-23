@@ -4,21 +4,20 @@ import { Select } from 'mui-rff';
 import withFormHandler from 'components/withFormHandler';
 import FormScreens from 'constants/formScreens';
 import PAYMENT_METHODS_OPTIONS from 'constants/paymentMethodOptions';
-import { InitialFormValuesType } from 'contexts/WizardFormContext';
+import FormScreen from 'types/formScreen';
+import PaymentMethodSubmitValues from 'types/paymentMethod';
 import { validateIsRequired } from 'utils/validation';
 
-type PaymentMethodType =
-  InitialFormValuesType[FormScreens.PAYMENT_METHOD]['values'];
+interface Props<SubmitValues, InitialValues>
+  extends FormScreen<SubmitValues, InitialValues> {}
 
-interface Props {
-  initialValues: PaymentMethodType;
-  onSubmit: (values: PaymentMethodType) => void;
-  screen: FormScreens;
-}
-
-function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
+function PaymentMethodScreen<SubmitValues, InitialValues>({
+  initialValues,
+  onSubmit,
+  screen,
+}: Props<SubmitValues, InitialValues>) {
   return (
-    <Form<PaymentMethodType>
+    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
       initialValues={initialValues}
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
@@ -39,6 +38,9 @@ function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler({
+export default withFormHandler<
+  PaymentMethodSubmitValues,
+  Record<string, never>
+>({
   screen: FormScreens.PAYMENT_METHOD,
 })(PaymentMethodScreen);

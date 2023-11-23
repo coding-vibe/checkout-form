@@ -4,21 +4,20 @@ import { Select } from 'mui-rff';
 import withFormHandler from 'components/withFormHandler';
 import DELIVERY_MODE_OPTIONS from 'constants/deliveryModeOptions';
 import FormScreens from 'constants/formScreens';
-import { InitialFormValuesType } from 'contexts/WizardFormContext';
+import DeliveryModeSubmitValues from 'types/deliveryMode';
+import FormScreen from 'types/formScreen';
 import { validateIsRequired } from 'utils/validation';
 
-type DeliveryModeType =
-  InitialFormValuesType[FormScreens.DELIVERY_MODE]['values'];
+interface Props<SubmitValues, InitialValues>
+  extends FormScreen<SubmitValues, InitialValues> {}
 
-interface Props {
-  initialValues: DeliveryModeType;
-  onSubmit: (values: DeliveryModeType) => void;
-  screen: FormScreens;
-}
-
-function DeliveryModeScreen({ initialValues, onSubmit, screen }: Props) {
+function DeliveryModeScreen<SubmitValues, InitialValues>({
+  initialValues,
+  onSubmit,
+  screen,
+}: Props<SubmitValues, InitialValues>) {
   return (
-    <Form<DeliveryModeType>
+    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
       initialValues={initialValues}
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
@@ -39,6 +38,8 @@ function DeliveryModeScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler({
-  screen: FormScreens.DELIVERY_MODE,
-})(DeliveryModeScreen);
+export default withFormHandler<DeliveryModeSubmitValues, Record<string, never>>(
+  {
+    screen: FormScreens.DELIVERY_MODE,
+  },
+)(DeliveryModeScreen);

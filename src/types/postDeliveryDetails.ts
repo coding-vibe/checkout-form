@@ -1,6 +1,6 @@
 interface PostDeliveryDetailsSubmitValues {
-  postCompany: null;
-  postOffice: null;
+  postCompany: string;
+  postOffice: string;
 }
 
 export default PostDeliveryDetailsSubmitValues;

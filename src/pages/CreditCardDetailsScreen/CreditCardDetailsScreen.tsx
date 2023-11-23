@@ -4,6 +4,8 @@ import CardNumberField from 'components/CardNumberField';
 import CVVCodeField from 'components/CVVCodeField';
 import withFormHandler from 'components/withFormHandler';
 import FormScreens from 'constants/formScreens';
+import CreditCardDetailsSubmitValues from 'types/creditCardDetails';
+import FormScreen from 'types/formScreen';
 import {
   composeValidators,
   validateDigitsCount,
@@ -15,21 +17,16 @@ import * as classes from './styles';
 const CARD_NUMBER_LENGTH = 16;
 const CVV_CODE_LENGTH = 3;
 
-interface CreditCardDetailsType {
-  cardNumber: null;
-  cvvCode: null;
-  expirationDate: string;
-}
+interface Props<SubmitValues, InitialValues>
+  extends FormScreen<SubmitValues, InitialValues> {}
 
-interface Props {
-  initialValues: CreditCardDetailsType;
-  onSubmit: (values: CreditCardDetailsType) => void;
-  screen: FormScreens;
-}
-
-function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
+function CreditCardDetailsScreen<SubmitValues, InitialValues>({
+  initialValues,
+  onSubmit,
+  screen,
+}: Props<SubmitValues, InitialValues>) {
   return (
-    <Form<CreditCardDetailsType>
+    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
       initialValues={initialValues}
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
@@ -81,7 +78,10 @@ function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler({
+export default withFormHandler<
+  CreditCardDetailsSubmitValues,
+  Record<string, never>
+>({
   screen: FormScreens.CREDIT_CARD_DETAILS,
   parentScreen: FormScreens.PAYMENT_METHOD,
 })(CreditCardDetailsScreen);

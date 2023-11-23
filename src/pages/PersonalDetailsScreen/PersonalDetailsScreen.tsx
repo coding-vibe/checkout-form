@@ -8,7 +8,11 @@ import { TextField } from 'mui-rff';
 import withFormHandler from 'components/withFormHandler';
 import PhoneField from 'components/PhoneField';
 import FormScreens from 'constants/formScreens';
-import { InitialFormValuesType } from 'contexts/WizardFormContext';
+import FormScreen from 'types/formScreen';
+import {
+  PersonalDetailsSubmitValues,
+  PersonalDetailsInitialValues,
+} from 'types/personalDetails';
 import {
   composeValidators,
   validateEmail,
@@ -18,17 +22,15 @@ import {
 
 const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 
-type PersonalDetailsType =
-  InitialFormValuesType[FormScreens.PERSONAL_DETAILS]['values'];
+interface Props<SubmitValues, InitialValues>
+  extends FormScreen<SubmitValues, InitialValues> {}
 
-interface Props {
-  initialValues: PersonalDetailsType;
-  onSubmit: (values: PersonalDetailsType) => void;
-  screen: FormScreens;
-}
-
-function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
-  const validateForm = (values: PersonalDetailsType) => {
+function PersonalDetailsScreen<SubmitValues, InitialValues>({
+  initialValues,
+  onSubmit,
+  screen,
+}: Props<SubmitValues, InitialValues>) {
+  const validateForm = (values: PersonalDetailsSubmitValues) => {
     let phoneNumberError;
 
     if (!values.phoneNumbers) {
@@ -48,7 +50,7 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   };
 
   return (
-    <Form<PersonalDetailsType>
+    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
       initialValues={initialValues}
       onSubmit={onSubmit}
       mutators={{
@@ -120,6 +122,6 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler({
+withFormHandler<PersonalDetailsSubmitValues, PersonalDetailsInitialValues>({
   screen: FormScreens.PERSONAL_DETAILS,
 })(PersonalDetailsScreen);

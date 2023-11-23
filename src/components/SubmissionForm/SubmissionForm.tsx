@@ -3,21 +3,20 @@ import Box from '@mui/material/Box';
 import { Checkboxes } from 'mui-rff';
 import withFormHandler from 'components/withFormHandler';
 import FormScreens from 'constants/formScreens';
-import { InitialFormValuesType } from 'contexts/WizardFormContext';
+import FormScreen from 'types/formScreen';
+import FormSubmissionSubmitValues from 'types/formSubmission';
 import { validateIsRequired } from 'utils/validation';
 
-type FormSubmissionType =
-  InitialFormValuesType[FormScreens.FORM_SUBMISSION]['values'];
+interface Props<SubmitValues, InitialValues>
+  extends FormScreen<SubmitValues, InitialValues> {}
 
-interface Props {
-  initialValues: FormSubmissionType;
-  onSubmit: (values: FormSubmissionType) => void;
-  screen: FormScreens;
-}
-
-function SubmissionForm({ initialValues, onSubmit, screen }: Props) {
+function SubmissionForm<SubmitValues, InitialValues>({
+  initialValues,
+  onSubmit,
+  screen,
+}: Props<SubmitValues, InitialValues>) {
   return (
-    <Form<FormSubmissionType>
+    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
       initialValues={initialValues}
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
@@ -42,6 +41,9 @@ function SubmissionForm({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler({
+export default withFormHandler<
+  FormSubmissionSubmitValues,
+  Record<string, never>
+>({
   screen: FormScreens.FORM_SUBMISSION,
 })(SubmissionForm);
