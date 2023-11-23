@@ -3,7 +3,9 @@ import Button from '@mui/material/Button';
 import WizardFormContext, {
   ParentScreens,
   Screens,
+  SubmitFormValuesType,
 } from 'contexts/WizardFormContext';
+import FormScreens from 'constants/formScreens';
 
 interface ComponentConfigProps {
   screen: Screens;
@@ -20,14 +22,7 @@ const withFormHandler =
     const { formValues, onSaveFormValues } = useContext(WizardFormContext);
 
     const handleSubmit = (
-      values: // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents, no-restricted-globals
-      | (typeof formValues)[screen]['values']
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-        | (typeof formValues)[parentScreen]['subStep']['values'],
+      values: SubmitFormValuesType<Omit<FormScreens, FormScreens.FORM_SUCCESS>>,
     ) => {
       onSaveFormValues(screen, values, parentScreen);
     };
