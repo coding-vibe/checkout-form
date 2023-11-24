@@ -49,14 +49,15 @@ export default function FullOrderDetails() {
                 </Link>
               </Tooltip>
             </div>
-            {Object.entries(values).map(([fieldName, fieldValue]) => (
-              <Box
-                key={fieldName}
-                sx={{ p: 1 }}>
-                <span css={classes.fieldName}>{fieldName}:&nbsp;</span>
-                <span css={classes.fieldValue}>{fieldValue}</span>
-              </Box>
-            ))}
+            {values &&
+              Object.entries(values).map(([fieldName, fieldValue]) => (
+                <Box
+                  key={fieldName}
+                  sx={{ p: 1 }}>
+                  <span css={classes.fieldName}>{fieldName}:&nbsp;</span>
+                  <span css={classes.fieldValue}>{fieldValue}</span>
+                </Box>
+              ))}
           </Paper>
         ))}
     </div>

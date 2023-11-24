@@ -1,5 +1,5 @@
 interface CourierDeliveryDetailsSubmitValues {
-  date: string;
+  date: Date;
   time: string;
   city: string;
   street: string;

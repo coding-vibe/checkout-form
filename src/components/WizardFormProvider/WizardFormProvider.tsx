@@ -22,6 +22,8 @@ export default function WizardFormProvider({ children }: Props) {
     screenValues,
     parent,
   ) => {
+    // eslint-disable-next-line no-debugger
+    debugger;
     handleSaveFormValues((prevFormValues) => {
       if (parent) {
         return {
