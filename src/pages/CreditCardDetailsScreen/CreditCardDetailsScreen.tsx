@@ -17,16 +17,11 @@ import * as classes from './styles';
 const CARD_NUMBER_LENGTH = 16;
 const CVV_CODE_LENGTH = 3;
 
-interface Props<SubmitValues, InitialValues>
-  extends FormScreenProps<SubmitValues, InitialValues> {}
+interface Props extends FormScreenProps<CreditCardDetailsSubmitValues> {}
 
-function CreditCardDetailsScreen<SubmitValues, InitialValues>({
-  initialValues,
-  onSubmit,
-  screen,
-}: Props<SubmitValues, InitialValues>) {
+function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   return (
-    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
+    <Form<CreditCardDetailsSubmitValues>
       initialValues={initialValues}
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
@@ -78,10 +73,7 @@ function CreditCardDetailsScreen<SubmitValues, InitialValues>({
   );
 }
 
-export default withFormHandler<
-  CreditCardDetailsSubmitValues,
-  Record<string, never>
->({
+export default withFormHandler({
   screen: FormScreens.CREDIT_CARD_DETAILS,
   parentScreen: FormScreens.PAYMENT_METHOD,
 })(CreditCardDetailsScreen);

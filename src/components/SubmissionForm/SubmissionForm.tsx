@@ -7,16 +7,11 @@ import FormScreenProps from 'types/formScreen';
 import FormSubmissionSubmitValues from 'types/formSubmission';
 import { validateIsRequired } from 'utils/validation';
 
-interface Props<SubmitValues, InitialValues>
-  extends FormScreenProps<SubmitValues, InitialValues> {}
+interface Props extends FormScreenProps<FormSubmissionSubmitValues> {}
 
-function SubmissionForm<SubmitValues, InitialValues>({
-  initialValues,
-  onSubmit,
-  screen,
-}: Props<SubmitValues, InitialValues>) {
+function SubmissionForm({ initialValues, onSubmit, screen }: Props) {
   return (
-    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
+    <Form<FormSubmissionSubmitValues>
       initialValues={initialValues}
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
@@ -41,9 +36,6 @@ function SubmissionForm<SubmitValues, InitialValues>({
   );
 }
 
-export default withFormHandler<
-  FormSubmissionSubmitValues,
-  Record<string, never>
->({
+export default withFormHandler({
   screen: FormScreens.FORM_SUBMISSION,
 })(SubmissionForm);

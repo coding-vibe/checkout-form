@@ -8,16 +8,11 @@ import FormScreenProps from 'types/formScreen';
 import PaymentMethodSubmitValues from 'types/paymentMethod';
 import { validateIsRequired } from 'utils/validation';
 
-interface Props<SubmitValues, InitialValues>
-  extends FormScreenProps<SubmitValues, InitialValues> {}
+interface Props extends FormScreenProps<PaymentMethodSubmitValues> {}
 
-function PaymentMethodScreen<SubmitValues, InitialValues>({
-  initialValues,
-  onSubmit,
-  screen,
-}: Props<SubmitValues, InitialValues>) {
+function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
   return (
-    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
+    <Form<PaymentMethodSubmitValues>
       initialValues={initialValues}
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
@@ -38,9 +33,6 @@ function PaymentMethodScreen<SubmitValues, InitialValues>({
   );
 }
 
-export default withFormHandler<
-  PaymentMethodSubmitValues,
-  Record<string, never>
->({
+export default withFormHandler({
   screen: FormScreens.PAYMENT_METHOD,
 })(PaymentMethodScreen);

@@ -21,7 +21,7 @@ export default function FormSubmissionSuccessScreen() {
       <span css={classes.mainText}>
         We have received your submission, and we will be in touch soon!
       </span>
-      {formValues.PAYMENT_METHOD.values.paymentMethod ===
+      {formValues.PAYMENT_METHOD.values?.paymentMethod ===
         PaymentMethods.CREDIT_CARD && (
         <span css={classes.text}>
           *&nbsp;In few seconds you will be redirected to the payment provider
