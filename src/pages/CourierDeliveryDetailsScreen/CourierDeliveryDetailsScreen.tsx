@@ -29,10 +29,11 @@ function CourierDeliveryDetailsScreen({
   screen,
 }: Props) {
   return (
-    <Form<CourierDeliveryDetailsSubmitValues>
+    <Form<Omit<CourierDeliveryDetailsSubmitValues, 'time'> & { time: Date }>
       initialValues={initialValues}
       onSubmit={(values) => {
         const { time } = values;
+
         const formattedValues = {
           ...values,
           time: format(time, 'p'),
