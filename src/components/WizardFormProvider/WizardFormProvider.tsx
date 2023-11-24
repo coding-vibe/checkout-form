@@ -1,12 +1,13 @@
 import { ReactNode, useEffect, useState } from 'react';
 import WizardFormContext, {
-  FormValues,
+  InitialFormValues,
   FormValuesType,
   saveFormValues,
 } from 'contexts/WizardFormContext';
 import FormScreens from 'constants/formScreens';
 import DeliveryModes from 'constants/deliveryModes';
 import PaymentMethods from 'constants/paymentMethods';
+import checkScreenIsNotSubStep from 'utils/checkScreenIsNotSubStep';
 
 interface Props {
   children: ReactNode;
@@ -14,123 +15,101 @@ interface Props {
 
 export default function WizardFormProvider({ children }: Props) {
   const [formValues, handleSaveFormValues] =
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    useState<FormValuesType>(FormValues);
+    useState<FormValuesType>(InitialFormValues);
 
   const onSaveFormValues: typeof saveFormValues = (
     screen,
     screenValues,
-    parent = null,
+    parent,
   ) => {
     handleSaveFormValues((prevFormValues) => {
-      const updateScreenValues = parent
-        ? {
+      if (parent) {
+        return {
+          ...prevFormValues,
+          [parent]: {
+            ...prevFormValues[parent],
             subStep: {
               id: screen,
               values: screenValues,
             },
-          }
-        : { values: screenValues };
+          },
+        };
+      }
 
-      const updateFormValues = (screen: FormScreens) => ({
-        ...prevFormValues,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        [screen]: {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          ...prevFormValues[screen],
-          ...updateScreenValues,
-        },
-      });
+      if (checkScreenIsNotSubStep(screen, parent)) {
+        return {
+          ...prevFormValues,
+          [screen]: {
+            ...prevFormValues[screen],
+            values: screenValues,
+          },
+        };
+      }
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      return parent ? updateFormValues(parent) : updateFormValues(screen);
+      throw new Error(
+        `Cannot submit values form screen ${screen} without specified parent`,
+      );
     });
   };
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     handleSaveFormValues((prevFormValues) => {
+      if (!formValues.DELIVERY_MODE.values?.deliveryType) {
+        return prevFormValues;
+      }
+
       const { deliveryType } = formValues.DELIVERY_MODE.values;
 
-      const update = () => {
-        if (deliveryType) {
-          if (deliveryType === DeliveryModes.COURIER)
-            return {
-              subStep: {
-                id: FormScreens.COURIER_DELIVERY_DETAILS,
-                values: {
-                  date: null,
-                  time: '',
-                  city: '',
-                  street: '',
-                  house: '',
-                  flat: null,
-                  intercom: null,
-                  hasElevator: false,
-                },
-              },
-            };
-
+      const getSubStep = (): {
+        id:
+          | FormScreens.POST_DELIVERY_DETAILS
+          | FormScreens.COURIER_DELIVERY_DETAILS;
+      } => {
+        if (deliveryType === DeliveryModes.COURIER)
           return {
-            subStep: {
-              id: FormScreens.POST_DELIVERY_DETAILS,
-              values: {
-                postCompany: null,
-                postOffice: null,
-              },
-            },
+            id: FormScreens.COURIER_DELIVERY_DETAILS,
+          };
+
+        if (deliveryType === DeliveryModes.POST_OFFICE) {
+          return {
+            id: FormScreens.POST_DELIVERY_DETAILS,
           };
         }
 
-        return null;
+        throw Error('Unknown delivery type submitted');
       };
 
       return {
         ...prevFormValues,
         [FormScreens.DELIVERY_MODE]: {
-          ...prevFormValues.DELIVERY_MODE,
-          ...update(),
+          ...prevFormValues[FormScreens.DELIVERY_MODE],
+          subStep: getSubStep(),
         },
       };
     });
   }, [formValues.DELIVERY_MODE.values]);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    handleSaveFormValues((prevFormValues) => {
-      const update = formValues.PAYMENT_METHOD.values.paymentMethod ===
-        PaymentMethods.CREDIT_CARD && {
-        subStep: {
-          id: FormScreens.PAYMENT_METHOD,
-          values: {
-            cardNumber: null,
-            cvvCode: null,
-            expirationDate: '',
-          },
-        },
-      };
-
-      return {
+    if (
+      formValues.PAYMENT_METHOD?.values?.paymentMethod ===
+      PaymentMethods.CREDIT_CARD
+    ) {
+      handleSaveFormValues((prevFormValues) => ({
         ...prevFormValues,
         [FormScreens.PAYMENT_METHOD]: {
-          ...prevFormValues.PAYMENT_METHOD,
-          ...update,
+          ...prevFormValues[FormScreens.PAYMENT_METHOD],
+          subStep: {
+            id: FormScreens.CREDIT_CARD_DETAILS,
+          },
         },
-      };
-    });
+      }));
+    }
   }, [formValues.PAYMENT_METHOD.values]);
 
   return (
     <WizardFormContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         formValues,
         onSaveFormValues,
       }}>

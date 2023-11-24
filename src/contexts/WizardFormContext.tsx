@@ -1,66 +1,48 @@
 import { createContext } from 'react';
 import FormScreens from 'constants/formScreens';
 import StepOrder from 'constants/stepOrder';
-import CourierDeliveryDetailsSubmitValues from 'types/courierDeliveryDetails';
-import CreditCardDetailsSubmitValues from 'types/creditCardDetails';
-import DeliveryModeSubmitValues from 'types/deliveryMode';
-import FormScreenValueType from 'types/formScreenValue';
-import FormSubmissionSubmitValues from 'types/formSubmission';
-import PaymentMethodSubmitValues from 'types/paymentMethod';
-import {
-  PersonalDetailsInitialValues,
-  PersonalDetailsSubmitValues,
-} from 'types/personalDetails';
-import PostDeliveryDetailsSubmitValues from 'types/postDeliveryDetails';
+import DeliveryModes from 'constants/deliveryModes';
+import PaymentMethods from 'constants/paymentMethods';
 
 export interface FormValuesType {
   [FormScreens.PERSONAL_DETAILS]: {
     order: StepOrder.PERSONAL_DETAILS;
-    values: FormScreenValueType<
-      PersonalDetailsSubmitValues,
-      PersonalDetailsInitialValues
-    >;
+    values: { phoneNumbers: string[] };
   };
   [FormScreens.DELIVERY_MODE]: {
     order: StepOrder.DELIVERY_MODE;
-    values: FormScreenValueType<DeliveryModeSubmitValues>;
-    subStep:
-      | FormScreenValueType<CourierDeliveryDetailsSubmitValues>
-      | FormScreenValueType<PostDeliveryDetailsSubmitValues>
-      | null;
+    values?: { deliveryType: DeliveryModes };
+    subStep?:
+      | { id: FormScreens.POST_DELIVERY_DETAILS; values?: object }
+      | { id: FormScreens.COURIER_DELIVERY_DETAILS; values?: object };
   };
   [FormScreens.PAYMENT_METHOD]: {
     order: StepOrder.PAYMENT_METHOD;
-    values: FormScreenValueType<PaymentMethodSubmitValues>;
-    subStep: FormScreenValueType<CreditCardDetailsSubmitValues> | null;
+    values?: { paymentMethod: PaymentMethods };
+    subStep?: { id: FormScreens.CREDIT_CARD_DETAILS; values?: object };
   };
   [FormScreens.FORM_SUBMISSION]: {
     order: StepOrder.FORM_SUBMISSION;
-    values: FormScreenValueType<FormSubmissionSubmitValues>;
+    values?: object;
   };
   [FormScreens.FORM_SUCCESS]: {
     order: StepOrder.FORM_SUCCESS;
   };
 }
 
-export const FormValues: FormValuesType = {
+export const InitialFormValues: FormValuesType = {
   [FormScreens.PERSONAL_DETAILS]: {
     order: StepOrder.PERSONAL_DETAILS,
     values: { phoneNumbers: [''] },
   },
   [FormScreens.DELIVERY_MODE]: {
     order: StepOrder.DELIVERY_MODE,
-    values: {},
-    subStep: null,
   },
   [FormScreens.PAYMENT_METHOD]: {
     order: StepOrder.PAYMENT_METHOD,
-    values: {},
-    subStep: null,
   },
   [FormScreens.FORM_SUBMISSION]: {
     order: StepOrder.FORM_SUBMISSION,
-    values: {},
   },
   [FormScreens.FORM_SUCCESS]: {
     order: StepOrder.FORM_SUCCESS,
@@ -73,34 +55,20 @@ export type ParentScreens =
   | FormScreens.DELIVERY_MODE
   | FormScreens.PAYMENT_METHOD;
 
-export type SubmitFormValuesType<Screen> =
-  Screen extends FormScreens.COURIER_DELIVERY_DETAILS
-    ? CourierDeliveryDetailsSubmitValues
-    : Screen extends FormScreens.CREDIT_CARD_DETAILS
-    ? CreditCardDetailsSubmitValues
-    : Screen extends FormScreens.DELIVERY_MODE
-    ? DeliveryModeSubmitValues
-    : Screen extends FormScreens.FORM_SUBMISSION
-    ? FormSubmissionSubmitValues
-    : Screen extends FormScreens.PAYMENT_METHOD
-    ? PaymentMethodSubmitValues
-    : Screen extends FormScreens.PERSONAL_DETAILS
-    ? PersonalDetailsSubmitValues
-    : Screen extends FormScreens.POST_DELIVERY_DETAILS
-    ? PostDeliveryDetailsSubmitValues
-    : never;
-
-export const saveFormValues = <T extends Screens, U extends ParentScreens>(
+export const saveFormValues = <
+  Screen extends Screens,
+  ParentScreen extends ParentScreens | undefined,
+>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _: T,
+  _: Screen,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  __: SubmitFormValuesType<T>,
+  __: object,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ___?: U | null,
+  ___?: ParentScreen,
 ) => {};
 
 const initialValue = {
-  formValues: FormValues,
+  formValues: InitialFormValues,
   onSaveFormValues: saveFormValues,
 };
 

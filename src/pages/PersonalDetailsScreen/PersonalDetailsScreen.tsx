@@ -5,10 +5,10 @@ import arrayMutators from 'final-form-arrays';
 import Button from '@mui/material/Button';
 import FormHelperText from '@mui/material/FormHelperText';
 import { TextField } from 'mui-rff';
-import withFormHandler from 'components/withFormHandler';
+import withFormHandler from 'components/withFormScreenProps';
 import PhoneField from 'components/PhoneField';
 import FormScreens from 'constants/formScreens';
-import FormScreen from 'types/formScreen';
+import FormScreenProps from 'types/formScreen';
 import {
   PersonalDetailsSubmitValues,
   PersonalDetailsInitialValues,
@@ -22,14 +22,13 @@ import {
 
 const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 
-interface Props<SubmitValues, InitialValues>
-  extends FormScreen<SubmitValues, InitialValues> {}
+interface Props
+  extends FormScreenProps<
+    PersonalDetailsSubmitValues,
+    PersonalDetailsInitialValues
+  > {}
 
-function PersonalDetailsScreen<SubmitValues, InitialValues>({
-  initialValues,
-  onSubmit,
-  screen,
-}: Props<SubmitValues, InitialValues>) {
+function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   const validateForm = (values: PersonalDetailsSubmitValues) => {
     let phoneNumberError;
 
@@ -50,7 +49,7 @@ function PersonalDetailsScreen<SubmitValues, InitialValues>({
   };
 
   return (
-    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
+    <Form<PersonalDetailsSubmitValues, PersonalDetailsInitialValues>
       initialValues={initialValues}
       onSubmit={onSubmit}
       mutators={{
@@ -122,6 +121,8 @@ function PersonalDetailsScreen<SubmitValues, InitialValues>({
   );
 }
 
-withFormHandler<PersonalDetailsSubmitValues, PersonalDetailsInitialValues>({
+export default withFormHandler({
   screen: FormScreens.PERSONAL_DETAILS,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
 })(PersonalDetailsScreen);

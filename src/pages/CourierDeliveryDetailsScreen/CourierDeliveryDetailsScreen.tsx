@@ -3,10 +3,10 @@ import { addDays, format } from 'date-fns';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Checkboxes, DatePicker, TextField, TimePicker } from 'mui-rff';
-import withFormHandler from 'components/withFormHandler';
+import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
 import CourierDeliveryDetailsSubmitValues from 'types/courierDeliveryDetails';
-import FormScreen from 'types/formScreen';
+import FormScreenProps from 'types/formScreen';
 import {
   composeValidators,
   validateMinDate,
@@ -21,16 +21,15 @@ const MIN_DELIVERY_DATE = addDays(new Date(), MIN_DELIVERY_DAYS);
 const formatHandler = (value: number) => value || null;
 const parseHandler = (value: string) => value && parseInt(value, 10);
 
-interface Props<SubmitValues, InitialValues>
-  extends FormScreen<SubmitValues, InitialValues> {}
+interface Props extends FormScreenProps<CourierDeliveryDetailsSubmitValues> {}
 
-function CourierDeliveryDetailsScreen<SubmitValues, InitialValues>({
+function CourierDeliveryDetailsScreen({
   initialValues,
   onSubmit,
   screen,
-}: Props<SubmitValues, InitialValues>) {
+}: Props) {
   return (
-    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
+    <Form<CourierDeliveryDetailsSubmitValues>
       initialValues={initialValues}
       onSubmit={(values) => {
         const { time } = values;
@@ -38,6 +37,7 @@ function CourierDeliveryDetailsScreen<SubmitValues, InitialValues>({
           ...values,
           time: format(time, 'p'),
         };
+
         onSubmit(formattedValues);
       }}
       render={({ handleSubmit }) => (
@@ -131,10 +131,7 @@ function CourierDeliveryDetailsScreen<SubmitValues, InitialValues>({
   );
 }
 
-export default withFormHandler<
-  CourierDeliveryDetailsSubmitValues,
-  Record<string, never>
->({
+export default withFormHandler({
   screen: FormScreens.COURIER_DELIVERY_DETAILS,
   parentScreen: FormScreens.DELIVERY_MODE,
 })(CourierDeliveryDetailsScreen);

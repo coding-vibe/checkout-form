@@ -3,23 +3,18 @@ import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import { Select } from 'mui-rff';
 import CustomFormSpy from 'components/CustomFormSpy';
-import withFormHandler from 'components/withFormHandler';
+import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
 import PostCompanies from 'constants/postCompanies';
 import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
 import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
 import PostDeliveryDetailsSubmitValues from 'types/postDeliveryDetails';
-import FormScreen from 'types/formScreen';
+import FormScreenProps from 'types/formScreen';
 import { validateIsRequired } from 'utils/validation';
 
-interface Props<SubmitValues, InitialValues>
-  extends FormScreen<SubmitValues, InitialValues> {}
+interface Props extends FormScreenProps<PostDeliveryDetailsSubmitValues> {}
 
-function PostDeliveryDetailsScreen<SubmitValues, InitialValues>({
-  initialValues,
-  onSubmit,
-  screen,
-}: Props<SubmitValues, InitialValues>) {
+function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   const getPostOfficeOptions = (postCompany: PostCompanies | null) => {
     if (!postCompany) {
       return [];
@@ -37,7 +32,7 @@ function PostDeliveryDetailsScreen<SubmitValues, InitialValues>({
   };
 
   return (
-    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
+    <Form<PostDeliveryDetailsSubmitValues>
       initialValues={initialValues}
       onSubmit={onSubmit}
       render={({ handleSubmit, values }) => (
@@ -56,10 +51,7 @@ function PostDeliveryDetailsScreen<SubmitValues, InitialValues>({
               />
             </Box>
             <Box sx={{ mb: 2 }}>
-              {values &&
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              values.postCompany ? (
+              {values && values.postCompany ? (
                 <Select
                   data={getPostOfficeOptions(values.postCompany)}
                   fieldProps={{ validate: validateIsRequired }}
@@ -88,7 +80,7 @@ function PostDeliveryDetailsScreen<SubmitValues, InitialValues>({
   );
 }
 
-withFormHandler<PostDeliveryDetailsSubmitValues, Record<string, never>>({
+export default withFormHandler({
   screen: FormScreens.POST_DELIVERY_DETAILS,
   parentScreen: FormScreens.DELIVERY_MODE,
 })(PostDeliveryDetailsScreen);

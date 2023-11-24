@@ -2,10 +2,10 @@ import { Form } from 'react-final-form';
 import CardExpiryField from 'components/CardExpiryField';
 import CardNumberField from 'components/CardNumberField';
 import CVVCodeField from 'components/CVVCodeField';
-import withFormHandler from 'components/withFormHandler';
+import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
 import CreditCardDetailsSubmitValues from 'types/creditCardDetails';
-import FormScreen from 'types/formScreen';
+import FormScreenProps from 'types/formScreen';
 import {
   composeValidators,
   validateDigitsCount,
@@ -18,7 +18,7 @@ const CARD_NUMBER_LENGTH = 16;
 const CVV_CODE_LENGTH = 3;
 
 interface Props<SubmitValues, InitialValues>
-  extends FormScreen<SubmitValues, InitialValues> {}
+  extends FormScreenProps<SubmitValues, InitialValues> {}
 
 function CreditCardDetailsScreen<SubmitValues, InitialValues>({
   initialValues,

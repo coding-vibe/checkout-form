@@ -1,23 +1,18 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import { Select } from 'mui-rff';
-import withFormHandler from 'components/withFormHandler';
+import withFormHandler from 'components/withFormScreenProps';
 import DELIVERY_MODE_OPTIONS from 'constants/deliveryModeOptions';
 import FormScreens from 'constants/formScreens';
 import DeliveryModeSubmitValues from 'types/deliveryMode';
-import FormScreen from 'types/formScreen';
+import FormScreenProps from 'types/formScreen';
 import { validateIsRequired } from 'utils/validation';
 
-interface Props<SubmitValues, InitialValues>
-  extends FormScreen<SubmitValues, InitialValues> {}
+interface Props extends FormScreenProps<DeliveryModeSubmitValues> {}
 
-function DeliveryModeScreen<SubmitValues, InitialValues>({
-  initialValues,
-  onSubmit,
-  screen,
-}: Props<SubmitValues, InitialValues>) {
+function DeliveryModeScreen({ initialValues, onSubmit, screen }: Props) {
   return (
-    <Form<SubmitValues, SubmitValues | InitialValues | undefined>
+    <Form<DeliveryModeSubmitValues>
       initialValues={initialValues}
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
@@ -38,8 +33,6 @@ function DeliveryModeScreen<SubmitValues, InitialValues>({
   );
 }
 
-export default withFormHandler<DeliveryModeSubmitValues, Record<string, never>>(
-  {
-    screen: FormScreens.DELIVERY_MODE,
-  },
-)(DeliveryModeScreen);
+export default withFormHandler({
+  screen: FormScreens.DELIVERY_MODE,
+})(DeliveryModeScreen);

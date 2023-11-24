@@ -1,14 +1,14 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import { Checkboxes } from 'mui-rff';
-import withFormHandler from 'components/withFormHandler';
+import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
-import FormScreen from 'types/formScreen';
+import FormScreenProps from 'types/formScreen';
 import FormSubmissionSubmitValues from 'types/formSubmission';
 import { validateIsRequired } from 'utils/validation';
 
 interface Props<SubmitValues, InitialValues>
-  extends FormScreen<SubmitValues, InitialValues> {}
+  extends FormScreenProps<SubmitValues, InitialValues> {}
 
 function SubmissionForm<SubmitValues, InitialValues>({
   initialValues,

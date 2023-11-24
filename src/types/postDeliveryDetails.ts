@@ -1,5 +1,7 @@
+import PostCompanies from 'constants/postCompanies';
+
 interface PostDeliveryDetailsSubmitValues {
-  postCompany: string;
+  postCompany: PostCompanies;
   postOffice: string;
 }
 

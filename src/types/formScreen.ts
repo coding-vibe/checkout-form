@@ -1,9 +1,9 @@
 import FormScreens from 'constants/formScreens';
 
-interface FormScreen<SubmitValues, InitialValues = Record<string, never>> {
-  initialValues: InitialValues;
+interface FormScreenProps<SubmitValues, InitialValues = undefined | object> {
+  initialValues?: InitialValues;
   onSubmit: (values: SubmitValues) => void;
   screen: FormScreens;
 }
 
-export default FormScreen;
+export default FormScreenProps;
