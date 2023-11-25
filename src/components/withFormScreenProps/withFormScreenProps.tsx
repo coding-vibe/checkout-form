@@ -61,7 +61,7 @@ function withFormScreenProps({ screen, parentScreen }: WrapperProps) {
       );
     }
 
-    FormScreen.displayName = `withFormProps${FormScreen.name}`;
+    FormScreen.displayName = `withFormProps(${Component.name})`;
 
     return FormScreen;
   };
