@@ -1,12 +1,12 @@
 import { ReactNode, useEffect, useState } from 'react';
 import WizardFormContext, {
   InitialFormValues,
-  FormValuesType,
   saveFormValues,
 } from 'contexts/WizardFormContext';
 import FormScreens from 'constants/formScreens';
 import DeliveryModes from 'constants/deliveryModes';
 import PaymentMethods from 'constants/paymentMethods';
+import { FormValuesType } from 'types/formTypes';
 import checkScreenIsNotSubStep from 'utils/checkScreenIsNotSubStep';
 
 interface Props {
@@ -22,8 +22,6 @@ export default function WizardFormProvider({ children }: Props) {
     screenValues,
     parent,
   ) => {
-    // eslint-disable-next-line no-debugger
-    debugger;
     handleSaveFormValues((prevFormValues) => {
       if (parent) {
         return {

@@ -1,10 +1,8 @@
 import { useContext, FC } from 'react';
 import Button from '@mui/material/Button';
-import WizardFormContext, {
-  ParentScreens,
-  Screens,
-} from 'contexts/WizardFormContext';
+import WizardFormContext from 'contexts/WizardFormContext';
 import FormScreens from 'constants/formScreens';
+import { ParentScreens, Screens } from 'types/formTypes';
 import checkScreenIsNotSubStep from 'utils/checkScreenIsNotSubStep';
 
 interface WrapperProps {

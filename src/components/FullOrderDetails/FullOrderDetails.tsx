@@ -7,7 +7,8 @@ import Paper from '@mui/material/Paper';
 import Tooltip from '@mui/material/Tooltip';
 import FormScreens from 'constants/formScreens';
 import routes from 'constants/routes';
-import WizardFormContext, { FormValuesType } from 'contexts/WizardFormContext';
+import WizardFormContext from 'contexts/WizardFormContext';
+import { FormValuesType } from 'types/formTypes';
 import * as classes from './styles';
 
 type FullOrderDetailsType = FormValuesType[keyof Omit<
