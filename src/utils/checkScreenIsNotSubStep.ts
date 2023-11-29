@@ -1,5 +1,5 @@
 import FormScreens from 'constants/formScreens';
-import { ParentScreens, Screens } from 'contexts/WizardFormContext';
+import { ParentScreens, Screens } from 'types/formTypes';
 
 const checkScreenIsNotSubStep = (
   screen: Screens,
