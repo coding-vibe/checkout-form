@@ -1,54 +1,41 @@
 import { createContext } from 'react';
 import FormScreens from 'constants/formScreens';
+import StepOrder from 'constants/stepOrder';
+import { FormValuesType, ParentScreens, Screens } from 'types/formTypes';
 
-export const initialFormValues = {
+export const InitialFormValues: FormValuesType = {
   [FormScreens.PERSONAL_DETAILS]: {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumbers: [''],
+    order: StepOrder.PERSONAL_DETAILS,
+    values: { phoneNumbers: [''] },
   },
   [FormScreens.DELIVERY_MODE]: {
-    deliveryMode: null,
-  },
-  [FormScreens.COURIER_DELIVERY_DETAILS]: {
-    date: null,
-    time: '',
-    city: '',
-    street: '',
-    house: '',
-    flat: null,
-    intercom: null,
-    hasElevator: false,
-  },
-  [FormScreens.POST_DELIVERY_DETAILS]: {
-    postCompany: null,
-    postOffice: null,
+    order: StepOrder.DELIVERY_MODE,
   },
   [FormScreens.PAYMENT_METHOD]: {
-    paymentMethod: null,
-  },
-  [FormScreens.CREDIT_CARD_DETAILS]: {
-    cardNumber: null,
-    cvvCode: null,
-    expirationDate: '',
+    order: StepOrder.PAYMENT_METHOD,
   },
   [FormScreens.FORM_SUBMISSION]: {
-    isAgree: false,
+    order: StepOrder.FORM_SUBMISSION,
+  },
+  [FormScreens.FORM_SUCCESS]: {
+    order: StepOrder.FORM_SUCCESS,
   },
 };
 
-export type InitialFormValuesType = typeof initialFormValues;
-
-export const saveFormValues = <T extends Exclude<FormScreens, 'FORM_SUCCESS'>>(
+export const saveFormValues = <
+  Screen extends Screens,
+  ParentScreen extends ParentScreens | undefined,
+>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _: T,
+  _: Screen,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  __: (typeof initialFormValues)[T],
+  __: object,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ___?: ParentScreen,
 ) => {};
 
 const initialValue = {
-  formValues: initialFormValues,
+  formValues: InitialFormValues,
   onSaveFormValues: saveFormValues,
 };
 

@@ -1,25 +1,20 @@
-import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import { Select } from 'mui-rff';
 import CustomFormSpy from 'components/CustomFormSpy';
+import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext, {
-  InitialFormValuesType,
-} from 'contexts/WizardFormContext';
-import { validateIsRequired } from 'utils/validation';
 import PostCompanies from 'constants/postCompanies';
 import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
 import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
+import PostDeliveryDetailsSubmitValues from 'types/postDeliveryDetails';
+import FormScreenProps from 'types/formScreen';
+import { validateIsRequired } from 'utils/validation';
 
-type PostDeliveryDetailsType =
-  InitialFormValuesType[FormScreens.POST_DELIVERY_DETAILS];
+interface Props extends FormScreenProps<PostDeliveryDetailsSubmitValues> {}
 
-export default function PostDeliveryDetailsScreen() {
-  const { onSaveFormValues } = useContext(WizardFormContext);
-
+function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   const getPostOfficeOptions = (postCompany: PostCompanies | null) => {
     if (!postCompany) {
       return [];
@@ -37,13 +32,14 @@ export default function PostDeliveryDetailsScreen() {
   };
 
   return (
-    <Form<PostDeliveryDetailsType>
-      onSubmit={(values) => {
-        onSaveFormValues(FormScreens.POST_DELIVERY_DETAILS, values);
-      }}
-      render={({ handleSubmit, pristine, submitting, values }) => (
+    <Form<PostDeliveryDetailsSubmitValues>
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      render={({ handleSubmit, values }) => (
         <>
-          <form onSubmit={handleSubmit}>
+          <form
+            id={screen}
+            onSubmit={handleSubmit}>
             <Box sx={{ mb: 2 }}>
               <Select
                 data={POST_COMPANIES_OPTIONS}
@@ -55,7 +51,7 @@ export default function PostDeliveryDetailsScreen() {
               />
             </Box>
             <Box sx={{ mb: 2 }}>
-              {values.postCompany ? (
+              {values && values.postCompany ? (
                 <Select
                   data={getPostOfficeOptions(values.postCompany)}
                   fieldProps={{ validate: validateIsRequired }}
@@ -76,12 +72,6 @@ export default function PostDeliveryDetailsScreen() {
                 </Tooltip>
               )}
             </Box>
-            <Button
-              disabled={submitting || pristine}
-              type='submit'
-              variant='contained'>
-              Next step
-            </Button>
           </form>
           <CustomFormSpy postCompany={values.postCompany} />
         </>
@@ -89,3 +79,8 @@ export default function PostDeliveryDetailsScreen() {
     />
   );
 }
+
+export default withFormHandler({
+  screen: FormScreens.POST_DELIVERY_DETAILS,
+  parentScreen: FormScreens.DELIVERY_MODE,
+})(PostDeliveryDetailsScreen);

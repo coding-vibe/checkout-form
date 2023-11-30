@@ -1,16 +1,18 @@
-import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { ARRAY_ERROR } from 'final-form';
 import arrayMutators from 'final-form-arrays';
-import { FormHelperText } from '@mui/material';
 import Button from '@mui/material/Button';
+import FormHelperText from '@mui/material/FormHelperText';
 import { TextField } from 'mui-rff';
+import withFormHandler from 'components/withFormScreenProps';
 import PhoneField from 'components/PhoneField';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext, {
-  InitialFormValuesType,
-} from 'contexts/WizardFormContext';
+import FormScreenProps from 'types/formScreen';
+import {
+  PersonalDetailsSubmitValues,
+  PersonalDetailsInitialValues,
+} from 'types/personalDetails';
 import {
   composeValidators,
   validateEmail,
@@ -20,11 +22,14 @@ import {
 
 const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 
-type PersonalDetailsType = InitialFormValuesType[FormScreens.PERSONAL_DETAILS];
+interface Props
+  extends FormScreenProps<
+    PersonalDetailsSubmitValues,
+    PersonalDetailsInitialValues
+  > {}
 
-export default function PersonalDetailsScreen() {
-  const { onSaveFormValues } = useContext(WizardFormContext);
-  const validateForm = (values: PersonalDetailsType) => {
+function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
+  const validateForm = (values: PersonalDetailsSubmitValues) => {
     let phoneNumberError;
 
     if (!values.phoneNumbers) {
@@ -44,16 +49,17 @@ export default function PersonalDetailsScreen() {
   };
 
   return (
-    <Form<PersonalDetailsType>
-      onSubmit={(values) => {
-        onSaveFormValues(FormScreens.PERSONAL_DETAILS, values);
-      }}
-      mutators={{
-        ...arrayMutators,
-      }}
+    <Form<PersonalDetailsSubmitValues, PersonalDetailsInitialValues>
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      mutators={arrayMutators}
       validate={validateForm}
       render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
+        <form
+          id={screen}
+          onSubmit={handleSubmit}>
           <TextField
             fieldProps={{ validate: validateIsRequired }}
             label='First Name'
@@ -109,13 +115,14 @@ export default function PersonalDetailsScreen() {
               </div>
             )}
           </FieldArray>
-          <Button
-            type='submit'
-            variant='contained'>
-            Next step
-          </Button>
         </form>
       )}
     />
   );
 }
+
+export default withFormHandler({
+  screen: FormScreens.PERSONAL_DETAILS,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+})(PersonalDetailsScreen);

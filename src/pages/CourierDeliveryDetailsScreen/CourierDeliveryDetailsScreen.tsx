@@ -1,15 +1,12 @@
-import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import { addDays, format } from 'date-fns';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Checkboxes, DatePicker, TextField, TimePicker } from 'mui-rff';
+import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext, {
-  InitialFormValuesType,
-  initialFormValues,
-} from 'contexts/WizardFormContext';
+import CourierDeliveryDetailsSubmitValues from 'types/courierDeliveryDetails';
+import FormScreenProps from 'types/formScreen';
 import {
   composeValidators,
   validateMinDate,
@@ -24,27 +21,30 @@ const MIN_DELIVERY_DATE = addDays(new Date(), MIN_DELIVERY_DAYS);
 const formatHandler = (value: number) => value || null;
 const parseHandler = (value: string) => value && parseInt(value, 10);
 
-type InitialValuesType =
-  InitialFormValuesType[FormScreens.COURIER_DELIVERY_DETAILS];
+interface Props extends FormScreenProps<CourierDeliveryDetailsSubmitValues> {}
 
-type SubmitValuesType = Omit<InitialValuesType, 'time'> & { time: Date };
-
-export default function DeliveryDetailsScreen() {
-  const { onSaveFormValues } = useContext(WizardFormContext);
-
+function CourierDeliveryDetailsScreen({
+  initialValues,
+  onSubmit,
+  screen,
+}: Props) {
   return (
-    <Form<SubmitValuesType, InitialValuesType>
-      initialValues={initialFormValues[FormScreens.COURIER_DELIVERY_DETAILS]}
+    <Form<Omit<CourierDeliveryDetailsSubmitValues, 'time'> & { time: Date }>
+      initialValues={initialValues}
       onSubmit={(values) => {
         const { time } = values;
+
         const formattedValues = {
           ...values,
           time: format(time, 'p'),
         };
-        onSaveFormValues(FormScreens.COURIER_DELIVERY_DETAILS, formattedValues);
+
+        onSubmit(formattedValues);
       }}
       render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
+        <form
+          id={screen}
+          onSubmit={handleSubmit}>
           <fieldset css={classes.fieldset}>
             <Box sx={{ mb: 2, color: 'info.dark' }}>
               <Typography variant='overline'>
@@ -126,13 +126,13 @@ export default function DeliveryDetailsScreen() {
               name='hasElevator'
             />
           </fieldset>
-          <Button
-            type='submit'
-            variant='contained'>
-            Next step
-          </Button>
         </form>
       )}
     />
   );
 }
+
+export default withFormHandler({
+  screen: FormScreens.COURIER_DELIVERY_DETAILS,
+  parentScreen: FormScreens.DELIVERY_MODE,
+})(CourierDeliveryDetailsScreen);

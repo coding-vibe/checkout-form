@@ -1,13 +1,11 @@
-import { useContext } from 'react';
 import { Form } from 'react-final-form';
-import Button from '@mui/material/Button';
 import CardExpiryField from 'components/CardExpiryField';
 import CardNumberField from 'components/CardNumberField';
 import CVVCodeField from 'components/CVVCodeField';
+import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext, {
-  InitialFormValuesType,
-} from 'contexts/WizardFormContext';
+import CreditCardDetailsSubmitValues from 'types/creditCardDetails';
+import FormScreenProps from 'types/formScreen';
 import {
   composeValidators,
   validateDigitsCount,
@@ -19,19 +17,17 @@ import * as classes from './styles';
 const CARD_NUMBER_LENGTH = 16;
 const CVV_CODE_LENGTH = 3;
 
-type CreditCardDetailsType =
-  InitialFormValuesType[FormScreens.CREDIT_CARD_DETAILS];
+interface Props extends FormScreenProps<CreditCardDetailsSubmitValues> {}
 
-export default function CreditCardDetailsScreen() {
-  const { onSaveFormValues } = useContext(WizardFormContext);
-
+function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   return (
-    <Form<CreditCardDetailsType>
-      onSubmit={(values) => {
-        onSaveFormValues(FormScreens.CREDIT_CARD_DETAILS, values);
-      }}
+    <Form<CreditCardDetailsSubmitValues>
+      initialValues={initialValues}
+      onSubmit={onSubmit}
       render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
+        <form
+          id={screen}
+          onSubmit={handleSubmit}>
           <div css={classes.fields}>
             <CardNumberField
               css={classes.field}
@@ -71,14 +67,13 @@ export default function CreditCardDetailsScreen() {
               />
             </div>
           </div>
-          <Button
-            sx={{ ml: 1 }}
-            type='submit'
-            variant='contained'>
-            Next step
-          </Button>
         </form>
       )}
     />
   );
 }
+
+export default withFormHandler({
+  screen: FormScreens.CREDIT_CARD_DETAILS,
+  parentScreen: FormScreens.PAYMENT_METHOD,
+})(CreditCardDetailsScreen);

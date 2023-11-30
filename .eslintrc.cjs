@@ -59,7 +59,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'react/react-in-jsx-scope': 0,
     'react/jsx-props-no-spreading': 0,
-    '@typescript-eslint/no-shadow': 0
+    '@typescript-eslint/no-shadow': 0,
   },
   settings: {
     'import/resolver': {

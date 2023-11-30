@@ -1,27 +1,24 @@
-import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { Select } from 'mui-rff';
+import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
 import PAYMENT_METHODS_OPTIONS from 'constants/paymentMethodOptions';
-import WizardFormContext, {
-  InitialFormValuesType,
-} from 'contexts/WizardFormContext';
+import FormScreenProps from 'types/formScreen';
+import PaymentMethodSubmitValues from 'types/paymentMethod';
 import { validateIsRequired } from 'utils/validation';
 
-type PaymentMethodType = InitialFormValuesType[FormScreens.PAYMENT_METHOD];
+interface Props extends FormScreenProps<PaymentMethodSubmitValues> {}
 
-export default function PaymentMethodScreen() {
-  const { onSaveFormValues } = useContext(WizardFormContext);
-
+function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
   return (
-    <Form<PaymentMethodType>
-      onSubmit={(values) => {
-        onSaveFormValues(FormScreens.PAYMENT_METHOD, values);
-      }}
+    <Form<PaymentMethodSubmitValues>
+      initialValues={initialValues}
+      onSubmit={onSubmit}
       render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
+        <form
+          id={screen}
+          onSubmit={handleSubmit}>
           <Box sx={{ mb: 2 }}>
             <Select
               data={PAYMENT_METHODS_OPTIONS}
@@ -30,13 +27,12 @@ export default function PaymentMethodScreen() {
               name='paymentMethod'
             />
           </Box>
-          <Button
-            type='submit'
-            variant='contained'>
-            Next step
-          </Button>
         </form>
       )}
     />
   );
 }
+
+export default withFormHandler({
+  screen: FormScreens.PAYMENT_METHOD,
+})(PaymentMethodScreen);

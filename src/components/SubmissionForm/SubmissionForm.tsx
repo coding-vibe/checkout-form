@@ -1,28 +1,23 @@
-import { useContext } from 'react';
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import { Checkboxes } from 'mui-rff';
+import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
-import WizardFormContext, {
-  InitialFormValuesType,
-  initialFormValues,
-} from 'contexts/WizardFormContext';
+import FormScreenProps from 'types/formScreen';
+import FormSubmissionSubmitValues from 'types/formSubmission';
 import { validateIsRequired } from 'utils/validation';
 
-type FormSubmissionType = InitialFormValuesType[FormScreens.FORM_SUBMISSION];
+interface Props extends FormScreenProps<FormSubmissionSubmitValues> {}
 
-export default function SubmissionForm() {
-  const { onSaveFormValues } = useContext(WizardFormContext);
-
+function SubmissionForm({ initialValues, onSubmit, screen }: Props) {
   return (
-    <Form<FormSubmissionType>
-      initialValues={initialFormValues[FormScreens.FORM_SUBMISSION]}
-      onSubmit={(values) => {
-        onSaveFormValues(FormScreens.FORM_SUBMISSION, values);
-      }}
+    <Form<FormSubmissionSubmitValues>
+      initialValues={initialValues}
+      onSubmit={onSubmit}
       render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
+        <form
+          id={screen}
+          onSubmit={handleSubmit}>
           <Box sx={{ mb: 2 }}>
             <Checkboxes
               data={{
@@ -35,13 +30,12 @@ export default function SubmissionForm() {
               name='isAgree'
             />
           </Box>
-          <Button
-            type='submit'
-            variant='contained'>
-            Submit
-          </Button>
         </form>
       )}
     />
   );
 }
+
+export default withFormHandler({
+  screen: FormScreens.FORM_SUBMISSION,
+})(SubmissionForm);
