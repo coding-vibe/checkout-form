@@ -52,9 +52,9 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
     <Form<PersonalDetailsSubmitValues, PersonalDetailsInitialValues>
       initialValues={initialValues}
       onSubmit={onSubmit}
-      mutators={{
-        ...arrayMutators,
-      }}
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      mutators={arrayMutators}
       validate={validateForm}
       render={({ handleSubmit }) => (
         <form
