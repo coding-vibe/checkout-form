@@ -40,7 +40,7 @@ export default function WizardFormProvider({ children }: Props) {
       }
 
       if (checkScreenIsNotSubStep(screen, parent)) {
-        if (formValues.DELIVERY_MODE.values) {
+        if (formValues.DELIVERY_MODE.values?.deliveryType) {
           const { deliveryType } = formValues.DELIVERY_MODE.values;
 
           const getSubStep = (): {
