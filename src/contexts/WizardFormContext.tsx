@@ -22,6 +22,7 @@ export const InitialFormValues: FormValuesType = {
     order: StepOrder.FORM_SUBMISSION,
   },
   [FormScreens.FORM_SUCCESS]: {
+    isCompleted: false,
     order: StepOrder.FORM_SUCCESS,
   },
 };

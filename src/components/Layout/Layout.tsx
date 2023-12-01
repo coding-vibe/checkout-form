@@ -7,9 +7,8 @@ import StepLabel from '@mui/material/StepLabel';
 import FormScreens from 'constants/formScreens';
 import routes from 'constants/routes';
 import WizardFormContext from 'contexts/WizardFormContext';
+import Entries from 'types/entries';
 import { FormValuesType } from 'types/formTypes';
-
-const STEPS = Object.keys(FormScreens);
 
 interface StepType {
   step: FormScreens;
@@ -17,99 +16,70 @@ interface StepType {
   url: string;
 }
 
-type ScreensType = FormValuesType[keyof FormValuesType];
-
 export default function Layout() {
   const { formValues } = useContext(WizardFormContext);
+  const location = useLocation();
 
-  const createStepList = (formValues: FormValuesType): StepType[] => {
-    const stepList = Object.entries<ScreensType>(formValues)
+  const getMenuItemsFormStep = (formValues: FormValuesType): StepType[] => {
+    // https://www.charpeni.com/blog/properly-type-object-keys-and-object-entries
+    const menuItemsList = (
+      Object.entries(formValues) as Entries<typeof formValues>
+    )
       .sort((a, b) => {
         const orderA = a[1].order;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         const orderB = b[1].order;
 
         return orderA - orderB;
       })
       .map(([screen, step]) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const { isCompleted } = step;
-        const url = routes[screen as FormScreens];
+        const url = routes[screen];
 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        return { isCompleted, step: screen as FormScreens, url };
-      });
+        return { isCompleted, step: screen, url };
+      })
+      .reduce<StepType[]>((accumulator, element) => {
+        const { step } = element;
 
-    return stepList;
+        if (
+          step === FormScreens.DELIVERY_MODE ||
+          step === FormScreens.PAYMENT_METHOD
+        ) {
+          const subStep = formValues[step]?.subStep;
+
+          if (subStep) {
+            const menuItem = {
+              isCompleted: false,
+              step: subStep.id,
+              url: routes[subStep.id],
+            };
+            accumulator.push(element, menuItem);
+          } else {
+            accumulator.push(element);
+          }
+        } else {
+          accumulator.push(element);
+        }
+
+        return accumulator;
+      }, []);
+
+    return menuItemsList;
   };
 
-  const appendSubstepsToSteps = createStepList(formValues).reduce(
-    (accumulator, element) => {
-      const { step } = element;
+  const formStepList = getMenuItemsFormStep(formValues);
 
-      if (
-        (step === FormScreens.DELIVERY_MODE ||
-          element.step === FormScreens.PAYMENT_METHOD) &&
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-        formValues[step]?.subStep
-      ) {
-        const subStep = {
-          isCompleted: false,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-          step: formValues[step].subStep.id,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-          url: routes[formValues[step].subStep?.id],
-        };
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        accumulator.push(element, subStep);
-      } else {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        accumulator.push(element);
-      }
-
-      return accumulator;
-    },
-    [],
-  );
-
-  console.log(appendSubstepsToSteps);
-
-  function getActiveStep(path: string) {
-    switch (path) {
-      case routes.PERSONAL_DETAILS:
-        return formValues.PERSONAL_DETAILS.order;
-      case routes.DELIVERY_MODE:
-        return formValues.DELIVERY_MODE.order;
-      case routes.PAYMENT_METHOD:
-        return formValues.PAYMENT_METHOD.order;
-      case routes.FORM_SUBMISSION:
-        return formValues.FORM_SUBMISSION.order;
-      case routes.FORM_SUCCESS:
-        return formValues.FORM_SUCCESS.order;
-      default:
-        return formValues.PERSONAL_DETAILS.order;
-    }
-  }
-
-  const location = useLocation();
+  const getActiveStep = (path: string): number =>
+    formStepList.findIndex((step) => step.url === path);
 
   return (
     <div>
       <Stepper
         activeStep={getActiveStep(location.pathname)}
         orientation='vertical'>
-        {STEPS.map((step) => (
-          <Step key={step}>
+        {formStepList.map((step) => (
+          <Step key={step.step}>
             <StepLabel>
-              <Link to={routes[step as FormScreens]}> {step}</Link>
+              <Link to={step.url}>{step.step}</Link>
             </StepLabel>
             <StepContent />
           </Step>

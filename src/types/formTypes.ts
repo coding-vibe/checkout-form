@@ -29,6 +29,7 @@ export interface FormValuesType {
     values?: object;
   };
   [FormScreens.FORM_SUCCESS]: {
+    isCompleted: boolean;
     order: StepOrder.FORM_SUCCESS;
   };
 }
