@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import WizardFormContext, {
   InitialFormValues,
   saveFormValues,
@@ -28,8 +28,11 @@ export default function WizardFormProvider({ children }: Props) {
           ...prevFormValues,
           [parent]: {
             ...prevFormValues[parent],
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             subStep: {
-              id: screen,
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              ...prevFormValues[screen],
               values: screenValues,
             },
           },
@@ -37,74 +40,119 @@ export default function WizardFormProvider({ children }: Props) {
       }
 
       if (checkScreenIsNotSubStep(screen, parent)) {
-        return {
-          ...prevFormValues,
-          [screen]: {
-            ...prevFormValues[screen],
-            values: screenValues,
-          },
-        };
-      }
+        if (formValues.DELIVERY_MODE.values) {
+          const { deliveryType } = formValues.DELIVERY_MODE.values;
 
-      throw new Error(
-        `Cannot submit values form screen ${screen} without specified parent`,
-      );
-    });
-  };
+          const getSubStep = (): {
+            id:
+              | FormScreens.COURIER_DELIVERY_DETAILS
+              | FormScreens.POST_DELIVERY_DETAILS;
+          } => {
+            if (deliveryType === DeliveryModes.COURIER)
+              return {
+                id: FormScreens.COURIER_DELIVERY_DETAILS,
+              };
 
-  useEffect(() => {
-    handleSaveFormValues((prevFormValues) => {
-      if (!formValues.DELIVERY_MODE.values?.deliveryType) {
-        return prevFormValues;
-      }
+            if (deliveryType === DeliveryModes.POST_OFFICE) {
+              return {
+                id: FormScreens.POST_DELIVERY_DETAILS,
+              };
+            }
 
-      const { deliveryType } = formValues.DELIVERY_MODE.values;
-
-      const getSubStep = (): {
-        id:
-          | FormScreens.POST_DELIVERY_DETAILS
-          | FormScreens.COURIER_DELIVERY_DETAILS;
-      } => {
-        if (deliveryType === DeliveryModes.COURIER)
-          return {
-            id: FormScreens.COURIER_DELIVERY_DETAILS,
+            throw Error('Unknown delivery type submitted');
           };
 
-        if (deliveryType === DeliveryModes.POST_OFFICE) {
           return {
-            id: FormScreens.POST_DELIVERY_DETAILS,
+            ...prevFormValues,
+            [FormScreens.DELIVERY_MODE]: {
+              ...prevFormValues[FormScreens.DELIVERY_MODE],
+              subStep: getSubStep(),
+            },
           };
         }
 
-        throw Error('Unknown delivery type submitted');
-      };
+        if (
+          formValues.PAYMENT_METHOD?.values?.paymentMethod ===
+          PaymentMethods.CREDIT_CARD
+        ) {
+          return {
+            ...prevFormValues,
+            [FormScreens.PAYMENT_METHOD]: {
+              ...prevFormValues[FormScreens.PAYMENT_METHOD],
+              subStep: {
+                id: FormScreens.CREDIT_CARD_DETAILS,
+              },
+            },
+          };
+        }
+      }
 
       return {
         ...prevFormValues,
-        [FormScreens.DELIVERY_MODE]: {
-          ...prevFormValues[FormScreens.DELIVERY_MODE],
-          subStep: getSubStep(),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        [screen]: {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          ...prevFormValues[screen],
+          values: screenValues,
         },
       };
     });
-  }, [formValues.DELIVERY_MODE.values]);
+  };
 
-  useEffect(() => {
-    if (
-      formValues.PAYMENT_METHOD?.values?.paymentMethod ===
-      PaymentMethods.CREDIT_CARD
-    ) {
-      handleSaveFormValues((prevFormValues) => ({
-        ...prevFormValues,
-        [FormScreens.PAYMENT_METHOD]: {
-          ...prevFormValues[FormScreens.PAYMENT_METHOD],
-          subStep: {
-            id: FormScreens.CREDIT_CARD_DETAILS,
-          },
-        },
-      }));
-    }
-  }, [formValues.PAYMENT_METHOD.values]);
+  // useEffect(() => {
+  //   handleSaveFormValues((prevFormValues) => {
+  //     if (!formValues.DELIVERY_MODE.values?.deliveryType) {
+  //       return prevFormValues;
+  //     }
+
+  //     const { deliveryType } = formValues.DELIVERY_MODE.values;
+
+  //     const getSubStep = (): {
+  //       id:
+  //         | FormScreens.POST_DELIVERY_DETAILS
+  //         | FormScreens.COURIER_DELIVERY_DETAILS;
+  //     } => {
+  //       if (deliveryType === DeliveryModes.COURIER)
+  //         return {
+  //           id: FormScreens.COURIER_DELIVERY_DETAILS,
+  //         };
+
+  //       if (deliveryType === DeliveryModes.POST_OFFICE) {
+  //         return {
+  //           id: FormScreens.POST_DELIVERY_DETAILS,
+  //         };
+  //       }
+
+  //       throw Error('Unknown delivery type submitted');
+  //     };
+
+  //     return {
+  //       ...prevFormValues,
+  //       [FormScreens.DELIVERY_MODE]: {
+  //         ...prevFormValues[FormScreens.DELIVERY_MODE],
+  //         subStep: getSubStep(),
+  //       },
+  //     };
+  //   });
+  // }, [formValues.DELIVERY_MODE.values]);
+
+  // useEffect(() => {
+  //   if (
+  //     formValues.PAYMENT_METHOD?.values?.paymentMethod ===
+  //     PaymentMethods.CREDIT_CARD
+  //   ) {
+  //     handleSaveFormValues((prevFormValues) => ({
+  //       ...prevFormValues,
+  //       [FormScreens.PAYMENT_METHOD]: {
+  //         ...prevFormValues[FormScreens.PAYMENT_METHOD],
+  //         subStep: {
+  //           id: FormScreens.CREDIT_CARD_DETAILS,
+  //         },
+  //       },
+  //     }));
+  //   }
+  // }, [formValues.PAYMENT_METHOD.values]);
 
   return (
     <WizardFormContext.Provider
