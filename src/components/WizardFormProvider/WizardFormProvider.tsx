@@ -28,11 +28,9 @@ export default function WizardFormProvider({ children }: Props) {
           ...prevFormValues,
           [parent]: {
             ...prevFormValues[parent],
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             subStep: {
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              ...prevFormValues[screen],
+              ...prevFormValues[parent].subStep,
+              isCompleted: true,
               values: screenValues,
             },
           },
@@ -47,15 +45,18 @@ export default function WizardFormProvider({ children }: Props) {
             id:
               | FormScreens.COURIER_DELIVERY_DETAILS
               | FormScreens.POST_DELIVERY_DETAILS;
+            isCompleted: boolean;
           } => {
             if (deliveryType === DeliveryModes.COURIER)
               return {
                 id: FormScreens.COURIER_DELIVERY_DETAILS,
+                isCompleted: false,
               };
 
             if (deliveryType === DeliveryModes.POST_OFFICE) {
               return {
                 id: FormScreens.POST_DELIVERY_DETAILS,
+                isCompleted: false,
               };
             }
 
@@ -81,6 +82,7 @@ export default function WizardFormProvider({ children }: Props) {
               ...prevFormValues[FormScreens.PAYMENT_METHOD],
               subStep: {
                 id: FormScreens.CREDIT_CARD_DETAILS,
+                isCompleted: false,
               },
             },
           };
@@ -94,6 +96,7 @@ export default function WizardFormProvider({ children }: Props) {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           ...prevFormValues[screen],
+          isCompleted: true,
           values: screenValues,
         },
       };
