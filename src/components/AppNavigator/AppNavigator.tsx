@@ -10,24 +10,26 @@ import WizardFormContext from 'contexts/WizardFormContext';
 import Entries from 'types/entries';
 import { FormValuesType } from 'types/formTypes';
 
-interface StepType {
+interface MenuItemType {
   step: FormScreens;
   isCompleted: boolean;
   url: string;
 }
 
-export default function Layout() {
+export default function AppNavigator() {
   const { formValues } = useContext(WizardFormContext);
   const location = useLocation();
 
-  const getMenuItemsFormStep = (formValues: FormValuesType): StepType[] => {
+  const getMenuItemsFromSteps = (
+    formValues: FormValuesType,
+  ): MenuItemType[] => {
     // https://www.charpeni.com/blog/properly-type-object-keys-and-object-entries
     const menuItemsList = (
       Object.entries(formValues) as Entries<typeof formValues>
     )
       .sort((a, b) => {
-        const orderA = a[1].order;
-        const orderB = b[1].order;
+        const { order: orderA } = a[1];
+        const { order: orderB } = b[1];
 
         return orderA - orderB;
       })
@@ -37,7 +39,7 @@ export default function Layout() {
 
         return { isCompleted, step: screen, url };
       })
-      .reduce<StepType[]>((accumulator, element) => {
+      .reduce<MenuItemType[]>((accumulator, element) => {
         const { step } = element;
 
         if (
@@ -66,17 +68,24 @@ export default function Layout() {
     return menuItemsList;
   };
 
-  const formStepList = getMenuItemsFormStep(formValues);
+  const menuItemsList = getMenuItemsFromSteps(formValues);
 
-  const getActiveStep = (path: string): number =>
-    formStepList.findIndex((step) => step.url === path);
+  const getActiveMenuItem = (path: string): number => {
+    const index = menuItemsList.findIndex((step) => step.url === path);
+
+    if (index === -1) {
+      throw new Error('Menu item not found');
+    }
+
+    return index;
+  };
 
   return (
     <div>
       <Stepper
-        activeStep={getActiveStep(location.pathname)}
+        activeStep={getActiveMenuItem(location.pathname)}
         orientation='vertical'>
-        {formStepList.map((step) => (
+        {menuItemsList.map((step) => (
           <Step key={step.step}>
             <StepLabel>
               <Link to={step.url}>{step.step}</Link>
