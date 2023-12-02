@@ -1,5 +1,11 @@
 import { useContext, useEffect } from 'react';
-import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
+import {
+  Outlet,
+  Link as RouterLink,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
+import Link from '@mui/material/Link';
 import Step from '@mui/material/Step';
 import Stepper from '@mui/material/Stepper';
 import StepContent from '@mui/material/StepContent';
@@ -18,7 +24,7 @@ interface MenuItemType {
 
 export default function AppNavigator() {
   const { formValues } = useContext(WizardFormContext);
-  const location = useLocation();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   const getMenuItemsFromSteps = (
@@ -81,40 +87,30 @@ export default function AppNavigator() {
     return index;
   };
 
-  // Hook for trying prevent rerendering because of using useNavigate - https://github.com/remix-run/react-router/discussions/8465
-  // const useNavigateRef = () => {
-  //   const navigate = useNavigate();
-  //   const navRef = useRef(navigate);
-
-  //   useEffect(() => {
-  //     navRef.current = navigate;
-  //   }, [navigate]);
-
-  //   return navRef;
-  // };
-
-  // const navigateRef = useNavigateRef();
-
-  // Error in console: Warning: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
   useEffect(() => {
     const firstUncompletedStep = menuItemsList.find(
-      (step) => !step.isCompleted && step,
+      (step) => !step?.isCompleted,
     );
 
-    if (firstUncompletedStep) {
+    if (firstUncompletedStep && pathname !== firstUncompletedStep.url) {
       navigate(firstUncompletedStep.url);
     }
-  }, [menuItemsList, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, menuItemsList]);
 
   return (
     <div>
       <Stepper
-        activeStep={getActiveMenuItem(location.pathname)}
+        activeStep={getActiveMenuItem(pathname)}
         orientation='vertical'>
         {menuItemsList.map((step) => (
           <Step key={step.step}>
             <StepLabel>
-              <Link to={step.url}>{step.step}</Link>
+              <Link
+                component={RouterLink}
+                to={step.url}>
+                {step.step}
+              </Link>
             </StepLabel>
             <StepContent />
           </Step>

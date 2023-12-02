@@ -22,6 +22,8 @@ export default function WizardFormProvider({ children }: Props) {
     screenValues,
     parent,
   ) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     handleSaveFormValues((prevFormValues) => {
       if (parent) {
         return {
@@ -38,8 +40,12 @@ export default function WizardFormProvider({ children }: Props) {
       }
 
       if (checkScreenIsNotSubStep(screen, parent)) {
-        if (formValues.DELIVERY_MODE.values?.deliveryType) {
-          const { deliveryType } = formValues.DELIVERY_MODE.values;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        if (screen === FormScreens.DELIVERY_MODE && screenValues.deliveryType) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          const { deliveryType } = screenValues;
 
           const getSubStep = (): {
             id:
@@ -67,23 +73,26 @@ export default function WizardFormProvider({ children }: Props) {
             ...prevFormValues,
             [FormScreens.DELIVERY_MODE]: {
               ...prevFormValues[FormScreens.DELIVERY_MODE],
+              isCompleted: true,
               subStep: getSubStep(),
+              values: screenValues,
             },
           };
         }
 
-        if (
-          formValues.PAYMENT_METHOD?.values?.paymentMethod ===
-          PaymentMethods.CREDIT_CARD
-        ) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        if (screenValues.paymentMethod === PaymentMethods.CREDIT_CARD) {
           return {
             ...prevFormValues,
             [FormScreens.PAYMENT_METHOD]: {
               ...prevFormValues[FormScreens.PAYMENT_METHOD],
+              isCompleted: true,
               subStep: {
                 id: FormScreens.CREDIT_CARD_DETAILS,
                 isCompleted: false,
               },
+              values: screenValues,
             },
           };
         }
@@ -102,60 +111,6 @@ export default function WizardFormProvider({ children }: Props) {
       };
     });
   };
-
-  // useEffect(() => {
-  //   handleSaveFormValues((prevFormValues) => {
-  //     if (!formValues.DELIVERY_MODE.values?.deliveryType) {
-  //       return prevFormValues;
-  //     }
-
-  //     const { deliveryType } = formValues.DELIVERY_MODE.values;
-
-  //     const getSubStep = (): {
-  //       id:
-  //         | FormScreens.POST_DELIVERY_DETAILS
-  //         | FormScreens.COURIER_DELIVERY_DETAILS;
-  //     } => {
-  //       if (deliveryType === DeliveryModes.COURIER)
-  //         return {
-  //           id: FormScreens.COURIER_DELIVERY_DETAILS,
-  //         };
-
-  //       if (deliveryType === DeliveryModes.POST_OFFICE) {
-  //         return {
-  //           id: FormScreens.POST_DELIVERY_DETAILS,
-  //         };
-  //       }
-
-  //       throw Error('Unknown delivery type submitted');
-  //     };
-
-  //     return {
-  //       ...prevFormValues,
-  //       [FormScreens.DELIVERY_MODE]: {
-  //         ...prevFormValues[FormScreens.DELIVERY_MODE],
-  //         subStep: getSubStep(),
-  //       },
-  //     };
-  //   });
-  // }, [formValues.DELIVERY_MODE.values]);
-
-  // useEffect(() => {
-  //   if (
-  //     formValues.PAYMENT_METHOD?.values?.paymentMethod ===
-  //     PaymentMethods.CREDIT_CARD
-  //   ) {
-  //     handleSaveFormValues((prevFormValues) => ({
-  //       ...prevFormValues,
-  //       [FormScreens.PAYMENT_METHOD]: {
-  //         ...prevFormValues[FormScreens.PAYMENT_METHOD],
-  //         subStep: {
-  //           id: FormScreens.CREDIT_CARD_DETAILS,
-  //         },
-  //       },
-  //     }));
-  //   }
-  // }, [formValues.PAYMENT_METHOD.values]);
 
   return (
     <WizardFormContext.Provider
