@@ -1,5 +1,5 @@
 import { Navigate, Routes as ReactRoutes, Route } from 'react-router-dom';
-import AppNavigator from 'components/AppNavigator';
+import Layout from 'components/Layout';
 import routes from 'constants/routes';
 import CourierDeliveryDetailsScreen from 'pages/CourierDeliveryDetailsScreen';
 import CreditCardDetailsScreen from 'pages/CreditCardDetailsScreen';
@@ -14,7 +14,7 @@ function App() {
   return (
     <ReactRoutes>
       <Route
-        element={<AppNavigator />}
+        element={<Layout />}
         path={routes.ROOT}>
         <Route
           element={
