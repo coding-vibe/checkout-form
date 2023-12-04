@@ -14,14 +14,26 @@ export interface FormValuesType {
     order: StepOrder.DELIVERY_MODE;
     values?: { deliveryType: DeliveryModes };
     subStep?:
-      | { id: FormScreens.POST_DELIVERY_DETAILS; values?: object }
-      | { id: FormScreens.COURIER_DELIVERY_DETAILS; values?: object };
+      | {
+          id: FormScreens.POST_DELIVERY_DETAILS;
+          isCompleted: boolean;
+          values?: object;
+        }
+      | {
+          id: FormScreens.COURIER_DELIVERY_DETAILS;
+          isCompleted: boolean;
+          values?: object;
+        };
   };
   [FormScreens.PAYMENT_METHOD]: {
     isCompleted: boolean;
     order: StepOrder.PAYMENT_METHOD;
     values?: { paymentMethod: PaymentMethods };
-    subStep?: { id: FormScreens.CREDIT_CARD_DETAILS; values?: object };
+    subStep?: {
+      id: FormScreens.CREDIT_CARD_DETAILS;
+      isCompleted: boolean;
+      values?: object;
+    };
   };
   [FormScreens.FORM_SUBMISSION]: {
     isCompleted: boolean;

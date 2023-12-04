@@ -42,7 +42,7 @@ export default function Layout() {
 
           if (subStep) {
             const menuItem = {
-              isCompleted: false,
+              isCompleted: subStep.isCompleted,
               step: subStep.id,
               url: routes[subStep.id],
             };

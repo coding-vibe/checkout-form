@@ -17,34 +17,28 @@ export default function WizardFormProvider({ children }: Props) {
   const [formValues, handleSaveFormValues] =
     useState<FormValuesType>(InitialFormValues);
 
+  const isDeliveryModeValues = (
+    values: unknown,
+  ): values is { deliveryType: DeliveryModes } =>
+    !!values && typeof values === 'object' && 'deliveryType' in values;
+
+  const isPaymentMethodValues = (
+    values: unknown,
+  ): values is { paymentMethod: PaymentMethods } =>
+    !!values && typeof values === 'object' && 'paymentMethod' in values;
+
   const onSaveFormValues: typeof saveFormValues = (
     screen,
     screenValues,
     parent,
   ) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     handleSaveFormValues((prevFormValues) => {
-      if (parent) {
-        return {
-          ...prevFormValues,
-          [parent]: {
-            ...prevFormValues[parent],
-            subStep: {
-              ...prevFormValues[parent].subStep,
-              isCompleted: true,
-              values: screenValues,
-            },
-          },
-        };
-      }
-
       if (checkScreenIsNotSubStep(screen, parent)) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        if (screen === FormScreens.DELIVERY_MODE && screenValues.deliveryType) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
+        if (
+          screen === FormScreens.DELIVERY_MODE &&
+          isDeliveryModeValues(screenValues) &&
+          screenValues.deliveryType
+        ) {
           const { deliveryType } = screenValues;
 
           const getSubStep = (): {
@@ -80,9 +74,11 @@ export default function WizardFormProvider({ children }: Props) {
           };
         }
 
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        if (screenValues.paymentMethod === PaymentMethods.CREDIT_CARD) {
+        if (
+          screen === FormScreens.PAYMENT_METHOD &&
+          isPaymentMethodValues(screenValues) &&
+          screenValues.paymentMethod === PaymentMethods.CREDIT_CARD
+        ) {
           return {
             ...prevFormValues,
             [FormScreens.PAYMENT_METHOD]: {
@@ -96,19 +92,32 @@ export default function WizardFormProvider({ children }: Props) {
             },
           };
         }
+
+        return {
+          ...prevFormValues,
+          [screen]: {
+            ...prevFormValues[screen],
+            isCompleted: true,
+            values: screenValues,
+          },
+        };
       }
 
-      return {
-        ...prevFormValues,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        [screen]: {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          ...prevFormValues[screen],
-          isCompleted: true,
-          values: screenValues,
-        },
-      };
+      if (parent) {
+        return {
+          ...prevFormValues,
+          [parent]: {
+            ...prevFormValues[parent],
+            subStep: {
+              ...prevFormValues[parent].subStep,
+              isCompleted: true,
+              values: screenValues,
+            },
+          },
+        };
+      }
+
+      throw Error('Unknown step/substep submitted');
     });
   };
 
