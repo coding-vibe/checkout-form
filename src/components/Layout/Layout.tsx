@@ -12,16 +12,12 @@ export default function Layout() {
   const { formValues } = useContext(WizardFormContext);
   const { pathname } = useLocation();
 
-  const getMenuItemsFromSteps = (
-    formValues: FormValuesType,
-  ): MenuItemType[] => {
+  const getMenuItemsFromSteps = (formValues: FormValuesType): MenuItemType[] =>
     // https://www.charpeni.com/blog/properly-type-object-keys-and-object-entries
-    const menuItemsList = (
-      Object.entries(formValues) as Entries<typeof formValues>
-    )
+    (Object.entries(formValues) as Entries<typeof formValues>)
       .sort((a, b) => {
-        const { order: orderA } = a[1];
-        const { order: orderB } = b[1];
+        const [, { order: orderA }] = a;
+        const [, { order: orderB }] = b;
 
         return orderA - orderB;
       })
@@ -39,6 +35,7 @@ export default function Layout() {
           step === FormScreens.PAYMENT_METHOD
         ) {
           const subStep = formValues[step]?.subStep;
+          accumulator.push(element);
 
           if (subStep) {
             const menuItem = {
@@ -46,20 +43,12 @@ export default function Layout() {
               step: subStep.id,
               url: routes[subStep.id],
             };
-            accumulator.push(element, menuItem);
-          } else {
-            accumulator.push(element);
+            accumulator.push(menuItem);
           }
-        } else {
-          accumulator.push(element);
         }
 
         return accumulator;
       }, []);
-
-    return menuItemsList;
-  };
-
   const menuItemsList = getMenuItemsFromSteps(formValues);
 
   const getFirstUncompletedStepIndex = (): number => {
@@ -68,13 +57,13 @@ export default function Layout() {
     return index;
   };
 
-  const stepIndex = getFirstUncompletedStepIndex();
+  const firstUncompletedStep = getFirstUncompletedStepIndex();
 
   if (pathname === routes.ROOT) {
     return (
       <Navigate
         replace
-        to={menuItemsList[stepIndex].url}
+        to={menuItemsList[firstUncompletedStep].url}
       />
     );
   }
@@ -82,7 +71,7 @@ export default function Layout() {
   return (
     <div>
       <AppNavigator
-        stepIndex={stepIndex}
+        firstUncompletedStep={firstUncompletedStep}
         list={menuItemsList}
       />
       <Outlet />

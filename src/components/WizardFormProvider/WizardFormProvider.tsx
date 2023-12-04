@@ -7,6 +7,8 @@ import FormScreens from 'constants/formScreens';
 import DeliveryModes from 'constants/deliveryModes';
 import PaymentMethods from 'constants/paymentMethods';
 import { FormValuesType } from 'types/formTypes';
+import { isDeliveryModePayload } from 'types/deliveryMode';
+import { isPaymentMethodPayload } from 'types/paymentMethod';
 import checkScreenIsNotSubStep from 'utils/checkScreenIsNotSubStep';
 
 interface Props {
@@ -17,16 +19,6 @@ export default function WizardFormProvider({ children }: Props) {
   const [formValues, handleSaveFormValues] =
     useState<FormValuesType>(InitialFormValues);
 
-  const isDeliveryModeValues = (
-    values: unknown,
-  ): values is { deliveryType: DeliveryModes } =>
-    !!values && typeof values === 'object' && 'deliveryType' in values;
-
-  const isPaymentMethodValues = (
-    values: unknown,
-  ): values is { paymentMethod: PaymentMethods } =>
-    !!values && typeof values === 'object' && 'paymentMethod' in values;
-
   const onSaveFormValues: typeof saveFormValues = (
     screen,
     screenValues,
@@ -36,7 +28,7 @@ export default function WizardFormProvider({ children }: Props) {
       if (checkScreenIsNotSubStep(screen, parent)) {
         if (
           screen === FormScreens.DELIVERY_MODE &&
-          isDeliveryModeValues(screenValues) &&
+          isDeliveryModePayload(screenValues) &&
           screenValues.deliveryType
         ) {
           const { deliveryType } = screenValues;
@@ -76,7 +68,7 @@ export default function WizardFormProvider({ children }: Props) {
 
         if (
           screen === FormScreens.PAYMENT_METHOD &&
-          isPaymentMethodValues(screenValues) &&
+          isPaymentMethodPayload(screenValues) &&
           screenValues.paymentMethod === PaymentMethods.CREDIT_CARD
         ) {
           return {

@@ -1,7 +1,10 @@
 import DeliveryModes from 'constants/deliveryModes';
 
-interface DeliveryModeSubmitValues {
+export interface DeliveryModeSubmitValues {
   deliveryType: DeliveryModes;
 }
 
-export default DeliveryModeSubmitValues;
+export const isDeliveryModePayload = (
+  values: unknown,
+): values is { deliveryType: DeliveryModes } =>
+  !!values && typeof values === 'object' && 'deliveryType' in values;

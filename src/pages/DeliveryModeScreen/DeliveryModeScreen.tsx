@@ -4,7 +4,7 @@ import { Select } from 'mui-rff';
 import withFormHandler from 'components/withFormScreenProps';
 import DELIVERY_MODE_OPTIONS from 'constants/deliveryModeOptions';
 import FormScreens from 'constants/formScreens';
-import DeliveryModeSubmitValues from 'types/deliveryMode';
+import { DeliveryModeSubmitValues } from 'types/deliveryMode';
 import FormScreenProps from 'types/formScreen';
 import { validateIsRequired } from 'utils/validation';
 

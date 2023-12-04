@@ -9,23 +9,23 @@ import MenuItemType from 'types/menuItem';
 
 interface Props {
   list: MenuItemType[];
-  stepIndex: number;
+  firstUncompletedStep: number;
 }
 
-export default function AppNavigator({ list, stepIndex }: Props) {
+export default function AppNavigator({ list, firstUncompletedStep }: Props) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (pathname !== list[stepIndex].url) {
-      navigate(list[stepIndex].url);
+    if (pathname !== list[firstUncompletedStep].url) {
+      navigate(list[firstUncompletedStep].url);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list, pathname]);
 
   return (
     <Stepper
-      activeStep={stepIndex}
+      activeStep={firstUncompletedStep}
       orientation='vertical'>
       {list.map((step) => (
         <Step key={step.step}>
