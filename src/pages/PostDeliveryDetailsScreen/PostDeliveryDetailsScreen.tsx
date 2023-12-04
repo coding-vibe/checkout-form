@@ -2,6 +2,7 @@ import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import { Select } from 'mui-rff';
+import Blocker from 'components/Blocker';
 import CustomFormSpy from 'components/CustomFormSpy';
 import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
@@ -72,6 +73,7 @@ function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
                 </Tooltip>
               )}
             </Box>
+            <Blocker />
           </form>
           <CustomFormSpy postCompany={values.postCompany} />
         </>

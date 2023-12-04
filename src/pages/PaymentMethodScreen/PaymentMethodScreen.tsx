@@ -1,6 +1,7 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import { Select } from 'mui-rff';
+import Blocker from 'components/Blocker';
 import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
 import PAYMENT_METHODS_OPTIONS from 'constants/paymentMethodOptions';
@@ -27,6 +28,7 @@ function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
               name='paymentMethod'
             />
           </Box>
+          <Blocker />
         </form>
       )}
     />

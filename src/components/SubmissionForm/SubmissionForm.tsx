@@ -1,6 +1,7 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import { Checkboxes } from 'mui-rff';
+import Blocker from 'components/Blocker';
 import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
 import FormScreenProps from 'types/formScreen';
@@ -30,6 +31,7 @@ function SubmissionForm({ initialValues, onSubmit, screen }: Props) {
               name='isAgree'
             />
           </Box>
+          <Blocker />
         </form>
       )}
     />

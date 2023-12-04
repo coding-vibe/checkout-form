@@ -3,21 +3,34 @@ import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import Step from '@mui/material/Step';
 import Stepper from '@mui/material/Stepper';
-import StepContent from '@mui/material/StepContent';
 import StepLabel from '@mui/material/StepLabel';
 import MenuItemType from 'types/menuItem';
+import { Typography } from '@mui/material';
 
 interface Props {
+  className?: string;
   list: MenuItemType[];
   firstUncompletedStep: number;
 }
 
-export default function AppNavigator({ list, firstUncompletedStep }: Props) {
+export default function AppNavigator({
+  className,
+  firstUncompletedStep,
+  list,
+}: Props) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (pathname !== list[firstUncompletedStep].url) {
+    const getCurrentStepIndex = (path: string) =>
+      list.findIndex((item) => item.url === path);
+
+    const currentStep = getCurrentStepIndex(pathname);
+
+    if (
+      pathname !== list[firstUncompletedStep].url &&
+      currentStep > firstUncompletedStep
+    ) {
       navigate(list[firstUncompletedStep].url);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -26,19 +39,33 @@ export default function AppNavigator({ list, firstUncompletedStep }: Props) {
   return (
     <Stepper
       activeStep={firstUncompletedStep}
+      css={className}
       orientation='vertical'>
-      {list.map((step) => (
+      {list.map((step, index) => (
         <Step key={step.step}>
           <StepLabel>
-            <Link
-              component={RouterLink}
-              to={step.url}>
-              {step.step}
-            </Link>
+            {step.isCompleted || index === firstUncompletedStep ? (
+              <Link
+                component={RouterLink}
+                to={step.url}
+                underline='hover'
+                variant='overline'>
+                {step.step}
+              </Link>
+            ) : (
+              <Typography
+                component='span'
+                variant='overline'>
+                {step.step}
+              </Typography>
+            )}
           </StepLabel>
-          <StepContent />
         </Step>
       ))}
     </Stepper>
   );
 }
+
+AppNavigator.defaultProps = {
+  className: null,
+};

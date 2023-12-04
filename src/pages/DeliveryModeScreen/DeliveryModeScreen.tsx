@@ -1,6 +1,7 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import { Select } from 'mui-rff';
+import Blocker from 'components/Blocker';
 import withFormHandler from 'components/withFormScreenProps';
 import DELIVERY_MODE_OPTIONS from 'constants/deliveryModeOptions';
 import FormScreens from 'constants/formScreens';
@@ -27,6 +28,7 @@ function DeliveryModeScreen({ initialValues, onSubmit, screen }: Props) {
               name='deliveryType'
             />
           </Box>
+          <Blocker />
         </form>
       )}
     />
