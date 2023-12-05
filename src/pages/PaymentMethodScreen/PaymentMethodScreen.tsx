@@ -5,7 +5,7 @@ import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
 import PAYMENT_METHODS_OPTIONS from 'constants/paymentMethodOptions';
 import FormScreenProps from 'types/formScreen';
-import { PaymentMethodSubmitValues } from 'types/paymentMethod';
+import PaymentMethodSubmitValues from 'types/paymentMethod';
 import { validateIsRequired } from 'utils/validation';
 
 interface Props extends FormScreenProps<PaymentMethodSubmitValues> {}
