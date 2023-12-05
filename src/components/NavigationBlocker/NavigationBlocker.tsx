@@ -13,7 +13,6 @@ export default function NavigationBlocker() {
     ({ currentLocation, nextLocation }) =>
       formState.dirty &&
       formState.invalid &&
-      formState.modifiedSinceLastSubmit &&
       currentLocation.pathname !== nextLocation.pathname,
   );
 
