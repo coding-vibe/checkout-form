@@ -1,5 +1,5 @@
 import { Form } from 'react-final-form';
-import Blocker from 'components/Blocker';
+import NavigationBlocker from 'components/NavigationBlocker';
 import CardExpiryField from 'components/CardExpiryField';
 import CardNumberField from 'components/CardNumberField';
 import CVVCodeField from 'components/CVVCodeField';
@@ -68,7 +68,7 @@ function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
               />
             </div>
           </div>
-          <Blocker />
+          <NavigationBlocker />
         </form>
       )}
     />

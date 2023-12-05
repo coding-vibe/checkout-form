@@ -4,59 +4,56 @@ import Link from '@mui/material/Link';
 import Step from '@mui/material/Step';
 import Stepper from '@mui/material/Stepper';
 import StepLabel from '@mui/material/StepLabel';
+import Typography from '@mui/material/Typography';
 import MenuItemType from 'types/menuItem';
-import { Typography } from '@mui/material';
 
 interface Props {
-  className?: string;
-  list: MenuItemType[];
+  menuItemsList: MenuItemType[];
   firstUncompletedStep: number;
+  className?: string;
 }
 
 export default function AppNavigator({
-  className,
   firstUncompletedStep,
-  list,
+  menuItemsList,
+  className,
 }: Props) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getCurrentStepIndex = (path: string) =>
-      list.findIndex((item) => item.url === path);
+    // const getCurrentStepIndex = (path: string) =>
+    //   menuItemsList.findIndex((item) => item.url === path);
 
-    const currentStep = getCurrentStepIndex(pathname);
+    // const currentStep = getCurrentStepIndex(pathname);
 
-    if (
-      pathname !== list[firstUncompletedStep].url &&
-      currentStep > firstUncompletedStep
-    ) {
-      navigate(list[firstUncompletedStep].url);
+    if (pathname !== menuItemsList[firstUncompletedStep].url) {
+      navigate(menuItemsList[firstUncompletedStep].url);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [list, pathname]);
+  }, [firstUncompletedStep, menuItemsList, pathname]);
 
   return (
     <Stepper
       activeStep={firstUncompletedStep}
       css={className}
       orientation='vertical'>
-      {list.map((step, index) => (
-        <Step key={step.step}>
+      {menuItemsList.map((menuItem, index) => (
+        <Step key={menuItem.step}>
           <StepLabel>
-            {step.isCompleted || index === firstUncompletedStep ? (
+            {menuItem.isCompleted || index === firstUncompletedStep ? (
               <Link
                 component={RouterLink}
-                to={step.url}
+                to={menuItem.url}
                 underline='hover'
                 variant='overline'>
-                {step.step}
+                {menuItem.step}
               </Link>
             ) : (
               <Typography
                 component='span'
                 variant='overline'>
-                {step.step}
+                {menuItem.step}
               </Typography>
             )}
           </StepLabel>

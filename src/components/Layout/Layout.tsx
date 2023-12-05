@@ -71,7 +71,7 @@ export default function Layout() {
       <AppNavigator
         css={classes.navigator}
         firstUncompletedStep={firstUncompletedStep}
-        list={menuItemsList}
+        menuItemsList={menuItemsList}
       />
       <Outlet />
     </div>

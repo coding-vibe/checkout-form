@@ -3,7 +3,7 @@ import { addDays, format } from 'date-fns';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Checkboxes, DatePicker, TextField, TimePicker } from 'mui-rff';
-import Blocker from 'components/Blocker';
+import NavigationBlocker from 'components/NavigationBlocker';
 import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
 import CourierDeliveryDetailsSubmitValues from 'types/courierDeliveryDetails';
@@ -127,7 +127,7 @@ function CourierDeliveryDetailsScreen({
               name='hasElevator'
             />
           </fieldset>
-          <Blocker />
+          <NavigationBlocker />
         </form>
       )}
     />

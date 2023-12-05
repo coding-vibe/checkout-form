@@ -7,12 +7,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function Blocker() {
+export default function NavigationBlocker() {
   const formState = useFormState();
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
       formState.dirty &&
-      !formState.valid &&
+      formState.invalid &&
+      formState.modifiedSinceLastSubmit &&
       currentLocation.pathname !== nextLocation.pathname,
   );
 
