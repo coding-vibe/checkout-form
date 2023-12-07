@@ -9,15 +9,19 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 export default function NavigationBlocker() {
   const formState = useFormState();
-  const blocker = useBlocker(
-    ({ currentLocation, nextLocation }) =>
-      formState.dirty &&
-      formState.invalid &&
-      currentLocation.pathname !== nextLocation.pathname,
-  );
+  console.log('Check in blocker component');
+  console.log(formState);
+  const blocker = useBlocker(({ currentLocation, nextLocation }) => {
+    console.log('Check inside useBlocker');
+    console.log(formState);
+
+    return (
+      formState.dirty && currentLocation.pathname !== nextLocation.pathname
+    );
+  });
 
   return blocker.state === 'blocked' ? (
-    <Dialog open={!!blocker}>
+    <Dialog open>
       <DialogTitle>Are you sure you want to leave?</DialogTitle>
       <DialogContent>
         <DialogContentText>

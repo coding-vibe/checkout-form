@@ -22,16 +22,22 @@ export default function AppNavigator({
   const navigate = useNavigate();
 
   useEffect(() => {
-    // const getCurrentStepIndex = (path: string) =>
-    //   menuItemsList.findIndex((item) => item.url === path);
+    const getCurrentStepIndex = (path: string) =>
+      menuItemsList.findIndex((item) => item.url === path);
 
-    // const currentStep = getCurrentStepIndex(pathname);
+    const currentStep = getCurrentStepIndex(pathname);
 
-    if (pathname !== menuItemsList[firstUncompletedStep].url) {
+    if (currentStep > firstUncompletedStep) {
       navigate(menuItemsList[firstUncompletedStep].url);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstUncompletedStep, menuItemsList, pathname]);
+
+  useEffect(() => {
+    console.log('Check form state here');
+    navigate(menuItemsList[firstUncompletedStep].url);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [firstUncompletedStep, menuItemsList]);
 
   return (
     <Stepper
