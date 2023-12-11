@@ -2,6 +2,7 @@ import { ReactNode, useState } from 'react';
 import WizardFormContext, {
   InitialFormValues,
   saveFormValues,
+  saveToLocalStorage,
 } from 'contexts/WizardFormContext';
 import FormScreens from 'constants/formScreens';
 import DeliveryModes from 'constants/deliveryModes';
@@ -113,12 +114,16 @@ export default function WizardFormProvider({ children }: Props) {
     });
   };
 
+  const onSaveToLocalStorage: typeof saveToLocalStorage = () =>
+    localStorage.setItem('Context value', JSON.stringify(formValues));
+
   return (
     <WizardFormContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         formValues,
         onSaveFormValues,
+        onSaveToLocalStorage,
       }}>
       {children}
     </WizardFormContext.Provider>

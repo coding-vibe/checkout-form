@@ -39,9 +39,12 @@ export const saveFormValues = <
   ___?: ParentScreen,
 ) => {};
 
+export const saveToLocalStorage = () => {};
+
 const initialValue = {
   formValues: InitialFormValues,
   onSaveFormValues: saveFormValues,
+  onSaveToLocalStorage: saveToLocalStorage,
 };
 
 const WizardFormContext = createContext<typeof initialValue>(initialValue);
