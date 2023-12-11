@@ -1,31 +1,42 @@
 import { useContext, useEffect, useState } from 'react';
+import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import WizardFormContext from 'contexts/WizardFormContext';
 import { FormValuesType } from 'types/formTypes';
 
+const LOCAL_STORAGE_KEY = 'Context value';
+
 export default function FormPersister() {
   const { formValues, onSaveFormValues } = useContext(WizardFormContext);
-  const [isSpinnerShown, setIsSpinnerShown] = useState<boolean>(true);
+  const [isInitialized, setIsInitialized] = useState<boolean>(true);
 
   useEffect(() => {
-    const localStorageData = localStorage.getItem('Context value');
+    const localStorageData = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (localStorageData) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const parsedLocalStorageData: FormValuesType =
         JSON.parse(localStorageData);
       onSaveFormValues(parsedLocalStorageData);
-      setIsSpinnerShown(false);
     }
+    setIsInitialized(false);
 
-    return () => {
-      setIsSpinnerShown(true);
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('Context value', JSON.stringify(formValues));
-  }, [formValues]);
+    // TODO: Failure of localStorage manipulations should be handled; error handling not in the scope of the PR
+    if (!isInitialized) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(formValues));
+    }
+  }, [formValues, isInitialized]);
 
-  return isSpinnerShown && <CircularProgress />;
+  return (
+    isInitialized && (
+      <Backdrop
+        open
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <CircularProgress />
+      </Backdrop>
+    )
+  );
 }
