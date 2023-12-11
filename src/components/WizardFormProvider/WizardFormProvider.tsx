@@ -114,7 +114,7 @@ export default function WizardFormProvider({ children }: Props) {
     });
   };
 
-  const onSaveFormValues: typeof saveFormValues = (values: FormValuesType) => {
+  const onSaveFormValues: typeof saveFormValues = (values) => {
     handleSaveFormValues(values);
   };
 
