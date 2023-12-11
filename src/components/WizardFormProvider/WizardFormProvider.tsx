@@ -1,7 +1,6 @@
 import { ReactNode, useState } from 'react';
 import WizardFormContext, {
   InitialFormValues,
-  saveFormValues,
   saveScreenValues,
 } from 'contexts/WizardFormContext';
 import FormScreens from 'constants/formScreens';
@@ -114,16 +113,12 @@ export default function WizardFormProvider({ children }: Props) {
     });
   };
 
-  const onSaveFormValues: typeof saveFormValues = (values) => {
-    handleSaveFormValues(values);
-  };
-
   return (
     <WizardFormContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         formValues,
-        onSaveFormValues,
+        onSaveFormValues: handleSaveFormValues,
         onSaveScreenValues,
       }}>
       {children}

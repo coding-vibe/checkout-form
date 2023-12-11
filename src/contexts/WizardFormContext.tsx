@@ -27,6 +27,9 @@ export const InitialFormValues: FormValuesType = {
   },
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const saveFormValues = (_: FormValuesType) => {};
+
 export const saveScreenValues = <
   Screen extends Screens,
   ParentScreen extends ParentScreens | undefined,
@@ -38,9 +41,6 @@ export const saveScreenValues = <
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ___?: ParentScreen,
 ) => {};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const saveFormValues = (_: FormValuesType) => {};
 
 const initialValue = {
   formValues: InitialFormValues,
