@@ -2,7 +2,7 @@ import { ReactNode, useState } from 'react';
 import WizardFormContext, {
   InitialFormValues,
   saveFormValues,
-  saveToLocalStorage,
+  saveScreenValues,
 } from 'contexts/WizardFormContext';
 import FormScreens from 'constants/formScreens';
 import DeliveryModes from 'constants/deliveryModes';
@@ -20,7 +20,7 @@ export default function WizardFormProvider({ children }: Props) {
   const [formValues, handleSaveFormValues] =
     useState<FormValuesType>(InitialFormValues);
 
-  const onSaveFormValues: typeof saveFormValues = (
+  const onSaveScreenValues: typeof saveScreenValues = (
     screen,
     screenValues,
     parent,
@@ -114,8 +114,9 @@ export default function WizardFormProvider({ children }: Props) {
     });
   };
 
-  const onSaveToLocalStorage: typeof saveToLocalStorage = () =>
-    localStorage.setItem('Context value', JSON.stringify(formValues));
+  const onSaveFormValues: typeof saveFormValues = (values: FormValuesType) => {
+    handleSaveFormValues(values);
+  };
 
   return (
     <WizardFormContext.Provider
@@ -123,7 +124,7 @@ export default function WizardFormProvider({ children }: Props) {
       value={{
         formValues,
         onSaveFormValues,
-        onSaveToLocalStorage,
+        onSaveScreenValues,
       }}>
       {children}
     </WizardFormContext.Provider>

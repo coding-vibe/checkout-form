@@ -27,7 +27,7 @@ export const InitialFormValues: FormValuesType = {
   },
 };
 
-export const saveFormValues = <
+export const saveScreenValues = <
   Screen extends Screens,
   ParentScreen extends ParentScreens | undefined,
 >(
@@ -39,12 +39,13 @@ export const saveFormValues = <
   ___?: ParentScreen,
 ) => {};
 
-export const saveToLocalStorage = () => {};
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const saveFormValues = (_: FormValuesType) => {};
 
 const initialValue = {
   formValues: InitialFormValues,
   onSaveFormValues: saveFormValues,
-  onSaveToLocalStorage: saveToLocalStorage,
+  onSaveScreenValues: saveScreenValues,
 };
 
 const WizardFormContext = createContext<typeof initialValue>(initialValue);

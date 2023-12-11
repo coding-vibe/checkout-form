@@ -23,12 +23,10 @@ type WrappedComponentType<S extends FormScreens> = FC<
 function withFormScreenProps({ screen, parentScreen }: WrapperProps) {
   return (Component: WrappedComponentType<WrapperProps['screen']>) => {
     function FormScreen() {
-      const { formValues, onSaveFormValues, onSaveToLocalStorage } =
-        useContext(WizardFormContext);
+      const { formValues, onSaveScreenValues } = useContext(WizardFormContext);
 
       const handleSubmit = (values: object) => {
-        onSaveFormValues(screen, values, parentScreen);
-        onSaveToLocalStorage();
+        onSaveScreenValues(screen, values, parentScreen);
       };
 
       const getInitialValues = () => {

@@ -1,6 +1,7 @@
 import { useContext, useMemo } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import AppNavigator from 'components/AppNavigator';
+import FormPersister from 'components/FormPersister';
 import FormScreens from 'constants/formScreens';
 import routes from 'constants/routes';
 import WizardFormContext from 'contexts/WizardFormContext';
@@ -69,6 +70,7 @@ export default function Layout() {
 
   return (
     <div>
+      <FormPersister />
       <AppNavigator
         css={classes.navigator}
         firstUncompletedStep={firstUncompletedStep}

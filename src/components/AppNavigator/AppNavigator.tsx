@@ -34,7 +34,6 @@ export default function AppNavigator({
   }, [firstUncompletedStep, menuItemsList, pathname]);
 
   useEffect(() => {
-    console.log('Check form state here');
     navigate(menuItemsList[firstUncompletedStep].url);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstUncompletedStep, menuItemsList]);
