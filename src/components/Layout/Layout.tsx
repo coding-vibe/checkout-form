@@ -75,7 +75,9 @@ export default function Layout() {
         firstUncompletedStep={firstUncompletedStep}
         list={menuItemsList}
       />
-      <Outlet />
+      <div css={classes.outlet}>
+        <Outlet />
+      </div>
     </div>
   );
 }
