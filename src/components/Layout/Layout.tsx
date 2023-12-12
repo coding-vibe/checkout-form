@@ -7,6 +7,7 @@ import WizardFormContext from 'contexts/WizardFormContext';
 import Entries from 'types/entries';
 import { FormValuesType } from 'types/formTypes';
 import MenuItemType from 'types/menuItem';
+import * as classes from './styles';
 
 export default function Layout() {
   const { formValues } = useContext(WizardFormContext);
@@ -30,12 +31,12 @@ export default function Layout() {
       .reduce<MenuItemType[]>((accumulator, element) => {
         const { step } = element;
 
+        accumulator.push(element);
         if (
           step === FormScreens.DELIVERY_MODE ||
           step === FormScreens.PAYMENT_METHOD
         ) {
           const subStep = formValues[step]?.subStep;
-          accumulator.push(element);
 
           if (subStep) {
             const menuItem = {
@@ -69,7 +70,7 @@ export default function Layout() {
   }
 
   return (
-    <div>
+    <div css={classes.wrap}>
       <AppNavigator
         firstUncompletedStep={firstUncompletedStep}
         list={menuItemsList}
