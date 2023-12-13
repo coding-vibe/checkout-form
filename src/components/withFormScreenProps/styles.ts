@@ -14,5 +14,5 @@ export const button = css`
   position: absolute;
   right: 0;
   transform: translateY(-50%);
-  margin-top: 10px;
+  margin-top: 30px;
 `;
