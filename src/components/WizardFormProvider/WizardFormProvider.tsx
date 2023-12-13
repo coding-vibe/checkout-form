@@ -1,13 +1,14 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
+import FormScreens from 'constants/formScreens';
+import DeliveryModes from 'constants/deliveryModes';
+import PaymentMethods from 'constants/paymentMethods';
 import WizardFormContext, {
   InitialFormValues,
   saveFormValues,
 } from 'contexts/WizardFormContext';
-import FormScreens from 'constants/formScreens';
-import DeliveryModes from 'constants/deliveryModes';
-import PaymentMethods from 'constants/paymentMethods';
-import { FormValuesType } from 'types/formTypes';
+import Entries from 'types/entries';
 import { isDeliveryModePayload } from 'types/deliveryMode';
+import { FormValuesType } from 'types/formTypes';
 import { isPaymentMethodPayload } from 'types/paymentMethod';
 import checkScreenIsNotSubStep from 'utils/checkScreenIsNotSubStep';
 
@@ -113,13 +114,44 @@ export default function WizardFormProvider({ children }: Props) {
     });
   };
 
+  const getFirstUncompletedStep = (): FormScreens => {
+    // https://www.charpeni.com/blog/properly-type-object-keys-and-object-entries
+    const formValuesEntries = Object.entries(
+      formValues,
+    ) as Entries<FormValuesType>;
+    const formValuesList = Object.values(formValues);
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const [name, step] of formValuesEntries) {
+      if (!step.isCompleted) {
+        return name;
+      }
+
+      if (step.subStep && !step.subStep.isCompleted) {
+        return step.subStep.id;
+      }
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return formValuesList[0];
+  };
+
+  const firstUncompletedStep = getFirstUncompletedStep();
+
+  // TODO: Check if useMemo is needed after implementing all logic
+  const contextValue = useMemo(
+    () => ({
+      firstUncompletedStep,
+      formValues,
+      onSaveFormValues,
+    }),
+    [firstUncompletedStep, formValues],
+  );
+
   return (
     <WizardFormContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{
-        formValues,
-        onSaveFormValues,
-      }}>
+      value={contextValue}>
       {children}
     </WizardFormContext.Provider>
   );
