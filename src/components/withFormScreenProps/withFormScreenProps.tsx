@@ -4,6 +4,7 @@ import WizardFormContext from 'contexts/WizardFormContext';
 import FormScreens from 'constants/formScreens';
 import { ParentScreens, Screens } from 'types/formTypes';
 import checkScreenIsNotSubStep from 'utils/checkScreenIsNotSubStep';
+import * as classes from './styles';
 
 interface WrapperProps {
   screen: Screens;
@@ -43,19 +44,20 @@ function withFormScreenProps({ screen, parentScreen }: WrapperProps) {
       };
 
       return (
-        <>
+        <div css={classes.wrap}>
           <Component
             initialValues={getInitialValues()}
             onSubmit={handleSubmit}
             screen={screen}
           />
           <Button
+            fullWidth
             form={screen}
             type='submit'
             variant='contained'>
-            Next step
+            Next
           </Button>
-        </>
+        </div>
       );
     }
 

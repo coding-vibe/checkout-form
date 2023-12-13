@@ -9,5 +9,7 @@ export const wrap = css`
 `;
 
 export const outlet = css`
-  max-width: 1000px;
+  width: 600px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
 `;
