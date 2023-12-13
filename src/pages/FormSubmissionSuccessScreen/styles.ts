@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { Theme } from '@mui/material';
 
 export const wrap = css`
   display: flex;
@@ -32,8 +33,8 @@ export const mainText = css`
   font-size: 20px;
 `;
 
-export const text = css`
+export const text = (theme: Theme) => css`
+  color: ${theme.palette.primary.dark};
   font-size: 18px;
-  color: #ff6243;
   font-style: italic;
 `;

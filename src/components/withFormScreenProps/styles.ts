@@ -6,7 +6,7 @@ export const wrap = css`
 `;
 
 export const title = (theme: Theme) => css`
-  color: ${theme.palette.secondary.main};
+  color: ${theme.palette.primary.dark};
   text-align: center;
 `;
 

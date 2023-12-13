@@ -79,7 +79,7 @@ export default function Layout() {
             list={menuItemsList}
           />
         </div>
-        <div css={classes.outlet}>
+        <div css={classes.contentWrap}>
           <Outlet />
         </div>
       </div>

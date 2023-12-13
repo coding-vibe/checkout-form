@@ -1,9 +1,10 @@
 import { css } from '@emotion/react';
+import { Theme } from '@mui/material';
 
-export const mainTitle = css`
+export const mainTitle = (theme: Theme) => css`
   margin: 0px 0px 16px;
   padding: 10px;
-  color: #131f2b;
+  color: ${theme.palette.primary.dark};
   font-size: 22px;
   text-transform: capitalize;
 `;
@@ -18,8 +19,8 @@ export const title = css`
   text-transform: capitalize;
 `;
 
-export const fieldName = css`
-  color: #2b2b2b;
+export const fieldName = (theme: Theme) => css`
+  color: ${theme.palette.primary.light};
   font-size: 15px;
   text-transform: capitalize;
 `;

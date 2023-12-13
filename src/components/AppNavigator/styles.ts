@@ -3,11 +3,11 @@ import { Theme } from '@mui/material';
 
 export const stepper = (theme: Theme) => css`
   & .MuiStepConnector-root {
-    min-height: 90px;
+    min-height: 100px;
   }
 
   & .MuiStepConnector-line {
-    min-height: 80px;
+    min-height: 90px;
   }
 
   & .MuiSvgIcon-root {
