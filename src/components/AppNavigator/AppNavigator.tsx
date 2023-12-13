@@ -10,9 +10,14 @@ import * as classes from './styles';
 interface Props {
   list: MenuItemType[];
   firstUncompletedStep: number;
+  className?: string;
 }
 
-export default function AppNavigator({ list, firstUncompletedStep }: Props) {
+export default function AppNavigator({
+  list,
+  firstUncompletedStep,
+  className,
+}: Props) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -26,6 +31,7 @@ export default function AppNavigator({ list, firstUncompletedStep }: Props) {
   return (
     <Stepper
       activeStep={firstUncompletedStep}
+      className={className}
       css={classes.stepper}
       orientation='vertical'>
       {list.map((step) => (
@@ -35,7 +41,7 @@ export default function AppNavigator({ list, firstUncompletedStep }: Props) {
               component={RouterLink}
               to={step.url}
               underline='hover'
-              variant='subtitle1'>
+              variant='subtitle2'>
               {step.step}
             </Link>
           </StepLabel>
@@ -44,3 +50,7 @@ export default function AppNavigator({ list, firstUncompletedStep }: Props) {
     </Stepper>
   );
 }
+
+AppNavigator.defaultProps = {
+  className: null,
+};

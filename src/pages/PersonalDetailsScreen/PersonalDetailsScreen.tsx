@@ -95,6 +95,7 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
                     />
                     <Button
                       onClick={() => fields.remove(index)}
+                      size='small'
                       type='button'>
                       Remove
                     </Button>
@@ -109,6 +110,7 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
                   }
                   onClick={() => fields.push('')}
                   sx={{ my: 2 }}
+                  size='small'
                   type='button'>
                   Add phone number
                 </Button>

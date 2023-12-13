@@ -70,13 +70,18 @@ export default function Layout() {
   }
 
   return (
-    <div css={classes.wrap}>
-      <AppNavigator
-        firstUncompletedStep={firstUncompletedStep}
-        list={menuItemsList}
-      />
-      <div css={classes.outlet}>
-        <Outlet />
+    <div css={classes.mainWrap}>
+      <div css={classes.wrap}>
+        <div css={classes.navigatorWrap}>
+          <AppNavigator
+            css={classes.navigator}
+            firstUncompletedStep={firstUncompletedStep}
+            list={menuItemsList}
+          />
+        </div>
+        <div css={classes.outlet}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

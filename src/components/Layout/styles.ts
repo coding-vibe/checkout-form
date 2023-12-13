@@ -1,15 +1,27 @@
 import { css } from '@emotion/react';
 
+export const mainWrap = css`
+  padding: 60px;
+`;
+
 export const wrap = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  padding-top: 30px;
+  position: relative;
+  width: 1000px;
+  height: 600px;
+`;
+
+export const navigatorWrap = css`
+  width: 180px;
+`;
+
+export const navigator = css`
+  position: fixed;
 `;
 
 export const outlet = css`
-  width: 600px;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
+  position: absolute;
+  left: 300px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
 `;
