@@ -3,8 +3,6 @@ import FormScreens from 'constants/formScreens';
 import StepOrder from 'constants/stepOrder';
 import { FormValuesType, ParentScreens, Screens } from 'types/formTypes';
 
-export const initialFirstUncompletedStep = FormScreens.PERSONAL_DETAILS;
-
 export const InitialFormValues: FormValuesType = {
   [FormScreens.PERSONAL_DETAILS]: {
     isCompleted: false,
@@ -42,7 +40,7 @@ export const saveFormValues = <
 ) => {};
 
 const initialValue = {
-  firstUncompletedStep: initialFirstUncompletedStep,
+  firstUncompletedStep: FormScreens.PERSONAL_DETAILS,
   formValues: InitialFormValues,
   onSaveFormValues: saveFormValues,
 };

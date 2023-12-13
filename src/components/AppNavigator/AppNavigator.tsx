@@ -50,13 +50,16 @@ export default function AppNavigator({ className }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstUncompletedStep, pathname, navigate]);
 
-  const getActiveStepNumber = () => {
+  const getActiveMenuItemIndex = () => {
     let result = 0;
+
     // eslint-disable-next-line no-restricted-syntax
     for (const step of Object.values<FormStepsList>(formValues)) {
-      if (step.isCompleted) {
-        result += 1;
+      if (!step.isCompleted) {
+        break;
       }
+
+      result += 1;
     }
 
     return result;
@@ -98,7 +101,7 @@ export default function AppNavigator({ className }: Props) {
 
   return (
     <Stepper
-      activeStep={getActiveStepNumber()}
+      activeStep={getActiveMenuItemIndex()}
       css={className}
       orientation='vertical'>
       {renderMenuItemList}
