@@ -7,4 +7,8 @@ export interface PaymentMethodSubmitValues {
 export const isPaymentMethodPayload = (
   values: unknown,
 ): values is { paymentMethod: PaymentMethods } =>
-  !!values && typeof values === 'object' && 'paymentMethod' in values;
+  !!values &&
+  typeof values === 'object' &&
+  'paymentMethod' in values &&
+  (values.paymentMethod === PaymentMethods.CASH ||
+    values.paymentMethod === PaymentMethods.CREDIT_CARD);

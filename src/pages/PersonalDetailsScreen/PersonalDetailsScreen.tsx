@@ -5,7 +5,7 @@ import arrayMutators from 'final-form-arrays';
 import Button from '@mui/material/Button';
 import FormHelperText from '@mui/material/FormHelperText';
 import { TextField } from 'mui-rff';
-import NavigationBlocker from 'components/NavigationBlocker';
+import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
 import PhoneField from 'components/PhoneField';
 import FormScreens from 'constants/formScreens';
@@ -116,7 +116,7 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
               </div>
             )}
           </FieldArray>
-          <NavigationBlocker />
+          <StepNavigator />
         </form>
       )}
     />

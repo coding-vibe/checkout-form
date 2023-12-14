@@ -43,6 +43,7 @@ export const saveScreenValues = <
 ) => {};
 
 const initialValue = {
+  firstUncompletedStep: FormScreens.PERSONAL_DETAILS,
   formValues: InitialFormValues,
   onSaveFormValues: saveFormValues,
   onSaveScreenValues: saveScreenValues,

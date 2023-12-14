@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import omit from 'lodash/omit';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box';
@@ -44,7 +45,8 @@ export default function FullOrderDetails() {
               <Tooltip
                 title={`Click to return to ${screenName.toLowerCase()} section`}>
                 <Link
-                  href={routes[screenName as FormScreens]}
+                  component={RouterLink}
+                  to={routes[screenName as FormScreens]}
                   underline='hover'>
                   <ArrowBackIcon />
                 </Link>

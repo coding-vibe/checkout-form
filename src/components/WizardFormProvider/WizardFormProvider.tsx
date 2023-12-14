@@ -1,11 +1,12 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
+import FormScreens from 'constants/formScreens';
+import DeliveryModes from 'constants/deliveryModes';
+import PaymentMethods from 'constants/paymentMethods';
 import WizardFormContext, {
   InitialFormValues,
   saveScreenValues,
 } from 'contexts/WizardFormContext';
-import FormScreens from 'constants/formScreens';
-import DeliveryModes from 'constants/deliveryModes';
-import PaymentMethods from 'constants/paymentMethods';
+import Entries from 'types/entries';
 import { FormValuesType } from 'types/formTypes';
 import { isDeliveryModePayload } from 'types/deliveryMode';
 import { isPaymentMethodPayload } from 'types/paymentMethod';
@@ -113,14 +114,40 @@ export default function WizardFormProvider({ children }: Props) {
     });
   };
 
+  const getFirstUncompletedStep = (): FormScreens => {
+    // https://www.charpeni.com/blog/properly-type-object-keys-and-object-entries
+    const formValuesEntries = Object.entries(
+      formValues,
+    ) as Entries<FormValuesType>;
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const [name, step] of formValuesEntries) {
+      if (!step.isCompleted) {
+        return name;
+      }
+
+      if ('subStep' in step && !!step.subStep && !step.subStep.isCompleted) {
+        return step.subStep.id;
+      }
+    }
+
+    return formValuesEntries[0][0];
+  };
+
+  const firstUncompletedStep = getFirstUncompletedStep();
+
+  const contextValue = useMemo(
+    () => ({
+      firstUncompletedStep,
+      formValues,
+      onSaveFormValues: handleSaveFormValues,
+      onSaveScreenValues,
+    }),
+    [firstUncompletedStep, formValues],
+  );
+
   return (
-    <WizardFormContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={{
-        formValues,
-        onSaveFormValues: handleSaveFormValues,
-        onSaveScreenValues,
-      }}>
+    <WizardFormContext.Provider value={contextValue}>
       {children}
     </WizardFormContext.Provider>
   );

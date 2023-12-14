@@ -1,7 +1,7 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import { Checkboxes } from 'mui-rff';
-import NavigationBlocker from 'components/NavigationBlocker';
+import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
 import FormScreenProps from 'types/formScreen';
@@ -31,7 +31,7 @@ function SubmissionForm({ initialValues, onSubmit, screen }: Props) {
               name='isAgree'
             />
           </Box>
-          <NavigationBlocker />
+          <StepNavigator />
         </form>
       )}
     />
