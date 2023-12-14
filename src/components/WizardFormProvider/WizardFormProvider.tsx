@@ -127,7 +127,7 @@ export default function WizardFormProvider({ children }: Props) {
         return name;
       }
 
-      if (step.subStep && !step.subStep.isCompleted) {
+      if ('subStep' in step && !!step.subStep && !step.subStep.isCompleted) {
         return step.subStep.id;
       }
     }
