@@ -1,10 +1,11 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import { Select } from 'mui-rff';
+import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
 import DELIVERY_MODE_OPTIONS from 'constants/deliveryModeOptions';
 import FormScreens from 'constants/formScreens';
-import DeliveryModeSubmitValues from 'types/deliveryMode';
+import { DeliveryModeSubmitValues } from 'types/deliveryMode';
 import FormScreenProps from 'types/formScreen';
 import { validateIsRequired } from 'utils/validation';
 
@@ -27,6 +28,7 @@ function DeliveryModeScreen({ initialValues, onSubmit, screen }: Props) {
               name='deliveryType'
             />
           </Box>
+          <StepNavigator />
         </form>
       )}
     />

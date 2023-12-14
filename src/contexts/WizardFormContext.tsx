@@ -40,6 +40,7 @@ export const saveFormValues = <
 ) => {};
 
 const initialValue = {
+  firstUncompletedStep: FormScreens.PERSONAL_DETAILS,
   formValues: InitialFormValues,
   onSaveFormValues: saveFormValues,
 };

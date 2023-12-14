@@ -1,11 +1,12 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import { Select } from 'mui-rff';
+import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
 import PAYMENT_METHODS_OPTIONS from 'constants/paymentMethodOptions';
 import FormScreenProps from 'types/formScreen';
-import PaymentMethodSubmitValues from 'types/paymentMethod';
+import { PaymentMethodSubmitValues } from 'types/paymentMethod';
 import { validateIsRequired } from 'utils/validation';
 
 interface Props extends FormScreenProps<PaymentMethodSubmitValues> {}
@@ -27,6 +28,7 @@ function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
               name='paymentMethod'
             />
           </Box>
+          <StepNavigator />
         </form>
       )}
     />

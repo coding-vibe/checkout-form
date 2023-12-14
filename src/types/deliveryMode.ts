@@ -1,10 +1,8 @@
 import DeliveryModes from 'constants/deliveryModes';
 
-interface DeliveryModeSubmitValues {
+export interface DeliveryModeSubmitValues {
   deliveryType: DeliveryModes;
 }
-
-export default DeliveryModeSubmitValues;
 
 export const isDeliveryModePayload = (
   values: unknown,
@@ -12,4 +10,5 @@ export const isDeliveryModePayload = (
   !!values &&
   typeof values === 'object' &&
   'deliveryType' in values &&
-  (values.deliveryType === 'COURIER' || values.deliveryType === 'POST_OFFICE');
+  (values.deliveryType === DeliveryModes.COURIER ||
+    values.deliveryType === DeliveryModes.POST_OFFICE);
