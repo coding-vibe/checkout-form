@@ -48,20 +48,22 @@ export default function AppNavigator({ className }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstUncompletedStep, pathname, navigate]);
 
-  const getActiveMenuItemIndex = () => {
-    let result = 0;
+  const getActiveMenuItemIndex = () =>
+    Object.values<FormStepsList>(formValues).reduce<number>(
+      (accumulator, step) => {
+        let updatedAccumulator = accumulator;
+        if (step.isCompleted) {
+          updatedAccumulator += 1;
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const step of Object.values<FormStepsList>(formValues)) {
-      if ('subStep' in step && step.subStep?.isCompleted && step.isCompleted) {
-        result += 2;
-      } else if (step.isCompleted) {
-        result += 1;
-      }
-    }
+          if ('subStep' in step && step.subStep?.isCompleted) {
+            updatedAccumulator += 1;
+          }
+        }
 
-    return result;
-  };
+        return updatedAccumulator;
+      },
+      0,
+    );
 
   const renderMenuItem = (
     screenName: FormScreens,
