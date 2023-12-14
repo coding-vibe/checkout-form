@@ -10,7 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import routes from 'constants/routes';
 import WizardFormContext from 'contexts/WizardFormContext';
 
-export default function NavigationBlocker() {
+export default function StepNavigator() {
   const { firstUncompletedStep } = useContext(WizardFormContext);
   const formState = useFormState();
   const navigate = useNavigate();

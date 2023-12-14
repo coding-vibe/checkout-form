@@ -9,7 +9,7 @@ import FormScreens from 'constants/formScreens';
 import routes from 'constants/routes';
 import WizardFormContext from 'contexts/WizardFormContext';
 import Entries from 'types/entries';
-import { FormValuesType } from 'types/formTypes';
+import { FormStepsList, FormValuesType } from 'types/formTypes';
 
 interface Props {
   className?: string;
@@ -23,8 +23,6 @@ export default function AppNavigator({ className }: Props) {
   const formValuesEntries = Object.entries(
     formValues,
   ) as Entries<FormValuesType>;
-  type FormValuesKeys = keyof typeof formValues;
-  type FormStepsList = (typeof formValues)[FormValuesKeys];
 
   useEffect(() => {
     const formScreen = (Object.keys(routes) as (keyof typeof routes)[]).find(
@@ -36,11 +34,11 @@ export default function AppNavigator({ className }: Props) {
         if (screenName === formScreen) {
           return step;
         }
-        if (step.subStep) {
+        if ('subStep' in step && !!step.subStep) {
           return step.subStep;
         }
       }
-      throw new Error('Step/substep not found');
+      throw new Error('Unknown step/substep');
     };
 
     const currentStep = findStep();

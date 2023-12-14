@@ -4,8 +4,6 @@ export interface DeliveryModeSubmitValues {
   deliveryType: DeliveryModes;
 }
 
-export default DeliveryModeSubmitValues;
-
 export const isDeliveryModePayload = (
   values: unknown,
 ): values is { deliveryType: DeliveryModes } =>

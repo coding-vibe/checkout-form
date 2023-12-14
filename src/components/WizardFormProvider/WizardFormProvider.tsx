@@ -119,7 +119,6 @@ export default function WizardFormProvider({ children }: Props) {
     const formValuesEntries = Object.entries(
       formValues,
     ) as Entries<FormValuesType>;
-    const formValuesList = Object.values(formValues);
 
     // eslint-disable-next-line no-restricted-syntax
     for (const [name, step] of formValuesEntries) {
@@ -132,8 +131,7 @@ export default function WizardFormProvider({ children }: Props) {
       }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return formValuesList[0];
+    return formValuesEntries[0][0];
   };
 
   const firstUncompletedStep = getFirstUncompletedStep();
@@ -149,9 +147,7 @@ export default function WizardFormProvider({ children }: Props) {
   );
 
   return (
-    <WizardFormContext.Provider
-      // eslint-disable-next-line react/jsx-no-constructed-context-values
-      value={contextValue}>
+    <WizardFormContext.Provider value={contextValue}>
       {children}
     </WizardFormContext.Provider>
   );

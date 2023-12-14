@@ -45,9 +45,10 @@ export interface FormValuesType {
     order: StepOrder.FORM_SUCCESS;
   };
 }
+export type FormValuesKeys = keyof FormValuesType;
+export type FormStepsList = FormValuesType[FormValuesKeys];
 
 export type ParentScreens =
   | FormScreens.DELIVERY_MODE
   | FormScreens.PAYMENT_METHOD;
-
 export type Screens = Exclude<FormScreens, 'FORM_SUCCESS'>;

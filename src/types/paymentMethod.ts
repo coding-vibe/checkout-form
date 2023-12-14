@@ -4,8 +4,6 @@ export interface PaymentMethodSubmitValues {
   paymentMethod: PaymentMethods;
 }
 
-export default PaymentMethodSubmitValues;
-
 export const isPaymentMethodPayload = (
   values: unknown,
 ): values is { paymentMethod: PaymentMethods } =>
