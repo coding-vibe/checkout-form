@@ -24,8 +24,8 @@ export default function FormSubmissionSuccessScreen() {
       {formValues.PAYMENT_METHOD.values?.paymentMethod ===
         PaymentMethods.CREDIT_CARD && (
         <span css={classes.text}>
-          *&nbsp;In few seconds you will be redirected to the payment provider
-          for the payment confirmation
+          *&nbsp;In few seconds you will be redirected to the payment
+          confirmation
         </span>
       )}
     </div>

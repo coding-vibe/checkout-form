@@ -19,6 +19,7 @@ import {
   validateIsRequired,
   validatePhoneNumber,
 } from 'utils/validation';
+import * as classes from './styles';
 
 const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 
@@ -49,77 +50,82 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   };
 
   return (
-    <Form<PersonalDetailsSubmitValues, PersonalDetailsInitialValues>
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      mutators={arrayMutators}
-      validate={validateForm}
-      render={({ handleSubmit }) => (
-        <form
-          id={screen}
-          onSubmit={handleSubmit}>
-          <TextField
-            fieldProps={{ validate: validateIsRequired }}
-            label='First Name'
-            name='firstName'
-            placeholder='Enter first name'
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fieldProps={{ validate: validateIsRequired }}
-            label='Last Name'
-            name='lastName'
-            placeholder='Enter last name'
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            fieldProps={{
-              validate: composeValidators(validateIsRequired, validateEmail),
-            }}
-            label='Email'
-            name='email'
-            placeholder='Enter email'
-          />
-          <FieldArray<string> name='phoneNumbers'>
-            {({ fields, meta: { error, touched } }) => (
-              <div>
-                {fields.map((name, index) => (
-                  <div key={name}>
-                    <PhoneField
-                      fieldProps={{ validate: validatePhoneNumber }}
-                      label={`Phone number ${index + 1}`}
-                      name={name}
-                      sx={{ mt: 2, '&:last-child': { mb: 2 } }}
-                    />
-                    <Button
-                      onClick={() => fields.remove(index)}
-                      size='small'
-                      type='button'>
-                      Remove
-                    </Button>
-                  </div>
-                ))}
-                {error && !Array.isArray(error) && touched && (
-                  <FormHelperText error>{error}</FormHelperText>
-                )}
-                <Button
-                  disabled={
-                    !!fields.length && fields.length >= phoneNumbersLimits.MAX
-                  }
-                  onClick={() => fields.push('')}
-                  sx={{ my: 2 }}
-                  size='small'
-                  type='button'>
-                  Add phone number
-                </Button>
-              </div>
-            )}
-          </FieldArray>
-        </form>
-      )}
-    />
+    <div>
+      <h2 css={classes.title}>
+        {`Provide your ${screen.toLocaleLowerCase()}`}
+      </h2>
+      <Form<PersonalDetailsSubmitValues, PersonalDetailsInitialValues>
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        mutators={arrayMutators}
+        validate={validateForm}
+        render={({ handleSubmit }) => (
+          <form
+            id={screen}
+            onSubmit={handleSubmit}>
+            <TextField
+              fieldProps={{ validate: validateIsRequired }}
+              label='First Name'
+              name='firstName'
+              placeholder='Enter first name'
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              fieldProps={{ validate: validateIsRequired }}
+              label='Last Name'
+              name='lastName'
+              placeholder='Enter last name'
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              fieldProps={{
+                validate: composeValidators(validateIsRequired, validateEmail),
+              }}
+              label='Email'
+              name='email'
+              placeholder='Enter email'
+            />
+            <FieldArray<string> name='phoneNumbers'>
+              {({ fields, meta: { error, touched } }) => (
+                <div>
+                  {fields.map((name, index) => (
+                    <div key={name}>
+                      <PhoneField
+                        fieldProps={{ validate: validatePhoneNumber }}
+                        label={`Phone number ${index + 1}`}
+                        name={name}
+                        sx={{ mt: 2, '&:last-child': { mb: 2 } }}
+                      />
+                      <Button
+                        onClick={() => fields.remove(index)}
+                        size='small'
+                        type='button'>
+                        Remove
+                      </Button>
+                    </div>
+                  ))}
+                  {error && !Array.isArray(error) && touched && (
+                    <FormHelperText error>{error}</FormHelperText>
+                  )}
+                  <Button
+                    disabled={
+                      !!fields.length && fields.length >= phoneNumbersLimits.MAX
+                    }
+                    onClick={() => fields.push('')}
+                    sx={{ my: 2 }}
+                    size='small'
+                    type='button'>
+                    Add phone number
+                  </Button>
+                </div>
+              )}
+            </FieldArray>
+          </form>
+        )}
+      />
+    </div>
   );
 }
 

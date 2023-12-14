@@ -7,29 +7,33 @@ import PAYMENT_METHODS_OPTIONS from 'constants/paymentMethodOptions';
 import FormScreenProps from 'types/formScreen';
 import PaymentMethodSubmitValues from 'types/paymentMethod';
 import { validateIsRequired } from 'utils/validation';
+import * as classes from './styles';
 
 interface Props extends FormScreenProps<PaymentMethodSubmitValues> {}
 
 function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
   return (
-    <Form<PaymentMethodSubmitValues>
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      render={({ handleSubmit }) => (
-        <form
-          id={screen}
-          onSubmit={handleSubmit}>
-          <Box sx={{ mb: 2 }}>
-            <Select
-              data={PAYMENT_METHODS_OPTIONS}
-              fieldProps={{ validate: validateIsRequired }}
-              label='Payment Method'
-              name='paymentMethod'
-            />
-          </Box>
-        </form>
-      )}
-    />
+    <div>
+      <h2 css={classes.title}>{`Choose ${screen.toLocaleLowerCase()}`}</h2>
+      <Form<PaymentMethodSubmitValues>
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        render={({ handleSubmit }) => (
+          <form
+            id={screen}
+            onSubmit={handleSubmit}>
+            <Box sx={{ mb: 2 }}>
+              <Select
+                data={PAYMENT_METHODS_OPTIONS}
+                fieldProps={{ validate: validateIsRequired }}
+                label='Payment Method'
+                name='paymentMethod'
+              />
+            </Box>
+          </form>
+        )}
+      />
+    </div>
   );
 }
 

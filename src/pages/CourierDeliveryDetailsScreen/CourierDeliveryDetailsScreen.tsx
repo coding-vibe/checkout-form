@@ -29,106 +29,109 @@ function CourierDeliveryDetailsScreen({
   screen,
 }: Props) {
   return (
-    <Form<Omit<CourierDeliveryDetailsSubmitValues, 'time'> & { time: Date }>
-      initialValues={initialValues}
-      onSubmit={(values) => {
-        const { time } = values;
+    <div>
+      <h2 css={classes.title}>{`Provide ${screen.toLocaleLowerCase()}`}</h2>
+      <Form<Omit<CourierDeliveryDetailsSubmitValues, 'time'> & { time: Date }>
+        initialValues={initialValues}
+        onSubmit={(values) => {
+          const { time } = values;
 
-        const formattedValues = {
-          ...values,
-          time: format(time, 'p'),
-        };
+          const formattedValues = {
+            ...values,
+            time: format(time, 'p'),
+          };
 
-        onSubmit(formattedValues);
-      }}
-      render={({ handleSubmit }) => (
-        <form
-          id={screen}
-          onSubmit={handleSubmit}>
-          <fieldset css={classes.fieldset}>
-            <Box sx={{ mb: 2, color: 'info.dark' }}>
-              <Typography variant='overline'>
-                <legend>Choose date and time for courier delivery</legend>
-              </Typography>
-            </Box>
-            <DatePicker
-              fieldProps={{
-                validate: composeValidators<Date>(
-                  validateIsRequired,
-                  validateMinDate(MIN_DELIVERY_DAYS, DELIVERY_ERROR_MESSAGE),
-                ),
-              }}
-              label='Date'
-              minDate={MIN_DELIVERY_DATE}
-              name='date'
-              sx={{ mb: 2 }}
-            />
-            <TimePicker
-              fieldProps={{
-                validate: validateIsRequired,
-              }}
-              label='Time'
-              name='time'
-            />
-          </fieldset>
-          <fieldset css={classes.fieldset}>
-            <Box sx={{ mb: 2, color: 'info.dark' }}>
-              <Typography variant='overline'>
-                <legend>Enter address details for courier delivery</legend>
-              </Typography>
-            </Box>
-            <TextField
-              fieldProps={{ validate: validateIsRequired }}
-              label='City'
-              name='city'
-              placeholder='Enter city name'
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              fieldProps={{ validate: validateIsRequired }}
-              label='Street'
-              name='street'
-              placeholder='Enter street name'
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              fieldProps={{ validate: validateIsRequired }}
-              label='House'
-              name='house'
-              placeholder='Enter house number'
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              fieldProps={{
-                format: formatHandler,
-                parse: parseHandler,
-              }}
-              label='Flat'
-              name='flat'
-              placeholder='Enter flat number'
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              fieldProps={{
-                format: formatHandler,
-                parse: parseHandler,
-              }}
-              label='Intercom'
-              name='intercom'
-              placeholder='Enter intercom number'
-              sx={{ mb: 2 }}
-            />
-            <Checkboxes
-              data={{
-                label: 'There is at least one elevator in the house',
-                value: true,
-              }}
-              name='hasElevator'
-            />
-          </fieldset>
-        </form>
-      )}
-    />
+          onSubmit(formattedValues);
+        }}
+        render={({ handleSubmit }) => (
+          <form
+            id={screen}
+            onSubmit={handleSubmit}>
+            <fieldset css={classes.fieldset}>
+              <Box sx={{ mb: 2, color: 'info.dark' }}>
+                <Typography variant='overline'>
+                  <legend>Choose date and time for courier delivery</legend>
+                </Typography>
+              </Box>
+              <DatePicker
+                fieldProps={{
+                  validate: composeValidators<Date>(
+                    validateIsRequired,
+                    validateMinDate(MIN_DELIVERY_DAYS, DELIVERY_ERROR_MESSAGE),
+                  ),
+                }}
+                label='Date'
+                minDate={MIN_DELIVERY_DATE}
+                name='date'
+                sx={{ mb: 2 }}
+              />
+              <TimePicker
+                fieldProps={{
+                  validate: validateIsRequired,
+                }}
+                label='Time'
+                name='time'
+              />
+            </fieldset>
+            <fieldset css={classes.fieldset}>
+              <Box sx={{ mb: 2, color: 'info.dark' }}>
+                <Typography variant='overline'>
+                  <legend>Enter address details for courier delivery</legend>
+                </Typography>
+              </Box>
+              <TextField
+                fieldProps={{ validate: validateIsRequired }}
+                label='City'
+                name='city'
+                placeholder='Enter city name'
+                sx={{ mb: 2 }}
+              />
+              <TextField
+                fieldProps={{ validate: validateIsRequired }}
+                label='Street'
+                name='street'
+                placeholder='Enter street name'
+                sx={{ mb: 2 }}
+              />
+              <TextField
+                fieldProps={{ validate: validateIsRequired }}
+                label='House'
+                name='house'
+                placeholder='Enter house number'
+                sx={{ mb: 2 }}
+              />
+              <TextField
+                fieldProps={{
+                  format: formatHandler,
+                  parse: parseHandler,
+                }}
+                label='Flat'
+                name='flat'
+                placeholder='Enter flat number'
+                sx={{ mb: 2 }}
+              />
+              <TextField
+                fieldProps={{
+                  format: formatHandler,
+                  parse: parseHandler,
+                }}
+                label='Intercom'
+                name='intercom'
+                placeholder='Enter intercom number'
+                sx={{ mb: 2 }}
+              />
+              <Checkboxes
+                data={{
+                  label: 'There is at least one elevator in the house',
+                  value: true,
+                }}
+                name='hasElevator'
+              />
+            </fieldset>
+          </form>
+        )}
+      />
+    </div>
   );
 }
 

@@ -21,55 +21,61 @@ interface Props extends FormScreenProps<CreditCardDetailsSubmitValues> {}
 
 function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   return (
-    <Form<CreditCardDetailsSubmitValues>
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      render={({ handleSubmit }) => (
-        <form
-          id={screen}
-          onSubmit={handleSubmit}>
-          <div css={classes.fields}>
-            <CardNumberField
-              css={classes.field}
-              fieldProps={{
-                validate: composeValidators(
-                  validateIsRequired,
-                  validateDigitsCount(CARD_NUMBER_LENGTH, 'credit card number'),
-                ),
-              }}
-              label='Card Number'
-              name='cardNumber'
-              sx={{ mb: 5 }}
-            />
-            <div css={classes.wrap}>
-              <CardExpiryField
+    <div>
+      <h2 css={classes.title}>{`Provide ${screen.toLocaleLowerCase()}`}</h2>
+      <Form<CreditCardDetailsSubmitValues>
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        render={({ handleSubmit }) => (
+          <form
+            id={screen}
+            onSubmit={handleSubmit}>
+            <div css={classes.fields}>
+              <CardNumberField
                 css={classes.field}
                 fieldProps={{
                   validate: composeValidators(
                     validateIsRequired,
-                    validateIsFutureDate,
+                    validateDigitsCount(
+                      CARD_NUMBER_LENGTH,
+                      'credit card number',
+                    ),
                   ),
                 }}
-                label='Expiry Date'
-                name='expiryDate'
+                label='Card Number'
+                name='cardNumber'
+                sx={{ mb: 5 }}
               />
-              <CVVCodeField
-                css={classes.field}
-                fieldProps={{
-                  validate: composeValidators(
-                    validateIsRequired,
-                    validateDigitsCount(CVV_CODE_LENGTH, 'CVV code'),
-                  ),
-                }}
-                label='CVV Code'
-                name='cvvCode'
-                placeholder='Enter CVV code'
-              />
+              <div css={classes.wrap}>
+                <CardExpiryField
+                  css={classes.field}
+                  fieldProps={{
+                    validate: composeValidators(
+                      validateIsRequired,
+                      validateIsFutureDate,
+                    ),
+                  }}
+                  label='Expiry Date'
+                  name='expiryDate'
+                />
+                <CVVCodeField
+                  css={classes.field}
+                  fieldProps={{
+                    validate: composeValidators(
+                      validateIsRequired,
+                      validateDigitsCount(CVV_CODE_LENGTH, 'CVV code'),
+                    ),
+                  }}
+                  label='CVV Code'
+                  name='cvvCode'
+                  placeholder='Enter CVV code'
+                />
+              </div>
             </div>
-          </div>
-        </form>
-      )}
-    />
+          </form>
+        )}
+      />
+    </div>
   );
 }
 

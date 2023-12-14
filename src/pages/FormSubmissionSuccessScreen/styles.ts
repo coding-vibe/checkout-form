@@ -1,12 +1,19 @@
 import { css } from '@emotion/react';
 import { Theme } from '@mui/material';
 
-export const wrap = css`
+export const wrap = (theme: Theme) => css`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  margin-top: 100px;
+
+  ${theme.breakpoints.up('md')} {
+    padding: 30px 0px;
+  }
+
+  ${theme.breakpoints.down('md')} {
+    padding: 60px 0px;
+  }
 `;
 
 export const titleBox = css`
@@ -18,9 +25,14 @@ export const icon = css`
   font-size: 40px;
 `;
 
-export const image = css`
+export const image = (theme: Theme) => css`
   height: 400px;
   width: 400px;
+
+  ${theme.breakpoints.down('md')} {
+    height: 300px;
+    width: 300px;
+  }
 `;
 
 export const title = css`
@@ -29,12 +41,33 @@ export const title = css`
   text-transform: uppercase;
 `;
 
-export const mainText = css`
-  font-size: 20px;
+export const mainText = (theme: Theme) => css`
+  ${theme.breakpoints.up('lg')} {
+    font-size: 20px;
+  }
+
+  ${theme.breakpoints.down('lg')} {
+    font-size: 18px;
+  }
+
+  ${theme.breakpoints.down('md')} {
+    font-size: 14px;
+  }
 `;
 
 export const text = (theme: Theme) => css`
   color: ${theme.palette.primary.dark};
-  font-size: 18px;
   font-style: italic;
+
+  ${theme.breakpoints.up('xl')} {
+    font-size: 18px;
+  }
+
+  ${theme.breakpoints.down('xl')} {
+    font-size: 16px;
+  }
+
+  ${theme.breakpoints.down('md')} {
+    font-size: 14px;
+  }
 `;

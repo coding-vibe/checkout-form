@@ -8,6 +8,7 @@ export const stepper = (theme: Theme) => css`
 
   & .MuiStepConnector-line {
     min-height: 90px;
+    border-color: ${theme.palette.primary.light};
   }
 
   & .MuiSvgIcon-root {
