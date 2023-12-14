@@ -65,7 +65,10 @@ export default function AppNavigator({ className }: Props) {
     return result;
   };
 
-  const renderMenuItem = (screenName: FormScreens, step: FormStepsList) => (
+  const renderMenuItem = (
+    screenName: FormScreens,
+    step: { isCompleted: boolean },
+  ): JSX.Element => (
     <Step key={screenName}>
       <StepLabel>
         {step.isCompleted || screenName === firstUncompletedStep ? (
@@ -89,7 +92,7 @@ export default function AppNavigator({ className }: Props) {
 
   const renderMenuItemList = formValuesEntries.reduce<JSX.Element[]>(
     (prev, [screenName, step]) =>
-      step.subStep
+      'subStep' in step && step.subStep
         ? [
             ...prev,
             renderMenuItem(screenName, step),
