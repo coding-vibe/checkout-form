@@ -48,7 +48,8 @@ export default function AppNavigator({ className }: Props) {
   }, [firstUncompletedStep, formValuesEntries, navigate, pathname]);
 
   const getActiveMenuItemIndex = () =>
-    Object.values<FormStepsList>(formValues).reduce<number>(
+    // https://github.com/microsoft/TypeScript/issues/15300
+    Object.values<FormStepsList>({ ...formValues }).reduce<number>(
       (accumulator, step) => {
         let updatedAccumulator = accumulator;
         if (step.isCompleted) {
