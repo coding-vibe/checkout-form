@@ -10,4 +10,5 @@ export const isPaymentMethodPayload = (
   !!values &&
   typeof values === 'object' &&
   'paymentMethod' in values &&
-  (values.paymentMethod === 'CASH' || values.paymentMethod === 'CREDIT_CARD');
+  (values.paymentMethod === PaymentMethods.CASH ||
+    values.paymentMethod === PaymentMethods.CREDIT_CARD);

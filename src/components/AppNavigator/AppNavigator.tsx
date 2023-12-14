@@ -53,11 +53,11 @@ export default function AppNavigator({ className }: Props) {
 
     // eslint-disable-next-line no-restricted-syntax
     for (const step of Object.values<FormStepsList>(formValues)) {
-      if (!step.isCompleted) {
-        break;
+      if ('subStep' in step && step.subStep?.isCompleted && step.isCompleted) {
+        result += 2;
+      } else if (step.isCompleted) {
+        result += 1;
       }
-
-      result += 1;
     }
 
     return result;
