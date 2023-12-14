@@ -28,7 +28,7 @@ export default function AppNavigator({ className }: Props) {
     const formScreen = (Object.keys(routes) as (keyof typeof routes)[]).find(
       (key) => routes[key] === pathname,
     );
-    const findStep = () => {
+    const getActiveStep = () => {
       // eslint-disable-next-line no-restricted-syntax
       for (const [screenName, step] of formValuesEntries) {
         if (screenName === formScreen) {
@@ -41,12 +41,11 @@ export default function AppNavigator({ className }: Props) {
       throw new Error('Unknown step/substep');
     };
 
-    const currentStep = findStep();
+    const currentStep = getActiveStep();
     if (!currentStep.isCompleted && formScreen !== firstUncompletedStep) {
       navigate(routes[firstUncompletedStep]);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [firstUncompletedStep, pathname, navigate]);
+  }, [firstUncompletedStep, formValuesEntries, navigate, pathname]);
 
   const getActiveMenuItemIndex = () =>
     Object.values<FormStepsList>(formValues).reduce<number>(
