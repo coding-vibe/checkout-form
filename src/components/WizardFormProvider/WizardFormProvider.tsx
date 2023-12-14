@@ -136,7 +136,6 @@ export default function WizardFormProvider({ children }: Props) {
 
   const firstUncompletedStep = getFirstUncompletedStep();
 
-  // TODO: Check if useMemo is needed after implementing all logic
   const contextValue = useMemo(
     () => ({
       firstUncompletedStep,
