@@ -37,15 +37,34 @@ export default function AppNavigator({ className }: Props) {
     const formScreen = (Object.keys(routes) as (keyof typeof routes)[]).find(
       (key) => routes[key] === pathname,
     );
-    const getActiveStep = () => {
+
+    const predicate = (screenName: FormScreens, step: FormStepsList) => {
+      if (screenName === formScreen || ('subStep' in step && !!step.subStep)) {
+        return true;
+      }
+      throw new Error('Unknown step/substep');
+    };
+
+    const getStep = (
+      values: Entries<FormValuesType>,
+      predicate: (screenName: FormScreens, step: FormStepsList) => boolean,
+    ): [FormScreens, FormStepsList] => {
       // eslint-disable-next-line no-restricted-syntax
-      for (const [screenName, step] of formValuesEntries) {
-        if (screenName === formScreen) {
-          return step;
+      for (const [screenName, step] of values) {
+        if (predicate(screenName, step)) {
+          return [screenName, step];
         }
-        if ('subStep' in step && !!step.subStep) {
-          return step.subStep;
-        }
+      }
+      throw new Error('Step/substep by condition not found');
+    };
+
+    const getActiveStep = () => {
+      const [screenName, step] = getStep(formValuesEntries, predicate);
+      if (screenName === formScreen) {
+        return step;
+      }
+      if ('subStep' in step && !!step.subStep) {
+        return step.subStep;
       }
       throw new Error('Unknown step/substep');
     };
