@@ -1,10 +1,8 @@
 import PaymentMethods from 'constants/paymentMethods';
 
-interface PaymentMethodSubmitValues {
+export interface PaymentMethodSubmitValues {
   paymentMethod: PaymentMethods;
 }
-
-export default PaymentMethodSubmitValues;
 
 export const isPaymentMethodPayload = (
   values: unknown,
@@ -12,4 +10,5 @@ export const isPaymentMethodPayload = (
   !!values &&
   typeof values === 'object' &&
   'paymentMethod' in values &&
-  (values.paymentMethod === 'CASH' || values.paymentMethod === 'CREDIT_CARD');
+  (values.paymentMethod === PaymentMethods.CASH ||
+    values.paymentMethod === PaymentMethods.CREDIT_CARD);

@@ -3,6 +3,7 @@ import { addDays, format } from 'date-fns';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Checkboxes, DatePicker, TextField, TimePicker } from 'mui-rff';
+import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
 import FormScreens from 'constants/formScreens';
 import CourierDeliveryDetailsSubmitValues from 'types/courierDeliveryDetails';
@@ -128,6 +129,7 @@ function CourierDeliveryDetailsScreen({
                 name='hasElevator'
               />
             </fieldset>
+            <StepNavigator />
           </form>
         )}
       />
