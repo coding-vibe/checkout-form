@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import AppNavigator from 'components/AppNavigator';
+import FormPersister from 'components/FormPersister';
 import routes from 'constants/routes';
 import WizardFormContext from 'contexts/WizardFormContext';
 import * as classes from './styles';
@@ -20,6 +21,7 @@ export default function Layout() {
 
   return (
     <div>
+      <FormPersister />
       <AppNavigator css={classes.navigator} />
       <Outlet />
     </div>
