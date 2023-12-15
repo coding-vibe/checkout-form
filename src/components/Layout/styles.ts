@@ -1,8 +1,14 @@
 import { css } from '@emotion/react';
 import { Theme } from '@mui/material';
 
-export const mainWrap = css`
+export const mainWrap = (theme: Theme) => css`
   min-height: 100vh;
+
+  ${theme.breakpoints.down('sm')} {
+    min-height: auto;
+    border: 1px solid ${theme.palette.primary.main};
+    background-color: ${theme.palette.secondary.main};
+  }
 `;
 
 export const wrap = css`
@@ -29,7 +35,12 @@ export const navigatorWrap = (theme: Theme) => css`
   }
 
   ${theme.breakpoints.down('sm')} {
-    padding: 120px 30px;
+    position: absolute;
+    top: 100%;
+    left: 35%;
+    padding: 0px;
+    border-right: inherit;
+    background-color: inherit;
   }
 `;
 
@@ -64,5 +75,17 @@ export const contentWrap = (theme: Theme) => css`
     left: 330px;
     width: 55%;
     padding: 0px 10px;
+  }
+
+  ${theme.breakpoints.down('md')} {
+    left: 330px;
+    width: 55%;
+    padding: 0px 10px;
+  }
+
+  ${theme.breakpoints.down('sm')} {
+    position: static;
+    top: 0%;
+    margin: 100px auto;
   }
 `;

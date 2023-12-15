@@ -7,7 +7,7 @@ import WizardFormContext, {
   saveScreenValues,
 } from 'contexts/WizardFormContext';
 import Entries from 'types/entries';
-import { FormValuesType } from 'types/formTypes';
+import { FormStepsList, FormValuesType } from 'types/formTypes';
 import { isDeliveryModePayload } from 'types/deliveryMode';
 import { isPaymentMethodPayload } from 'types/paymentMethod';
 import checkScreenIsNotSubStep from 'utils/checkScreenIsNotSubStep';
@@ -112,6 +112,17 @@ export default function WizardFormProvider({ children }: Props) {
     },
     [],
   );
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const predicate = (step: FormStepsList) => {
+    if (
+      !step.isCompleted ||
+      ('subStep' in step && !!step.subStep && !step.subStep.isCompleted)
+    ) {
+      return true;
+    }
+    throw new Error('Unknown step/substep');
+  };
 
   const getFirstUncompletedStep = (): FormScreens => {
     // https://www.charpeni.com/blog/properly-type-object-keys-and-object-entries

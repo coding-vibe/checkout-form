@@ -10,8 +10,12 @@ export const title = (theme: Theme) => css`
   text-align: center;
 `;
 
-export const buttonWrap = css`
+export const buttonWrap = (theme: Theme) => css`
   display: flex;
   justify-content: flex-end;
   margin-top: 30px;
+
+  ${theme.breakpoints.down('sm')} {
+    display: none;
+  }
 `;

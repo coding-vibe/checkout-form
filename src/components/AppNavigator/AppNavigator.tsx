@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useContext, useEffect } from 'react';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -142,8 +141,7 @@ export default function AppNavigator({ className }: Props) {
         orientation='vertical'>
         {renderMenuItemList}
       </Stepper>
-
-      {/* <MobileStepper
+      <MobileStepper
         variant='text'
         steps={maxSteps}
         position='static'
@@ -174,7 +172,7 @@ export default function AppNavigator({ className }: Props) {
             Back
           </Button>
         }
-      /> */}
+      />
     </div>
   );
 }
