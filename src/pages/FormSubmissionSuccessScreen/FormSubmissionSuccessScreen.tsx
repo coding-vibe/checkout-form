@@ -1,11 +1,16 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import AwesomeIcon from '@mui/icons-material/AutoAwesome';
+import FORM_STATE from 'constants/formState';
 import PaymentMethods from 'constants/paymentMethods';
 import WizardFormContext from 'contexts/WizardFormContext';
 import * as classes from './styles';
 
 export default function FormSubmissionSuccessScreen() {
   const { formValues } = useContext(WizardFormContext);
+
+  useEffect(() => {
+    localStorage.removeItem(FORM_STATE);
+  }, []);
 
   return (
     <div css={classes.wrap}>

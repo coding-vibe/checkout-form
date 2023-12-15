@@ -70,7 +70,10 @@ export default function AppNavigator({ className }: Props) {
     };
 
     const currentStep = getActiveStep();
-    if (!currentStep.isCompleted && formScreen !== firstUncompletedStep) {
+    if (
+      !currentStep ||
+      (!currentStep.isCompleted && formScreen !== firstUncompletedStep)
+    ) {
       navigate(routes[firstUncompletedStep]);
     }
   }, [firstUncompletedStep, formValuesEntries, navigate, pathname]);
