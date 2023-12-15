@@ -38,11 +38,15 @@ export default function AppNavigator({ className }: Props) {
           return step.subStep;
         }
       }
-      throw new Error('Unknown step/substep');
+
+      return null;
     };
 
     const currentStep = getActiveStep();
-    if (!currentStep.isCompleted && formScreen !== firstUncompletedStep) {
+    if (
+      !currentStep ||
+      (!currentStep.isCompleted && formScreen !== firstUncompletedStep)
+    ) {
       navigate(routes[firstUncompletedStep]);
     }
   }, [firstUncompletedStep, formValuesEntries, navigate, pathname]);
