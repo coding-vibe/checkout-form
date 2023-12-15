@@ -6,14 +6,24 @@ export const title = (theme: Theme) => css`
   text-align: center;
 `;
 
-export const fields = css`
-  width: 450px;
-  margin-bottom: 20px;
-  padding: 40px;
+export const fields = (theme: Theme) => css`
+  margin: 60px auto;
   border-radius: 20px;
   background-color: #8ae9b3;
   background-image: linear-gradient(315deg, #8ae9b3 0%, #c8d6e5 74%);
   box-shadow: 15px 10px 10px rgb(85, 87, 96, 0.1);
+
+  ${theme.breakpoints.up('md')} {
+    width: 600px;
+    margin: 60px auto;
+    padding: 100px;
+  }
+
+  ${theme.breakpoints.down('md')} {
+    width: 450px;
+    margin: 50px auto;
+    padding: 60px;
+  }
 `;
 
 export const wrap = css`

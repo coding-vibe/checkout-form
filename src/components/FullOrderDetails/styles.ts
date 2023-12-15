@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { Theme } from '@mui/material';
 
 export const mainTitle = (theme: Theme) => css`
-  margin: 0px 0px 16px;
+  margin: 40px 0px 16px;
   padding: 10px;
   color: ${theme.palette.primary.dark};
   font-size: 22px;

@@ -49,8 +49,10 @@ function CourierDeliveryDetailsScreen({
             id={screen}
             onSubmit={handleSubmit}>
             <fieldset css={classes.fieldset}>
-              <Box sx={{ mb: 2, color: 'info.dark' }}>
-                <Typography variant='overline'>
+              <Box sx={{ mb: 2 }}>
+                <Typography
+                  sx={{ fontWeight: 600 }}
+                  variant='overline'>
                   <legend>Choose date and time for courier delivery</legend>
                 </Typography>
               </Box>
@@ -75,8 +77,10 @@ function CourierDeliveryDetailsScreen({
               />
             </fieldset>
             <fieldset css={classes.fieldset}>
-              <Box sx={{ mb: 2, color: 'info.dark' }}>
-                <Typography variant='overline'>
+              <Box sx={{ mb: 2 }}>
+                <Typography
+                  sx={{ fontWeight: 600 }}
+                  variant='overline'>
                   <legend>Enter address details for courier delivery</legend>
                 </Typography>
               </Box>

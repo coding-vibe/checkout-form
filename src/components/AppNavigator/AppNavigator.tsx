@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useContext, useEffect } from 'react';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -15,7 +16,7 @@ import routes from 'constants/routes';
 import WizardFormContext from 'contexts/WizardFormContext';
 import Entries from 'types/entries';
 import { FormStepsList, FormValuesType } from 'types/formTypes';
-// import * as classes from './styles';
+import * as classes from './styles';
 
 interface Props {
   className?: string;
@@ -114,12 +115,13 @@ export default function AppNavigator({ className }: Props) {
     <div>
       <Stepper
         activeStep={getActiveMenuItemIndex()}
-        css={className}
+        className={className}
+        css={classes.stepper}
         orientation='vertical'>
         {renderMenuItemList}
       </Stepper>
 
-      <MobileStepper
+      {/* <MobileStepper
         variant='text'
         steps={maxSteps}
         position='static'
@@ -150,7 +152,7 @@ export default function AppNavigator({ className }: Props) {
             Back
           </Button>
         }
-      />
+      /> */}
     </div>
   );
 }

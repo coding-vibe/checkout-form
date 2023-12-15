@@ -19,9 +19,15 @@ export default function Layout() {
   }
 
   return (
-    <div>
-      <AppNavigator css={classes.navigator} />
-      <Outlet />
+    <div css={classes.mainWrap}>
+      <div css={classes.wrap}>
+        <div css={classes.navigatorWrap}>
+          <AppNavigator css={classes.navigator} />
+        </div>
+        <div css={classes.contentWrap}>
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 }

@@ -11,7 +11,7 @@ export const wrap = css`
 `;
 
 export const navigatorWrap = (theme: Theme) => css`
-  max-width: 300px;
+  max-width: 320px;
   min-height: 100vh;
   border-right: 1px solid ${theme.palette.primary.main};
   background-color: ${theme.palette.secondary.main};
@@ -39,7 +39,7 @@ export const navigator = css`
 
 export const contentWrap = (theme: Theme) => css`
   position: absolute;
-  top: 15%;
+  top: 10%;
   padding: 0px 20px;
 
   ${theme.breakpoints.up('xl')} {
@@ -61,6 +61,7 @@ export const contentWrap = (theme: Theme) => css`
   }
 
   ${theme.breakpoints.down('md')} {
+    left: 330px;
     width: 55%;
     padding: 0px 10px;
   }
