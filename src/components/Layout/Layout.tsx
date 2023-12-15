@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import AppNavigator from 'components/AppNavigator';
 import FormPersister from 'components/FormPersister';
@@ -7,6 +7,7 @@ import WizardFormContext from 'contexts/WizardFormContext';
 import * as classes from './styles';
 
 export default function Layout() {
+  const [isInitialized, setIsInitialized] = useState<boolean>(false);
   const { firstUncompletedStep } = useContext(WizardFormContext);
   const { pathname } = useLocation();
 
@@ -21,9 +22,16 @@ export default function Layout() {
 
   return (
     <div>
-      <FormPersister />
-      <AppNavigator css={classes.navigator} />
-      <Outlet />
+      {isInitialized && (
+        <>
+          <AppNavigator css={classes.navigator} />
+          <Outlet />
+        </>
+      )}
+      <FormPersister
+        onInitializationComplete={() => setIsInitialized(true)}
+        isInitialized={isInitialized}
+      />
     </div>
   );
 }
