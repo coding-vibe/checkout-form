@@ -1,54 +1,61 @@
 import { createContext } from 'react';
 import FormScreens from 'constants/formScreens';
-import StepOrder from 'constants/stepOrder';
-import { FormValuesType, ParentScreens, Screens } from 'types/formTypes';
+import { Step } from 'types/step';
+import routes from 'constants/routes';
 
-export const InitialFormValues: FormValuesType = {
-  [FormScreens.PERSONAL_DETAILS]: {
+export const initialValues = [
+  {
+    id: FormScreens.PERSONAL_DETAILS,
     isCompleted: false,
-    order: StepOrder.PERSONAL_DETAILS,
     values: { phoneNumbers: [''] },
+    url: routes.PERSONAL_DETAILS,
   },
-  [FormScreens.DELIVERY_MODE]: {
+  {
+    id: FormScreens.DELIVERY_MODE,
     isCompleted: false,
-    order: StepOrder.DELIVERY_MODE,
+    url: routes.DELIVERY_MODE,
   },
-  [FormScreens.PAYMENT_METHOD]: {
+  {
+    id: FormScreens.PAYMENT_METHOD,
     isCompleted: false,
-    order: StepOrder.PAYMENT_METHOD,
+    url: routes.PAYMENT_METHOD,
   },
-  [FormScreens.FORM_SUBMISSION]: {
+  {
+    id: FormScreens.FORM_SUBMISSION,
     isCompleted: false,
-    order: StepOrder.FORM_SUBMISSION,
+    url: routes.FORM_SUBMISSION,
   },
-  [FormScreens.FORM_SUCCESS]: {
+  {
+    id: FormScreens.FORM_SUCCESS,
     isCompleted: false,
-    order: StepOrder.FORM_SUCCESS,
+    url: routes.FORM_SUCCESS,
   },
+];
+
+const initialContextValue = {
+  values: initialValues,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onSaveFormValues: (_: Step[]) => {},
+  onSaveScreenValues: <Values extends object = object>(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _: Values,
+  ) => {},
+  firstUncompletedStep: undefined,
+  currentStep: undefined,
+  isInitialized: false,
+  onInitializationComplete: () => {},
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const saveFormValues = (_: FormValuesType) => {};
+export interface ContextType {
+  values: Step[];
+  firstUncompletedStep?: Step;
+  currentStep?: Step;
+  onSaveFormValues: typeof initialContextValue.onSaveFormValues;
+  onSaveScreenValues: typeof initialContextValue.onSaveScreenValues;
+  isInitialized: boolean;
+  onInitializationComplete: () => void;
+}
 
-export const saveScreenValues = <
-  Screen extends Screens,
-  ParentScreen extends ParentScreens | undefined,
->(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _: Screen,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  __: object,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ___?: ParentScreen,
-) => {};
-
-const initialValue = {
-  firstUncompletedStep: FormScreens.PERSONAL_DETAILS,
-  formValues: InitialFormValues,
-  onSaveFormValues: saveFormValues,
-  onSaveScreenValues: saveScreenValues,
-};
-
-const WizardFormContext = createContext<typeof initialValue>(initialValue);
+const WizardFormContext = createContext<ContextType>(initialContextValue);
 
 export default WizardFormContext;

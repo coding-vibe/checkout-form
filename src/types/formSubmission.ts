@@ -1,5 +1,5 @@
-interface FormSubmissionSubmitValues {
+interface FormSubmissionValues {
   isAgree: boolean;
 }
 
-export default FormSubmissionSubmitValues;
+export default FormSubmissionValues;

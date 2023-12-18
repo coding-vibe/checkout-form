@@ -1,8 +1,4 @@
-export interface PersonalDetailsInitialValues {
-  phoneNumbers: string[];
-}
-
-export interface PersonalDetailsSubmitValues {
+export default interface PersonalDetailsValues {
   firstName: string;
   lastName: string;
   email: string;

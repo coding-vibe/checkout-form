@@ -4,9 +4,8 @@ import CardExpiryField from 'components/CardExpiryField';
 import CardNumberField from 'components/CardNumberField';
 import CVVCodeField from 'components/CVVCodeField';
 import withFormHandler from 'components/withFormScreenProps';
-import FormScreens from 'constants/formScreens';
-import CreditCardDetailsSubmitValues from 'types/creditCardDetails';
-import FormScreenProps from 'types/formScreen';
+import CreditCardDetailsValues from 'types/creditCardDetails';
+import StepComponentProps from 'types/formScreen';
 import {
   composeValidators,
   validateDigitsCount,
@@ -18,64 +17,67 @@ import * as classes from './styles';
 const CARD_NUMBER_LENGTH = 16;
 const CVV_CODE_LENGTH = 3;
 
-interface Props extends FormScreenProps<CreditCardDetailsSubmitValues> {}
+type Props = StepComponentProps<CreditCardDetailsValues>;
 
 function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   return (
-    <Form<CreditCardDetailsSubmitValues>
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      render={({ handleSubmit }) => (
-        <form
-          id={screen}
-          onSubmit={handleSubmit}>
-          <div css={classes.fields}>
-            <CardNumberField
-              css={classes.field}
-              fieldProps={{
-                validate: composeValidators(
-                  validateIsRequired,
-                  validateDigitsCount(CARD_NUMBER_LENGTH, 'credit card number'),
-                ),
-              }}
-              label='Card Number'
-              name='cardNumber'
-              sx={{ mb: 5 }}
-            />
-            <div css={classes.wrap}>
-              <CardExpiryField
+    <div>
+      <h2 css={classes.title}>{`Provide ${screen.toLocaleLowerCase()}`}</h2>
+      <Form<CreditCardDetailsValues>
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        render={({ handleSubmit }) => (
+          <form
+            id={screen}
+            onSubmit={handleSubmit}>
+            <div css={classes.fields}>
+              <CardNumberField
                 css={classes.field}
                 fieldProps={{
                   validate: composeValidators(
                     validateIsRequired,
-                    validateIsFutureDate,
+                    validateDigitsCount(
+                      CARD_NUMBER_LENGTH,
+                      'credit card number',
+                    ),
                   ),
                 }}
-                label='Expiry Date'
-                name='expiryDate'
+                label='Card Number'
+                name='cardNumber'
+                sx={{ mb: 5 }}
               />
-              <CVVCodeField
-                css={classes.field}
-                fieldProps={{
-                  validate: composeValidators(
-                    validateIsRequired,
-                    validateDigitsCount(CVV_CODE_LENGTH, 'CVV code'),
-                  ),
-                }}
-                label='CVV Code'
-                name='cvvCode'
-                placeholder='Enter CVV code'
-              />
+              <div css={classes.wrap}>
+                <CardExpiryField
+                  css={classes.field}
+                  fieldProps={{
+                    validate: composeValidators(
+                      validateIsRequired,
+                      validateIsFutureDate,
+                    ),
+                  }}
+                  label='Expiry Date'
+                  name='expiryDate'
+                />
+                <CVVCodeField
+                  css={classes.field}
+                  fieldProps={{
+                    validate: composeValidators(
+                      validateIsRequired,
+                      validateDigitsCount(CVV_CODE_LENGTH, 'CVV code'),
+                    ),
+                  }}
+                  label='CVV Code'
+                  name='cvvCode'
+                  placeholder='Enter CVV code'
+                />
+              </div>
             </div>
-          </div>
-          <StepNavigator />
-        </form>
-      )}
-    />
+            <StepNavigator />
+          </form>
+        )}
+      />
+    </div>
   );
 }
 
-export default withFormHandler({
-  screen: FormScreens.CREDIT_CARD_DETAILS,
-  parentScreen: FormScreens.PAYMENT_METHOD,
-})(CreditCardDetailsScreen);
+export default withFormHandler(CreditCardDetailsScreen);

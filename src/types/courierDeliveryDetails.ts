@@ -1,4 +1,4 @@
-interface CourierDeliveryDetailsSubmitValues {
+interface CourierDeliveryDetailsValues {
   date: Date;
   time: string;
   city: string;
@@ -9,4 +9,4 @@ interface CourierDeliveryDetailsSubmitValues {
   hasElevator: boolean;
 }
 
-export default CourierDeliveryDetailsSubmitValues;
+export default CourierDeliveryDetailsValues;

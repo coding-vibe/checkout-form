@@ -4,37 +4,38 @@ import { Select } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
 import DELIVERY_MODE_OPTIONS from 'constants/deliveryModeOptions';
-import FormScreens from 'constants/formScreens';
-import { DeliveryModeSubmitValues } from 'types/deliveryMode';
-import FormScreenProps from 'types/formScreen';
+import DeliveryModeValues from 'types/deliveryMode';
+import StepComponentProps from 'types/formScreen';
 import { validateIsRequired } from 'utils/validation';
+import * as classes from './styles';
 
-interface Props extends FormScreenProps<DeliveryModeSubmitValues> {}
+type Props = StepComponentProps<DeliveryModeValues>;
 
 function DeliveryModeScreen({ initialValues, onSubmit, screen }: Props) {
   return (
-    <Form<DeliveryModeSubmitValues>
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      render={({ handleSubmit }) => (
-        <form
-          id={screen}
-          onSubmit={handleSubmit}>
-          <Box sx={{ mb: 2 }}>
-            <Select
-              data={DELIVERY_MODE_OPTIONS}
-              fieldProps={{ validate: validateIsRequired }}
-              label='Delivery Type'
-              name='deliveryType'
-            />
-          </Box>
-          <StepNavigator />
-        </form>
-      )}
-    />
+    <div>
+      <h2 css={classes.title}>{`Choose ${screen.toLocaleLowerCase()}`}</h2>
+      <Form<DeliveryModeValues>
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        render={({ handleSubmit }) => (
+          <form
+            id={screen}
+            onSubmit={handleSubmit}>
+            <Box sx={{ mb: 2 }}>
+              <Select
+                data={DELIVERY_MODE_OPTIONS}
+                fieldProps={{ validate: validateIsRequired }}
+                label='Delivery Type'
+                name='deliveryType'
+              />
+            </Box>
+            <StepNavigator />
+          </form>
+        )}
+      />
+    </div>
   );
 }
 
-export default withFormHandler({
-  screen: FormScreens.DELIVERY_MODE,
-})(DeliveryModeScreen);
+export default withFormHandler<DeliveryModeValues>(DeliveryModeScreen);
