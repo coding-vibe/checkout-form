@@ -1,14 +1,20 @@
 import { css } from '@emotion/react';
 import { Theme } from '@mui/material';
 
-export const mainWrap = (theme: Theme) => css`
-  min-height: 100vh;
+export const mainBox = (theme: Theme) => css`
+  ${theme.breakpoints.up('sm')} {
+    min-height: 100vh;
+  }
 
   ${theme.breakpoints.down('sm')} {
     min-height: auto;
-    border: 1px solid ${theme.palette.primary.main};
-    background-color: ${theme.palette.secondary.main};
   }
+`;
+
+export const mainWrap = (theme: Theme) => css`
+  /* ${theme.breakpoints.down('sm')} {
+    height: auto;
+  } */
 `;
 
 export const wrap = css`
@@ -20,7 +26,6 @@ export const stepperWrap = (theme: Theme) => css`
   max-width: 320px;
   min-height: 100vh;
   border-right: 1px solid ${theme.palette.primary.main};
-  background-color: ${theme.palette.secondary.main};
 
   ${theme.breakpoints.up('xl')} {
     padding: 120px 60px;
@@ -32,6 +37,10 @@ export const stepperWrap = (theme: Theme) => css`
 
   ${theme.breakpoints.down('lg')} {
     padding: 120px 40px;
+  }
+
+  ${theme.breakpoints.up('sm')} {
+    background-color: ${theme.palette.secondary.main};
   }
 
   ${theme.breakpoints.down('sm')} {
@@ -60,16 +69,28 @@ export const stepper = (theme: Theme) => css`
     font-size: 30px;
   }
 
+  ${theme.breakpoints.up('sm')} {
+    display: block;
+  }
+
   ${theme.breakpoints.down('sm')} {
     display: none;
   }
 `;
 
-export const contentWrap = (theme: Theme) => css`
-  position: absolute;
-  top: 10%;
-  padding: 0px 20px;
+export const mobileStepper = (theme: Theme) => css`
+  ${theme.breakpoints.up('sm')} {
+    display: none;
+    margin: 0;
+  }
 
+  ${theme.breakpoints.down('sm')} {
+    display: flex;
+    margin: 0% 20%;
+  }
+`;
+
+export const contentWrap = (theme: Theme) => css`
   ${theme.breakpoints.up('xl')} {
     left: 380px;
     width: 100%;
@@ -94,15 +115,14 @@ export const contentWrap = (theme: Theme) => css`
     padding: 0px 10px;
   }
 
-  ${theme.breakpoints.down('md')} {
-    left: 330px;
-    width: 55%;
-    padding: 0px 10px;
+  ${theme.breakpoints.up('sm')} {
+    position: absolute;
+    top: 10%;
   }
 
   ${theme.breakpoints.down('sm')} {
     position: static;
     top: 0%;
-    margin: 100px auto;
+    margin: 100px auto 0px;
   }
 `;
