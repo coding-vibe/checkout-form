@@ -19,3 +19,9 @@ export const stepper = (theme: Theme) => css`
     display: none;
   }
 `;
+
+export const mobileStepper = (theme: Theme) => css`
+  ${theme.breakpoints.up('sm')} {
+    display: none;
+  }
+`;

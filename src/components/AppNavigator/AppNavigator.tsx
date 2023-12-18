@@ -142,6 +142,7 @@ export default function AppNavigator({ className }: Props) {
         {renderMenuItemList}
       </Stepper>
       <MobileStepper
+        css={classes.mobileStepper}
         variant='text'
         steps={maxSteps}
         position='static'
