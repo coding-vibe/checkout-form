@@ -9,11 +9,17 @@ import FormSubmissionSuccessScreen from 'pages/FormSubmissionSuccessScreen';
 import PaymentMethodScreen from 'pages/PaymentMethodScreen';
 import PersonalDetailsScreen from 'pages/PersonalDetailsScreen';
 import PostDeliveryDetailsScreen from 'pages/PostDeliveryDetailsScreen';
+import WizardFormProvider from 'components/WizardFormProvider';
+import DefaultRedirect from 'components/DefaultRedirect';
 
 const routesMap = createBrowserRouter([
   {
     path: routes.ROOT,
-    element: <Layout />,
+    element: (
+      <WizardFormProvider>
+        <Layout />
+      </WizardFormProvider>
+    ),
     children: [
       {
         element: <CourierDeliveryDetailsScreen />,
@@ -46,6 +52,10 @@ const routesMap = createBrowserRouter([
       {
         element: <PostDeliveryDetailsScreen />,
         path: routes.POST_DELIVERY_DETAILS,
+      },
+      {
+        element: <DefaultRedirect />,
+        path: '*',
       },
     ],
   },

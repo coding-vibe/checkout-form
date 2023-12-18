@@ -1,7 +1,7 @@
-interface CreditCardDetailsSubmitValues {
+interface CreditCardDetailsValues {
   cardNumber: string;
   cvvCode: string;
   expirationDate: string;
 }
 
-export default CreditCardDetailsSubmitValues;
+export default CreditCardDetailsValues;

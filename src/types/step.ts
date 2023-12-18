@@ -1,9 +1,8 @@
 import FormScreens from 'constants/formScreens';
 
-interface MenuItemType {
-  step: FormScreens;
+export interface Step {
+  id: FormScreens;
   isCompleted: boolean;
+  values?: object;
   url: string;
 }
-
-export default MenuItemType;

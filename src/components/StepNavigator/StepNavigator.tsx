@@ -7,7 +7,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import routes from 'constants/routes';
 import WizardFormContext from 'contexts/WizardFormContext';
 
 export default function StepNavigator() {
@@ -29,8 +28,8 @@ export default function StepNavigator() {
   }, [blocker, formState.submitSucceeded]);
 
   useEffect(() => {
-    if (formState.submitSucceeded) {
-      navigate(routes[firstUncompletedStep]);
+    if (formState.submitSucceeded && firstUncompletedStep) {
+      navigate(firstUncompletedStep.url);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstUncompletedStep, formState.submitSucceeded]);

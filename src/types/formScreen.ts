@@ -1,9 +1,9 @@
 import FormScreens from 'constants/formScreens';
 
-interface FormScreenProps<SubmitValues, InitialValues = undefined | object> {
-  initialValues?: InitialValues;
-  onSubmit: (values: SubmitValues) => void;
+interface StepComponentProps<Values> {
+  initialValues?: Partial<Values>;
+  onSubmit: (values: Values) => void;
   screen: FormScreens;
 }
 
-export default FormScreenProps;
+export default StepComponentProps;

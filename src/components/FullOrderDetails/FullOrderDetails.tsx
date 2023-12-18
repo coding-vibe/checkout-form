@@ -1,59 +1,46 @@
 import { useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import omit from 'lodash/omit';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Tooltip from '@mui/material/Tooltip';
 import FormScreens from 'constants/formScreens';
-import routes from 'constants/routes';
 import WizardFormContext from 'contexts/WizardFormContext';
-import { FormValuesType } from 'types/formTypes';
 import * as classes from './styles';
 
-type FullOrderDetailsType = FormValuesType[keyof Omit<
-  FormValuesType,
-  FormScreens.FORM_SUBMISSION | FormScreens.FORM_SUCCESS
->];
-
 export default function FullOrderDetails() {
-  const { formValues } = useContext(WizardFormContext);
-  const orderDetails = omit(
-    formValues,
-    FormScreens.FORM_SUBMISSION,
-    FormScreens.FORM_SUCCESS,
-  );
+  const { values } = useContext(WizardFormContext);
 
   return (
     <div>
       <Paper>
         <h1 css={classes.mainTitle}>Verify recorded form data</h1>
       </Paper>
-      {Object.entries<FullOrderDetailsType>(orderDetails)
+      {values
         .filter(
-          ([screenName]) =>
-            (screenName as FormScreens) !== FormScreens.FORM_SUBMISSION ||
-            (screenName as FormScreens) !== FormScreens.FORM_SUCCESS,
+          ({ id }) =>
+            id !== FormScreens.FORM_SUBMISSION &&
+            id !== FormScreens.FORM_SUCCESS,
         )
-        .map(([screenName, { values }]) => (
+        .map((step) => (
           <Paper
             sx={{ p: 1, mb: 1 }}
-            key={screenName}>
+            key={step.id}>
             <div css={classes.wrap}>
-              <h2 css={classes.title}>{screenName}&nbsp;</h2>
+              <h2 css={classes.title}>{step.id}&nbsp;</h2>
               <Tooltip
-                title={`Click to return to ${screenName.toLowerCase()} section`}>
+                title={`Click to return to ${step.id.toLowerCase()} section`}>
                 <Link
                   component={RouterLink}
-                  to={routes[screenName as FormScreens]}
+                  to={step.url}
                   underline='hover'>
                   <ArrowBackIcon />
                 </Link>
               </Tooltip>
             </div>
-            {values &&
-              Object.entries(values).map(([fieldName, fieldValue]) => (
+            {step.values &&
+              Object.entries(step.values).map(([fieldName, fieldValue]) => (
                 <Box
                   key={fieldName}
                   sx={{ p: 1 }}>

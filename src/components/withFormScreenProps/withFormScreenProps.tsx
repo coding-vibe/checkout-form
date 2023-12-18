@@ -1,69 +1,42 @@
 import { useContext, FC } from 'react';
 import Button from '@mui/material/Button';
 import WizardFormContext from 'contexts/WizardFormContext';
-import FormScreens from 'constants/formScreens';
-import { ParentScreens, Screens } from 'types/formTypes';
-import checkScreenIsNotSubStep from 'utils/checkScreenIsNotSubStep';
+import DefaultRedirect from 'components/DefaultRedirect';
+import StepComponentProps from 'types/formScreen';
+import * as classes from './styles';
 
-interface WrapperProps {
-  screen: Screens;
-  parentScreen?: ParentScreens;
-}
+function withFormScreenProps<StepValues extends object>(
+  Component: FC<StepComponentProps<StepValues>>,
+) {
+  function FormScreen() {
+    const { onSaveScreenValues, currentStep } = useContext(WizardFormContext);
 
-interface WrappedFormScreenProps<S> {
-  initialValues?: object;
-  onSubmit: (values: object) => void;
-  screen: S;
-}
+    if (!currentStep) {
+      return <DefaultRedirect />;
+    }
 
-type WrappedComponentType<S extends FormScreens> = FC<
-  WrappedFormScreenProps<S>
->;
-
-function withFormScreenProps({ screen, parentScreen }: WrapperProps) {
-  return (Component: WrappedComponentType<WrapperProps['screen']>) => {
-    function FormScreen() {
-      const { formValues, onSaveScreenValues } = useContext(WizardFormContext);
-
-      const handleSubmit = (values: object) => {
-        onSaveScreenValues(screen, values, parentScreen);
-      };
-
-      const getInitialValues = () => {
-        if (parentScreen) {
-          return formValues[parentScreen].subStep?.values;
-        }
-
-        if (checkScreenIsNotSubStep(screen, parentScreen)) {
-          return formValues[screen].values;
-        }
-
-        throw new Error(
-          `Cannot retrieve initial values for screen ${screen} without parent`,
-        );
-      };
-
-      return (
-        <>
-          <Component
-            initialValues={getInitialValues()}
-            onSubmit={handleSubmit}
-            screen={screen}
-          />
+    return (
+      <div css={classes.wrap}>
+        <Component
+          initialValues={currentStep.values as Partial<StepValues>}
+          onSubmit={onSaveScreenValues<StepValues>}
+          screen={currentStep.id}
+        />
+        <div css={classes.buttonWrap}>
           <Button
-            form={screen}
+            form={currentStep.id}
             type='submit'
             variant='contained'>
             Next step
           </Button>
-        </>
-      );
-    }
+        </div>
+      </div>
+    );
+  }
 
-    FormScreen.displayName = `withFormProps(${Component.name})`;
+  FormScreen.displayName = `withFormProps(${Component.name})`;
 
-    return FormScreen;
-  };
+  return FormScreen;
 }
 
 export default withFormScreenProps;
