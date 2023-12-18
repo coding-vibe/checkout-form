@@ -21,8 +21,18 @@ export const titleBox = css`
   align-items: center;
 `;
 
-export const icon = css`
-  font-size: 40px;
+export const icon = (theme: Theme) => css`
+  ${theme.breakpoints.up('sm')} {
+    font-size: 40px;
+  }
+
+  ${theme.breakpoints.down('sm')} {
+    font-size: 30px;
+  }
+
+  ${theme.breakpoints.down('xs')} {
+    font-size: 20px;
+  }
 `;
 
 export const image = (theme: Theme) => css`
@@ -37,10 +47,21 @@ export const image = (theme: Theme) => css`
   }
 `;
 
-export const title = css`
+export const title = (theme: Theme) => css`
   margin: 0;
-  font-size: 40px;
   text-transform: uppercase;
+
+  ${theme.breakpoints.up('sm')} {
+    font-size: 40px;
+  }
+
+  ${theme.breakpoints.down('sm')} {
+    font-size: 30px;
+  }
+
+  ${theme.breakpoints.down('xs')} {
+    font-size: 20px;
+  }
 `;
 
 export const mainText = (theme: Theme) => css`

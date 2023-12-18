@@ -128,6 +128,7 @@ function CourierDeliveryDetailsScreen({
                 sx={{ mb: 2 }}
               />
               <Checkboxes
+                css={classes.checkbox}
                 data={{
                   label: 'There is at least one elevator in the house',
                   value: true,

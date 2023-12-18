@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { Theme } from '@mui/material';
 
-export const mainBox = (theme: Theme) => css`
+export const mainWrap = (theme: Theme) => css`
   ${theme.breakpoints.up('sm')} {
     min-height: 100vh;
   }
@@ -9,12 +9,6 @@ export const mainBox = (theme: Theme) => css`
   ${theme.breakpoints.down('sm')} {
     min-height: auto;
   }
-`;
-
-export const mainWrap = (theme: Theme) => css`
-  /* ${theme.breakpoints.down('sm')} {
-    height: auto;
-  } */
 `;
 
 export const wrap = css`

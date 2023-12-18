@@ -8,6 +8,10 @@ export const title = (theme: Theme) => css`
   ${theme.breakpoints.down('sm')} {
     font-size: 21px;
   }
+
+  ${theme.breakpoints.down('xs')} {
+    font-size: 18px;
+  }
 `;
 
 export const fieldset = css`
@@ -18,4 +22,12 @@ export const fieldset = css`
 
 export const legend = css`
   font-weight: 600;
+`;
+
+export const checkbox = (theme: Theme) => css`
+  ${theme.breakpoints.down('sm')} {
+    & .MuiCheckbox-root {
+      font-size: 10px;
+    }
+  }
 `;

@@ -27,6 +27,15 @@ export const fields = (theme: Theme) => css`
     margin: 50px auto;
     padding: 60px;
   }
+
+  ${theme.breakpoints.down('sm')} {
+    width: 325px;
+    margin: 25% auto;
+    padding: 40px;
+  }
+
+  ${theme.breakpoints.down('xs')} {
+  }
 `;
 
 export const wrap = css`

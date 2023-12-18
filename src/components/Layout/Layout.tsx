@@ -14,18 +14,12 @@ import WizardFormContext from 'contexts/WizardFormContext';
 import * as classes from './styles';
 
 export default function Layout() {
-  const {
-    currentStep,
-    firstUncompletedStep,
-    isInitialized,
-    onSaveScreenValues,
-    values,
-  } = useContext(WizardFormContext);
+  const { currentStep, firstUncompletedStep, isInitialized, values } =
+    useContext(WizardFormContext);
   const navigate = useNavigate();
   const activeStepIndex = currentStep ? values.indexOf(currentStep) : -1;
 
   const handleBack = () => {
-    onSaveScreenValues();
     navigate(values[activeStepIndex - 1].url);
   };
 
@@ -34,9 +28,9 @@ export default function Layout() {
   };
 
   return (
-    <div css={classes.mainBox}>
+    <div css={classes.mainWrap}>
       {isInitialized && (
-        <div css={classes.mainWrap}>
+        <div>
           <div css={classes.wrap}>
             <div css={classes.stepperWrap}>
               <Stepper
@@ -71,9 +65,11 @@ export default function Layout() {
                 css={classes.mobileStepper}
                 nextButton={
                   <Button
+                    form={currentStep?.id}
                     disabled={activeStepIndex === values.length - 1}
                     onClick={handleNext}
-                    size='small'>
+                    size='small'
+                    type='submit'>
                     Next
                     <KeyboardArrowRight />
                   </Button>
