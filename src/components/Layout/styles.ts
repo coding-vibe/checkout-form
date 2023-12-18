@@ -2,7 +2,9 @@ import { css } from '@emotion/react';
 import { Theme } from '@mui/material';
 
 export const mainWrap = (theme: Theme) => css`
-  min-height: 100vh;
+  ${theme.breakpoints.up('sm')} {
+    min-height: 100vh;
+  }
 
   ${theme.breakpoints.down('sm')} {
     min-height: auto;

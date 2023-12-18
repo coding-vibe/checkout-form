@@ -11,3 +11,7 @@ export const fieldset = css`
   padding-left: 0;
   border: none;
 `;
+
+export const legend = css`
+  font-weight: 600;
+`;

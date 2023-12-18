@@ -31,7 +31,7 @@ function CourierDeliveryDetailsScreen({
 }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>{`Provide ${screen.toLocaleLowerCase()}`}</h2>
+      <h2 css={classes.title}>Provide {screen.toLocaleLowerCase()}</h2>
       <Form<Omit<CourierDeliveryDetailsSubmitValues, 'time'> & { time: Date }>
         initialValues={initialValues}
         onSubmit={(values) => {
@@ -51,7 +51,7 @@ function CourierDeliveryDetailsScreen({
             <fieldset css={classes.fieldset}>
               <Box sx={{ mb: 2 }}>
                 <Typography
-                  sx={{ fontWeight: 600 }}
+                  css={classes.legend}
                   variant='overline'>
                   <legend>Choose date and time for courier delivery</legend>
                 </Typography>
@@ -79,7 +79,7 @@ function CourierDeliveryDetailsScreen({
             <fieldset css={classes.fieldset}>
               <Box sx={{ mb: 2 }}>
                 <Typography
-                  sx={{ fontWeight: 600 }}
+                  css={classes.legend}
                   variant='overline'>
                   <legend>Enter address details for courier delivery</legend>
                 </Typography>

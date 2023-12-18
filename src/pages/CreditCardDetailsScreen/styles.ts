@@ -7,7 +7,6 @@ export const title = (theme: Theme) => css`
 `;
 
 export const fields = (theme: Theme) => css`
-  margin: 60px auto;
   border-radius: 20px;
   background-color: #8ae9b3;
   background-image: linear-gradient(315deg, #8ae9b3 0%, #c8d6e5 74%);

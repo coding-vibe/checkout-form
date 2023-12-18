@@ -15,7 +15,7 @@ interface Props extends FormScreenProps<PaymentMethodSubmitValues> {}
 function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>{`Choose ${screen.toLocaleLowerCase()}`}</h2>
+      <h2 css={classes.title}>Choose {screen.toLocaleLowerCase()}</h2>
       <Form<PaymentMethodSubmitValues>
         initialValues={initialValues}
         onSubmit={onSubmit}

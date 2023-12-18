@@ -52,9 +52,7 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
 
   return (
     <div>
-      <h2 css={classes.title}>
-        {`Provide your ${screen.toLocaleLowerCase()}`}
-      </h2>
+      <h2 css={classes.title}>Provide your {screen.toLocaleLowerCase()}</h2>
       <Form<PersonalDetailsSubmitValues, PersonalDetailsInitialValues>
         initialValues={initialValues}
         onSubmit={onSubmit}

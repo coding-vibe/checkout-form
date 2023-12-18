@@ -15,7 +15,7 @@ interface Props extends FormScreenProps<DeliveryModeSubmitValues> {}
 function DeliveryModeScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>{`Choose ${screen.toLocaleLowerCase()}`}</h2>
+      <h2 css={classes.title}>Choose {screen.toLocaleLowerCase()}</h2>
       <Form<DeliveryModeSubmitValues>
         initialValues={initialValues}
         onSubmit={onSubmit}

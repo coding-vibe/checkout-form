@@ -26,8 +26,10 @@ export const icon = css`
 `;
 
 export const image = (theme: Theme) => css`
-  height: 400px;
-  width: 400px;
+  ${theme.breakpoints.up('md')} {
+    height: 400px;
+    width: 400px;
+  }
 
   ${theme.breakpoints.down('md')} {
     height: 300px;

@@ -23,7 +23,7 @@ interface Props extends FormScreenProps<CreditCardDetailsSubmitValues> {}
 function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>{`Provide ${screen.toLocaleLowerCase()}`}</h2>
+      <h2 css={classes.title}>Provide {screen.toLocaleLowerCase()}</h2>
       <Form<CreditCardDetailsSubmitValues>
         initialValues={initialValues}
         onSubmit={onSubmit}
