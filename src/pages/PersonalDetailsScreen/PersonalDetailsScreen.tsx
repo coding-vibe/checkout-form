@@ -8,12 +8,8 @@ import { TextField } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
 import PhoneField from 'components/PhoneField';
-import FormScreens from 'constants/formScreens';
-import FormScreenProps from 'types/formScreen';
-import {
-  PersonalDetailsSubmitValues,
-  PersonalDetailsInitialValues,
-} from 'types/personalDetails';
+import StepComponentProps from 'types/formScreen';
+import PersonalDetailsValues from 'types/personalDetails';
 import {
   composeValidators,
   validateEmail,
@@ -24,14 +20,10 @@ import * as classes from './styles';
 
 const phoneNumbersLimits = { MIN: 1, MAX: 3 };
 
-interface Props
-  extends FormScreenProps<
-    PersonalDetailsSubmitValues,
-    PersonalDetailsInitialValues
-  > {}
+type Props = StepComponentProps<PersonalDetailsValues>;
 
 function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
-  const validateForm = (values: PersonalDetailsSubmitValues) => {
+  const validateForm = (values: PersonalDetailsValues) => {
     let phoneNumberError;
 
     if (!values.phoneNumbers) {
@@ -53,7 +45,7 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
       <h2 css={classes.title}>Provide your {screen.toLocaleLowerCase()}</h2>
-      <Form<PersonalDetailsSubmitValues, PersonalDetailsInitialValues>
+      <Form<PersonalDetailsValues>
         initialValues={initialValues}
         onSubmit={onSubmit}
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -129,8 +121,4 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler({
-  screen: FormScreens.PERSONAL_DETAILS,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-})(PersonalDetailsScreen);
+export default withFormHandler<PersonalDetailsValues>(PersonalDetailsScreen);

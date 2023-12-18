@@ -5,16 +5,15 @@ import { Select } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import CustomFormSpy from 'components/CustomFormSpy';
 import withFormHandler from 'components/withFormScreenProps';
-import FormScreens from 'constants/formScreens';
 import PostCompanies from 'constants/postCompanies';
 import POST_COMPANIES_OPTIONS from 'constants/postCompaniesOptions';
 import POST_OFFICES_OPTIONS from 'constants/postOfficesOptions';
-import PostDeliveryDetailsSubmitValues from 'types/postDeliveryDetails';
-import FormScreenProps from 'types/formScreen';
+import PostDeliveryDetailsValues from 'types/postDeliveryDetails';
+import StepComponentProps from 'types/formScreen';
 import { validateIsRequired } from 'utils/validation';
 import * as classes from './styles';
 
-interface Props extends FormScreenProps<PostDeliveryDetailsSubmitValues> {}
+type Props = StepComponentProps<PostDeliveryDetailsValues>;
 
 function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   const getPostOfficeOptions = (postCompany: PostCompanies | null) => {
@@ -36,7 +35,7 @@ function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
       <h2 css={classes.title}>Provide {screen.toLocaleLowerCase()}</h2>
-      <Form<PostDeliveryDetailsSubmitValues>
+      <Form<PostDeliveryDetailsValues>
         initialValues={initialValues}
         onSubmit={onSubmit}
         render={({ handleSubmit, values }) => (
@@ -86,7 +85,4 @@ function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler({
-  screen: FormScreens.POST_DELIVERY_DETAILS,
-  parentScreen: FormScreens.DELIVERY_MODE,
-})(PostDeliveryDetailsScreen);
+export default withFormHandler(PostDeliveryDetailsScreen);

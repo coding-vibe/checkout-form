@@ -3,20 +3,19 @@ import Box from '@mui/material/Box';
 import { Select } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
-import FormScreens from 'constants/formScreens';
 import PAYMENT_METHODS_OPTIONS from 'constants/paymentMethodOptions';
-import FormScreenProps from 'types/formScreen';
-import { PaymentMethodSubmitValues } from 'types/paymentMethod';
+import StepComponentProps from 'types/formScreen';
+import PaymentMethodValues from 'types/paymentMethod';
 import { validateIsRequired } from 'utils/validation';
 import * as classes from './styles';
 
-interface Props extends FormScreenProps<PaymentMethodSubmitValues> {}
+type Props = StepComponentProps<PaymentMethodValues>;
 
 function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
       <h2 css={classes.title}>Choose {screen.toLocaleLowerCase()}</h2>
-      <Form<PaymentMethodSubmitValues>
+      <Form<PaymentMethodValues>
         initialValues={initialValues}
         onSubmit={onSubmit}
         render={({ handleSubmit }) => (
@@ -39,6 +38,4 @@ function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler({
-  screen: FormScreens.PAYMENT_METHOD,
-})(PaymentMethodScreen);
+export default withFormHandler(PaymentMethodScreen);

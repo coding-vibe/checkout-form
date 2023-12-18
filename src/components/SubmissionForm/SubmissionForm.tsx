@@ -3,16 +3,15 @@ import Box from '@mui/material/Box';
 import { Checkboxes } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
-import FormScreens from 'constants/formScreens';
-import FormScreenProps from 'types/formScreen';
-import FormSubmissionSubmitValues from 'types/formSubmission';
+import StepComponentProps from 'types/formScreen';
+import FormSubmissionValues from 'types/formSubmission';
 import { validateIsRequired } from 'utils/validation';
 
-interface Props extends FormScreenProps<FormSubmissionSubmitValues> {}
+type Props = StepComponentProps<FormSubmissionValues>;
 
 function SubmissionForm({ initialValues, onSubmit, screen }: Props) {
   return (
-    <Form<FormSubmissionSubmitValues>
+    <Form<FormSubmissionValues>
       initialValues={initialValues}
       onSubmit={onSubmit}
       render={({ handleSubmit }) => (
@@ -38,6 +37,4 @@ function SubmissionForm({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler({
-  screen: FormScreens.FORM_SUBMISSION,
-})(SubmissionForm);
+export default withFormHandler(SubmissionForm);

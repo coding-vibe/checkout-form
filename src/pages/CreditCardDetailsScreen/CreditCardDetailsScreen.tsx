@@ -4,9 +4,8 @@ import CardExpiryField from 'components/CardExpiryField';
 import CardNumberField from 'components/CardNumberField';
 import CVVCodeField from 'components/CVVCodeField';
 import withFormHandler from 'components/withFormScreenProps';
-import FormScreens from 'constants/formScreens';
-import CreditCardDetailsSubmitValues from 'types/creditCardDetails';
-import FormScreenProps from 'types/formScreen';
+import CreditCardDetailsValues from 'types/creditCardDetails';
+import StepComponentProps from 'types/formScreen';
 import {
   composeValidators,
   validateDigitsCount,
@@ -18,13 +17,13 @@ import * as classes from './styles';
 const CARD_NUMBER_LENGTH = 16;
 const CVV_CODE_LENGTH = 3;
 
-interface Props extends FormScreenProps<CreditCardDetailsSubmitValues> {}
+type Props = StepComponentProps<CreditCardDetailsValues>;
 
 function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
       <h2 css={classes.title}>Provide {screen.toLocaleLowerCase()}</h2>
-      <Form<CreditCardDetailsSubmitValues>
+      <Form<CreditCardDetailsValues>
         initialValues={initialValues}
         onSubmit={onSubmit}
         render={({ handleSubmit }) => (
@@ -81,7 +80,4 @@ function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler({
-  screen: FormScreens.CREDIT_CARD_DETAILS,
-  parentScreen: FormScreens.PAYMENT_METHOD,
-})(CreditCardDetailsScreen);
+export default withFormHandler(CreditCardDetailsScreen);

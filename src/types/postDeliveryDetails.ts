@@ -1,8 +1,8 @@
 import PostCompanies from 'constants/postCompanies';
 
-interface PostDeliveryDetailsSubmitValues {
+interface PostDeliveryDetailsValues {
   postCompany: PostCompanies;
   postOffice: string;
 }
 
-export default PostDeliveryDetailsSubmitValues;
+export default PostDeliveryDetailsValues;

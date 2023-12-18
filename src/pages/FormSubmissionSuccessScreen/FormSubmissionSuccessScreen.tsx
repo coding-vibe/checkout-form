@@ -1,12 +1,21 @@
 import { useContext, useEffect } from 'react';
 import AwesomeIcon from '@mui/icons-material/AutoAwesome';
 import FORM_STATE from 'constants/formState';
+import FormScreens from 'constants/formScreens';
 import PaymentMethods from 'constants/paymentMethods';
 import WizardFormContext from 'contexts/WizardFormContext';
 import * as classes from './styles';
 
 export default function FormSubmissionSuccessScreen() {
-  const { formValues } = useContext(WizardFormContext);
+  const { values } = useContext(WizardFormContext);
+
+  const isCreditCardSelected = values.some(
+    ({ id, values }) =>
+      values &&
+      id === FormScreens.PAYMENT_METHOD &&
+      'paymentMethod' in values &&
+      values.paymentMethod === PaymentMethods.CREDIT_CARD,
+  );
 
   useEffect(() => {
     localStorage.removeItem(FORM_STATE);
@@ -26,8 +35,7 @@ export default function FormSubmissionSuccessScreen() {
       <span css={classes.mainText}>
         We have received your submission, and we will be in touch soon!
       </span>
-      {formValues.PAYMENT_METHOD.values?.paymentMethod ===
-        PaymentMethods.CREDIT_CARD && (
+      {isCreditCardSelected && (
         <span css={classes.text}>
           *&nbsp;In few seconds you will be redirected to the payment
           confirmation

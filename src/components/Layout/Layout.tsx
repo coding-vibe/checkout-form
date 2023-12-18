@@ -1,32 +1,53 @@
-import { useContext, useState } from 'react';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import AppNavigator from 'components/AppNavigator';
+import { useContext } from 'react';
+import { Outlet, Link as RouterLink } from 'react-router-dom';
+import Link from '@mui/material/Link';
+import StepIcon from '@mui/material/Step';
+import Stepper from '@mui/material/Stepper';
+import StepLabel from '@mui/material/StepLabel';
+import Typography from '@mui/material/Typography';
 import FormPersister from 'components/FormPersister';
-import routes from 'constants/routes';
 import WizardFormContext from 'contexts/WizardFormContext';
 import * as classes from './styles';
 
 export default function Layout() {
-  const [isInitialized, setIsInitialized] = useState<boolean>(false);
-  const { firstUncompletedStep } = useContext(WizardFormContext);
-  const { pathname } = useLocation();
-
-  if (pathname === routes.ROOT) {
-    return (
-      <Navigate
-        replace
-        to={routes[firstUncompletedStep]}
-      />
-    );
-  }
+  const { isInitialized } = useContext(WizardFormContext);
+  const { values, firstUncompletedStep, currentStep } =
+    useContext(WizardFormContext);
+  const activeStepIndex = currentStep ? values.indexOf(currentStep) : -1;
 
   return (
     <div>
       {isInitialized && (
         <div css={classes.mainWrap}>
           <div css={classes.wrap}>
-            <div css={classes.navigatorWrap}>
-              <AppNavigator css={classes.navigator} />
+            <div css={classes.stepperWrap}>
+              <Stepper
+                activeStep={activeStepIndex}
+                css={classes.stepper}
+                orientation='vertical'>
+                {values.map((step) => (
+                  <StepIcon key={step.id}>
+                    <StepLabel>
+                      {(firstUncompletedStep && step.isCompleted) ||
+                      step.id === firstUncompletedStep?.id ? (
+                        <Link
+                          component={RouterLink}
+                          to={step.url}
+                          underline='hover'
+                          variant='overline'>
+                          {step.id}
+                        </Link>
+                      ) : (
+                        <Typography
+                          component='span'
+                          variant='overline'>
+                          {step.id}
+                        </Typography>
+                      )}
+                    </StepLabel>
+                  </StepIcon>
+                ))}
+              </Stepper>
             </div>
             <div css={classes.contentWrap}>
               <Outlet />
@@ -34,10 +55,7 @@ export default function Layout() {
           </div>
         </div>
       )}
-      <FormPersister
-        onInitializationComplete={() => setIsInitialized(true)}
-        isInitialized={isInitialized}
-      />
+      <FormPersister />
     </div>
   );
 }

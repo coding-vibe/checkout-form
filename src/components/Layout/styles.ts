@@ -2,9 +2,7 @@ import { css } from '@emotion/react';
 import { Theme } from '@mui/material';
 
 export const mainWrap = (theme: Theme) => css`
-  ${theme.breakpoints.up('sm')} {
-    min-height: 100vh;
-  }
+  min-height: 100vh;
 
   ${theme.breakpoints.down('sm')} {
     min-height: auto;
@@ -18,7 +16,7 @@ export const wrap = css`
   max-width: 1000px;
 `;
 
-export const navigatorWrap = (theme: Theme) => css`
+export const stepperWrap = (theme: Theme) => css`
   max-width: 320px;
   min-height: 100vh;
   border-right: 1px solid ${theme.palette.primary.main};
@@ -46,8 +44,25 @@ export const navigatorWrap = (theme: Theme) => css`
   }
 `;
 
-export const navigator = css`
+export const stepper = (theme: Theme) => css`
   position: fixed;
+
+  & .MuiStepConnector-root {
+    min-height: 100px;
+  }
+
+  & .MuiStepConnector-line {
+    min-height: 90px;
+    border-color: ${theme.palette.primary.light};
+  }
+
+  & .MuiSvgIcon-root {
+    font-size: 30px;
+  }
+
+  ${theme.breakpoints.down('sm')} {
+    display: none;
+  }
 `;
 
 export const contentWrap = (theme: Theme) => css`

@@ -2,20 +2,13 @@ import { useContext, useEffect } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import FORM_STATE from 'constants/formState';
-import WizardFormContext from 'contexts/WizardFormContext';
-import { FormValuesType } from 'types/formTypes';
+import WizardFormContext, { ContextType } from 'contexts/WizardFormContext';
 import * as classes from './styles';
 
-interface Props {
-  isInitialized: boolean;
-  onInitializationComplete: () => void;
-}
-
-export default function FormPersister({
-  isInitialized,
-  onInitializationComplete,
-}: Props) {
-  const { formValues, onSaveFormValues } = useContext(WizardFormContext);
+export default function FormPersister() {
+  const { values, onSaveFormValues, isInitialized, onInitializationComplete } =
+    useContext(WizardFormContext);
+  const SPINNER_SIZE = 100;
 
   useEffect(() => {
     if (!isInitialized) {
@@ -24,7 +17,7 @@ export default function FormPersister({
       if (localStorageData) {
         const parsedLocalStorageData = JSON.parse(
           localStorageData,
-        ) as FormValuesType;
+        ) as ContextType['values'];
 
         onSaveFormValues(parsedLocalStorageData);
       }
@@ -36,15 +29,15 @@ export default function FormPersister({
   useEffect(() => {
     // TODO: Add error handling
     if (isInitialized) {
-      localStorage.setItem(FORM_STATE, JSON.stringify(formValues));
+      localStorage.setItem(FORM_STATE, JSON.stringify(values));
     }
-  }, [formValues, isInitialized]);
+  }, [values, isInitialized]);
 
   return (
     <Backdrop
       css={classes.overlay}
       open={!isInitialized}>
-      <CircularProgress size={100} />
+      <CircularProgress size={SPINNER_SIZE} />
     </Backdrop>
   );
 }
