@@ -23,10 +23,6 @@ export default function Layout() {
     navigate(values[activeStepIndex - 1].url);
   };
 
-  const handleNext = () => {
-    navigate(values[activeStepIndex + 1].url);
-  };
-
   return (
     <div css={classes.mainWrap}>
       {isInitialized && (
@@ -67,7 +63,6 @@ export default function Layout() {
                   <Button
                     form={currentStep?.id}
                     disabled={activeStepIndex === values.length - 1}
-                    onClick={handleNext}
                     size='small'
                     type='submit'>
                     Next
