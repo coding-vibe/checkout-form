@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { ReactNode, useMemo, useState, useCallback } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import FormScreens from 'constants/formScreens';
@@ -58,6 +59,13 @@ export default function WizardFormProvider({ children }: Props) {
             const filteredSteps = updatedValues.filter(
               ({ id }) => id !== FormScreens.POST_DELIVERY_DETAILS,
             );
+            const findCurrentStepPrevValues = prevFormValues.find(
+              ({ id }) => id === FormScreens.COURIER_DELIVERY_DETAILS,
+            );
+
+            if (findCurrentStepPrevValues) {
+              return;
+            }
 
             return handleInsertStep(filteredSteps, updatedStepIndex, {
               id: FormScreens.COURIER_DELIVERY_DETAILS,
@@ -70,6 +78,13 @@ export default function WizardFormProvider({ children }: Props) {
             const filteredSteps = updatedValues.filter(
               ({ id }) => id !== FormScreens.COURIER_DELIVERY_DETAILS,
             );
+            const findCurrentStepPrevValues = prevFormValues.find(
+              ({ id }) => id === FormScreens.POST_DELIVERY_DETAILS,
+            );
+
+            if (findCurrentStepPrevValues) {
+              return;
+            }
 
             return handleInsertStep(filteredSteps, updatedStepIndex, {
               id: FormScreens.POST_DELIVERY_DETAILS,
@@ -90,6 +105,14 @@ export default function WizardFormProvider({ children }: Props) {
           }
 
           if (screenValues.paymentMethod === PaymentMethods.CREDIT_CARD) {
+            const findCurrentStepPrevValues = prevFormValues.find(
+              ({ id }) => id === FormScreens.CREDIT_CARD_DETAILS,
+            );
+
+            if (findCurrentStepPrevValues) {
+              return;
+            }
+
             return handleInsertStep(updatedValues, updatedStepIndex, {
               isCompleted: false,
               id: FormScreens.CREDIT_CARD_DETAILS,

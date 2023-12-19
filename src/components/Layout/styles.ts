@@ -118,5 +118,6 @@ export const contentWrap = (theme: Theme) => css`
     position: static;
     top: 0%;
     margin: 100px auto 0px;
+    padding-bottom: 50px;
   }
 `;

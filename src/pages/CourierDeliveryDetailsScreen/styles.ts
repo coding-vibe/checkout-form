@@ -25,7 +25,7 @@ export const legend = css`
 `;
 
 export const checkbox = (theme: Theme) => css`
-  ${theme.breakpoints.down('sm')} {
+  ${theme.breakpoints.down('xs')} {
     & .MuiCheckbox-root {
       font-size: 10px;
     }
