@@ -80,4 +80,6 @@ function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler(CreditCardDetailsScreen);
+export default withFormHandler<CreditCardDetailsValues>(
+  CreditCardDetailsScreen,
+);

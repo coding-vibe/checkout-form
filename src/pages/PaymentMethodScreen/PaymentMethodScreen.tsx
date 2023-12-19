@@ -38,4 +38,4 @@ function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler(PaymentMethodScreen);
+export default withFormHandler<PaymentMethodValues>(PaymentMethodScreen);

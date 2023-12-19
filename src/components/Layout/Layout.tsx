@@ -17,10 +17,15 @@ export default function Layout() {
   const { currentStep, firstUncompletedStep, isInitialized, values } =
     useContext(WizardFormContext);
   const navigate = useNavigate();
-  const activeStepIndex = currentStep ? values.indexOf(currentStep) : -1;
+  const activeStepIndex =
+    currentStep && values.indexOf(currentStep) !== -1
+      ? values.indexOf(currentStep)
+      : undefined;
 
   const handleBack = () => {
-    navigate(values[activeStepIndex - 1].url);
+    if (activeStepIndex) {
+      navigate(values[activeStepIndex - 1].url);
+    }
   };
 
   return (

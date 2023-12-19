@@ -85,4 +85,6 @@ function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler(PostDeliveryDetailsScreen);
+export default withFormHandler<PostDeliveryDetailsValues>(
+  PostDeliveryDetailsScreen,
+);

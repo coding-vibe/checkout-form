@@ -39,4 +39,4 @@ function SubmissionForm({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler(SubmissionForm);
+export default withFormHandler<FormSubmissionValues>(SubmissionForm);
