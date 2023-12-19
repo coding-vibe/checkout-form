@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import { ReactNode, useMemo, useState, useCallback } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import FormScreens from 'constants/formScreens';
@@ -56,15 +55,15 @@ export default function WizardFormProvider({ children }: Props) {
           'deliveryType' in screenValues
         ) {
           if (screenValues.deliveryType === DeliveryModes.COURIER) {
-            const filteredSteps = updatedValues.filter(
-              ({ id }) => id !== FormScreens.POST_DELIVERY_DETAILS,
-            );
             const findCurrentStepPrevValues = prevFormValues.find(
               ({ id }) => id === FormScreens.COURIER_DELIVERY_DETAILS,
             );
+            const filteredSteps = updatedValues.filter(
+              ({ id }) => id !== FormScreens.POST_DELIVERY_DETAILS,
+            );
 
             if (findCurrentStepPrevValues) {
-              return;
+              return filteredSteps;
             }
 
             return handleInsertStep(filteredSteps, updatedStepIndex, {
@@ -75,15 +74,15 @@ export default function WizardFormProvider({ children }: Props) {
           }
 
           if (screenValues.deliveryType === DeliveryModes.POST_OFFICE) {
-            const filteredSteps = updatedValues.filter(
-              ({ id }) => id !== FormScreens.COURIER_DELIVERY_DETAILS,
-            );
             const findCurrentStepPrevValues = prevFormValues.find(
               ({ id }) => id === FormScreens.POST_DELIVERY_DETAILS,
             );
+            const filteredSteps = updatedValues.filter(
+              ({ id }) => id !== FormScreens.COURIER_DELIVERY_DETAILS,
+            );
 
             if (findCurrentStepPrevValues) {
-              return;
+              return filteredSteps;
             }
 
             return handleInsertStep(filteredSteps, updatedStepIndex, {
@@ -104,15 +103,14 @@ export default function WizardFormProvider({ children }: Props) {
             );
           }
 
+          const findCurrentStepPrevValues = prevFormValues.find(
+            ({ id }) => id === FormScreens.CREDIT_CARD_DETAILS,
+          );
+          if (findCurrentStepPrevValues) {
+            return updatedValues;
+          }
+
           if (screenValues.paymentMethod === PaymentMethods.CREDIT_CARD) {
-            const findCurrentStepPrevValues = prevFormValues.find(
-              ({ id }) => id === FormScreens.CREDIT_CARD_DETAILS,
-            );
-
-            if (findCurrentStepPrevValues) {
-              return;
-            }
-
             return handleInsertStep(updatedValues, updatedStepIndex, {
               isCompleted: false,
               id: FormScreens.CREDIT_CARD_DETAILS,

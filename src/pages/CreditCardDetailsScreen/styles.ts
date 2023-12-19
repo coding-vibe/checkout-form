@@ -11,6 +11,7 @@ export const title = (theme: Theme) => css`
 `;
 
 export const fields = (theme: Theme) => css`
+  height: auto;
   border-radius: 20px;
   background-color: #8ae9b3;
   background-image: linear-gradient(315deg, #8ae9b3 0%, #c8d6e5 74%);
@@ -24,17 +25,18 @@ export const fields = (theme: Theme) => css`
 
   ${theme.breakpoints.down('md')} {
     width: 450px;
-    margin: 50px auto;
+    margin: 25% auto;
     padding: 60px;
   }
 
   ${theme.breakpoints.down('sm')} {
     width: 325px;
-    margin: 25% auto;
     padding: 40px;
   }
 
   ${theme.breakpoints.down('xs')} {
+    width: 225px;
+    padding: 30px 20px;
   }
 `;
 
