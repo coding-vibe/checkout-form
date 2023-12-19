@@ -20,6 +20,7 @@ export const stepperWrap = (theme: Theme) => css`
   max-width: 320px;
   min-height: 100vh;
   border-right: 1px solid ${theme.palette.primary.main};
+  background-color: ${theme.palette.secondary.main};
 
   ${theme.breakpoints.up('xl')} {
     padding: 120px 60px;
@@ -33,17 +34,12 @@ export const stepperWrap = (theme: Theme) => css`
     padding: 120px 40px;
   }
 
-  ${theme.breakpoints.up('sm')} {
-    background-color: ${theme.palette.secondary.main};
-  }
-
   ${theme.breakpoints.down('sm')} {
     position: absolute;
     top: 100%;
     left: 35%;
     padding: 0px;
-    border-right: inherit;
-    background-color: inherit;
+    border-right: none;
   }
 `;
 
@@ -75,13 +71,14 @@ export const stepper = (theme: Theme) => css`
 export const mobileStepper = (theme: Theme) => css`
   ${theme.breakpoints.up('sm')} {
     display: none;
-    margin: 0;
+    padding: 0;
+    background-color: none;
   }
 
   ${theme.breakpoints.down('sm')} {
     display: flex;
-    margin: 0 30px;
-    background-color: ${theme.palette.secondary.main};
+    padding: 15px 30px;
+    background-color: inherit;
   }
 `;
 
