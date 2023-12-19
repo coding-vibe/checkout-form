@@ -20,10 +20,7 @@ export default function CustomFormSpy({ postCompany }: Props) {
     if (
       postCompany &&
       postDeliveryStep &&
-      'values' in postDeliveryStep &&
-      // TODO: fix
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+      !!postDeliveryStep.values &&
       'postCompany' in postDeliveryStep.values &&
       postCompany !== postDeliveryStep.values.postCompany
     ) {

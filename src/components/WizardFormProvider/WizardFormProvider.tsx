@@ -55,16 +55,17 @@ export default function WizardFormProvider({ children }: Props) {
           'deliveryType' in screenValues
         ) {
           if (screenValues.deliveryType === DeliveryModes.COURIER) {
-            const findCurrentStepPrevValues = prevFormValues.find(
+            const isCourierDeliverySelected = !!prevFormValues.find(
               ({ id }) => id === FormScreens.COURIER_DELIVERY_DETAILS,
             );
+
+            if (isCourierDeliverySelected) {
+              return updatedValues;
+            }
+
             const filteredSteps = updatedValues.filter(
               ({ id }) => id !== FormScreens.POST_DELIVERY_DETAILS,
             );
-
-            if (findCurrentStepPrevValues) {
-              return filteredSteps;
-            }
 
             return handleInsertStep(filteredSteps, updatedStepIndex, {
               id: FormScreens.COURIER_DELIVERY_DETAILS,
@@ -74,16 +75,17 @@ export default function WizardFormProvider({ children }: Props) {
           }
 
           if (screenValues.deliveryType === DeliveryModes.POST_OFFICE) {
-            const findCurrentStepPrevValues = prevFormValues.find(
+            const isPostDeliverySelected = !!prevFormValues.find(
               ({ id }) => id === FormScreens.POST_DELIVERY_DETAILS,
             );
+
+            if (isPostDeliverySelected) {
+              return updatedValues;
+            }
+
             const filteredSteps = updatedValues.filter(
               ({ id }) => id !== FormScreens.COURIER_DELIVERY_DETAILS,
             );
-
-            if (findCurrentStepPrevValues) {
-              return filteredSteps;
-            }
 
             return handleInsertStep(filteredSteps, updatedStepIndex, {
               id: FormScreens.POST_DELIVERY_DETAILS,
@@ -103,10 +105,11 @@ export default function WizardFormProvider({ children }: Props) {
             );
           }
 
-          const findCurrentStepPrevValues = prevFormValues.find(
+          const isCreditCardSelected = !!prevFormValues.find(
             ({ id }) => id === FormScreens.CREDIT_CARD_DETAILS,
           );
-          if (findCurrentStepPrevValues) {
+
+          if (isCreditCardSelected) {
             return updatedValues;
           }
 

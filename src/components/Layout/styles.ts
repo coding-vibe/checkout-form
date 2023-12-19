@@ -80,7 +80,8 @@ export const mobileStepper = (theme: Theme) => css`
 
   ${theme.breakpoints.down('sm')} {
     display: flex;
-    margin: 0% 20%;
+    margin: 0 30px;
+    background-color: ${theme.palette.secondary.main};
   }
 `;
 
@@ -112,6 +113,7 @@ export const contentWrap = (theme: Theme) => css`
   ${theme.breakpoints.up('sm')} {
     position: absolute;
     top: 10%;
+    width: 100%;
   }
 
   ${theme.breakpoints.down('sm')} {

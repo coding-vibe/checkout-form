@@ -64,6 +64,8 @@ export default function Layout() {
               <MobileStepper
                 activeStep={activeStepIndex}
                 css={classes.mobileStepper}
+                steps={values.length}
+                variant='progress'
                 nextButton={
                   <Button
                     form={currentStep?.id}
@@ -83,8 +85,6 @@ export default function Layout() {
                     Back
                   </Button>
                 }
-                steps={values.length}
-                variant='progress'
               />
             </div>
             <div css={classes.contentWrap}>
