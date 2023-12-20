@@ -2,28 +2,24 @@ import { css } from '@emotion/react';
 import { Theme } from '@mui/material';
 
 export const mainTitle = (theme: Theme) => css`
+  margin-bottom: 16px;
   padding: 10px;
   color: ${theme.palette.primary.dark};
   text-align: center;
   text-transform: capitalize;
 
   ${theme.breakpoints.up('sm')} {
-    margin: 40px 0px 16px;
     font-size: 22px;
   }
 
   ${theme.breakpoints.down('sm')} {
-    margin-top: 0px;
-    font-size: 21px;
-  }
-
-  ${theme.breakpoints.down('xs')} {
     font-size: 20px;
   }
 `;
 
 export const wrap = (theme: Theme) => css`
   display: flex;
+  justify-content: center;
   align-items: center;
 
   ${theme.breakpoints.up('sm')} {
@@ -35,32 +31,17 @@ export const wrap = (theme: Theme) => css`
   }
 `;
 
-export const title = (theme: Theme) => css`
+export const title = css`
   text-transform: capitalize;
-
-  ${theme.breakpoints.up('sm')} {
-    font-size: 16px;
-  }
-
-  ${theme.breakpoints.down('sm')} {
-    font-size: 15px;
-  }
-
-  ${theme.breakpoints.down('xs')} {
-    font-size: 11px;
-  }
+  font-size: 16px;
 `;
 
 export const fieldName = (theme: Theme) => css`
   color: ${theme.palette.primary.light};
   text-transform: capitalize;
 
-  ${theme.breakpoints.up('sm')} {
+  ${theme.breakpoints.up('xs')} {
     font-size: 15px;
-  }
-
-  ${theme.breakpoints.down('sm')} {
-    font-size: 14px;
   }
 
   ${theme.breakpoints.down('xs')} {
@@ -69,13 +50,10 @@ export const fieldName = (theme: Theme) => css`
 `;
 
 export const fieldValue = (theme: Theme) => css`
-  ${theme.breakpoints.up('sm')} {
-    font-size: 17px;
-  }
+  word-wrap: break-word;
 
-  ${theme.breakpoints.down('sm')} {
-    font-size: 15px;
-    word-wrap: break-word;
+  ${theme.breakpoints.up('xs')} {
+    font-size: 17px;
   }
 
   ${theme.breakpoints.down('xs')} {

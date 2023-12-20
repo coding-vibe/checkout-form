@@ -8,11 +8,11 @@ export const wrap = (theme: Theme) => css`
   gap: 40px;
 
   ${theme.breakpoints.up('md')} {
-    padding: 30px 0px;
+    padding: 0;
   }
 
   ${theme.breakpoints.down('md')} {
-    padding: 60px 0px;
+    padding: 0px 10px;
   }
 `;
 
@@ -36,12 +36,19 @@ export const icon = (theme: Theme) => css`
 `;
 
 export const image = (theme: Theme) => css`
+  display: block;
+
   ${theme.breakpoints.up('md')} {
-    height: 400px;
-    width: 400px;
+    width: auto;
+    height: auto;
   }
 
   ${theme.breakpoints.down('md')} {
+    height: 450px;
+    width: 450px;
+  }
+
+  ${theme.breakpoints.down('sm')} {
     height: 300px;
     width: 300px;
   }
@@ -65,6 +72,8 @@ export const title = (theme: Theme) => css`
 `;
 
 export const mainText = (theme: Theme) => css`
+  text-align: center;
+
   ${theme.breakpoints.up('lg')} {
     font-size: 20px;
   }
@@ -80,6 +89,8 @@ export const mainText = (theme: Theme) => css`
 
 export const text = (theme: Theme) => css`
   color: ${theme.palette.primary.dark};
+  text-align: center;
+
   font-style: italic;
 
   ${theme.breakpoints.up('xl')} {

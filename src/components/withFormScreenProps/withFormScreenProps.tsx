@@ -16,7 +16,7 @@ function withFormScreenProps<StepValues extends object>(
     }
 
     return (
-      <div css={classes.wrap}>
+      <div>
         <Component
           initialValues={currentStep.values as Partial<StepValues>}
           onSubmit={onSaveScreenValues<StepValues>}

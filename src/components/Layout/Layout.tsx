@@ -29,67 +29,65 @@ export default function Layout() {
   };
 
   return (
-    <div css={classes.mainWrap}>
+    <div>
       {isInitialized && (
-        <div>
-          <div css={classes.wrap}>
-            <div css={classes.stepperWrap}>
-              <Stepper
-                activeStep={activeStepIndex}
-                css={classes.stepper}
-                orientation='vertical'>
-                {values.map((step) => (
-                  <StepIcon key={step.id}>
-                    <StepLabel>
-                      {(firstUncompletedStep && step.isCompleted) ||
-                      step.id === firstUncompletedStep?.id ? (
-                        <Link
-                          component={RouterLink}
-                          to={step.url}
-                          underline='hover'
-                          variant='overline'>
-                          {step.id}
-                        </Link>
-                      ) : (
-                        <Typography
-                          component='span'
-                          variant='overline'>
-                          {step.id}
-                        </Typography>
-                      )}
-                    </StepLabel>
-                  </StepIcon>
-                ))}
-              </Stepper>
-              <MobileStepper
-                activeStep={activeStepIndex}
-                css={classes.mobileStepper}
-                steps={values.length}
-                variant='progress'
-                nextButton={
-                  <Button
-                    form={currentStep?.id}
-                    disabled={activeStepIndex === values.length - 1}
-                    size='small'
-                    type='submit'>
-                    Next
-                    <KeyboardArrowRight />
-                  </Button>
-                }
-                backButton={
-                  <Button
-                    disabled={activeStepIndex === 0}
-                    onClick={handleBack}
-                    size='small'>
-                    <KeyboardArrowLeft />
-                    Back
-                  </Button>
-                }
-              />
-            </div>
-            <div css={classes.contentWrap}>
-              <Outlet />
-            </div>
+        <div css={classes.wrap}>
+          <div css={classes.stepperWrap}>
+            <Stepper
+              activeStep={activeStepIndex}
+              css={classes.stepper}
+              orientation='vertical'>
+              {values.map((step) => (
+                <StepIcon key={step.id}>
+                  <StepLabel>
+                    {(firstUncompletedStep && step.isCompleted) ||
+                    step.id === firstUncompletedStep?.id ? (
+                      <Link
+                        component={RouterLink}
+                        to={step.url}
+                        underline='hover'
+                        variant='overline'>
+                        {step.id}
+                      </Link>
+                    ) : (
+                      <Typography
+                        component='span'
+                        variant='overline'>
+                        {step.id}
+                      </Typography>
+                    )}
+                  </StepLabel>
+                </StepIcon>
+              ))}
+            </Stepper>
+            <MobileStepper
+              activeStep={activeStepIndex}
+              css={classes.mobileStepper}
+              steps={values.length}
+              variant='progress'
+              nextButton={
+                <Button
+                  form={currentStep?.id}
+                  disabled={activeStepIndex === values.length - 1}
+                  size='small'
+                  type='submit'>
+                  Next
+                  <KeyboardArrowRight />
+                </Button>
+              }
+              backButton={
+                <Button
+                  disabled={activeStepIndex === 0}
+                  onClick={handleBack}
+                  size='small'>
+                  <KeyboardArrowLeft />
+                  Back
+                </Button>
+              }
+            />
+          </div>
+          <div css={classes.contentWrap}>
+            <Outlet />
           </div>
         </div>
       )}
