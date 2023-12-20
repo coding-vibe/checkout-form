@@ -86,6 +86,6 @@ export const contentWrap = (theme: Theme) => css`
   }
 
   ${theme.breakpoints.down('sm')} {
-    padding: 50px 0px;
+    padding: 50px 20px;
   }
 `;

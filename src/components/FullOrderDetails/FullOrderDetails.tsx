@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Tooltip from '@mui/material/Tooltip';
+import startCase from 'lodash/startCase';
 import FormScreens from 'constants/formScreens';
 import WizardFormContext from 'contexts/WizardFormContext';
 import * as classes from './styles';
@@ -28,7 +29,9 @@ export default function FullOrderDetails() {
             sx={{ p: 1, mb: 1 }}
             key={step.id}>
             <div css={classes.wrap}>
-              <h2 css={classes.title}>{step.id}&nbsp;</h2>
+              <h2 css={classes.title}>
+                {startCase(step.id.replace(/_/g, ' ').toLowerCase())}&nbsp;
+              </h2>
               <Tooltip
                 title={`Click to return to ${step.id.toLowerCase()} section`}>
                 <Link

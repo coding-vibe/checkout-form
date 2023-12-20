@@ -30,7 +30,9 @@ function CourierDeliveryDetailsScreen({
 }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>Provide {screen.toLocaleLowerCase()}</h2>
+      <h2 css={classes.title}>
+        Provide {screen.replace(/_/g, ' ').toLowerCase()}
+      </h2>
       <Form<CourierDeliveryDetailsValues>
         initialValues={initialValues}
         onSubmit={(values) => {

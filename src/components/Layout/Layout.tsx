@@ -9,6 +9,7 @@ import StepIcon from '@mui/material/Step';
 import Stepper from '@mui/material/Stepper';
 import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
+import startCase from 'lodash/startCase';
 import FormPersister from 'components/FormPersister';
 import WizardFormContext from 'contexts/WizardFormContext';
 import * as classes from './styles';
@@ -46,14 +47,14 @@ export default function Layout() {
                         component={RouterLink}
                         to={step.url}
                         underline='hover'
-                        variant='overline'>
-                        {step.id}
+                        variant='subtitle1'>
+                        {startCase(step.id.replace(/_/g, ' ').toLowerCase())}
                       </Link>
                     ) : (
                       <Typography
                         component='span'
-                        variant='overline'>
-                        {step.id}
+                        variant='subtitle1'>
+                        {startCase(step.id.replace(/_/g, ' ').toLowerCase())}
                       </Typography>
                     )}
                   </StepLabel>

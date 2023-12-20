@@ -14,7 +14,9 @@ type Props = StepComponentProps<DeliveryModeValues>;
 function DeliveryModeScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>Choose {screen.toLocaleLowerCase()}</h2>
+      <h2 css={classes.title}>
+        Choose {screen.replace(/_/g, ' ').toLowerCase()}
+      </h2>
       <Form<DeliveryModeValues>
         initialValues={initialValues}
         onSubmit={onSubmit}

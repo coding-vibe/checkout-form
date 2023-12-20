@@ -14,7 +14,9 @@ type Props = StepComponentProps<PaymentMethodValues>;
 function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>Choose {screen.toLocaleLowerCase()}</h2>
+      <h2 css={classes.title}>
+        Choose {screen.replace(/_/g, ' ').toLowerCase()}
+      </h2>
       <Form<PaymentMethodValues>
         initialValues={initialValues}
         onSubmit={onSubmit}

@@ -35,23 +35,10 @@ export const icon = (theme: Theme) => css`
   }
 `;
 
-export const image = (theme: Theme) => css`
+export const image = css`
   display: block;
-
-  ${theme.breakpoints.up('md')} {
-    width: auto;
-    height: auto;
-  }
-
-  ${theme.breakpoints.down('md')} {
-    height: 450px;
-    width: 450px;
-  }
-
-  ${theme.breakpoints.down('sm')} {
-    height: 300px;
-    width: 300px;
-  }
+  max-width: 100%;
+  height: auto;
 `;
 
 export const title = (theme: Theme) => css`
