@@ -4,6 +4,7 @@ import { ARRAY_ERROR } from 'final-form';
 import arrayMutators from 'final-form-arrays';
 import Button from '@mui/material/Button';
 import FormHelperText from '@mui/material/FormHelperText';
+import Typography from '@mui/material/Typography';
 import { TextField } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
@@ -44,9 +45,12 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
 
   return (
     <div>
-      <h2 css={classes.title}>
+      <Typography
+        css={classes.title}
+        component='h1'
+        variant='h5'>
         Provide your {screen.replace(/_/g, ' ').toLowerCase()}
-      </h2>
+      </Typography>
       <Form<PersonalDetailsValues>
         initialValues={initialValues}
         onSubmit={onSubmit}

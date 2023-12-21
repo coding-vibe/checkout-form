@@ -16,12 +16,21 @@ export const wrap = (theme: Theme) => css`
   }
 `;
 
+export const image = css`
+  display: block;
+  max-width: 100%;
+  height: auto;
+`;
+
 export const titleBox = css`
   display: flex;
   align-items: center;
 `;
 
-export const icon = (theme: Theme) => css`
+export const title = (theme: Theme) => css`
+  margin: 0;
+  font-weight: 700;
+
   ${theme.breakpoints.up('sm')} {
     font-size: 40px;
   }
@@ -35,16 +44,7 @@ export const icon = (theme: Theme) => css`
   }
 `;
 
-export const image = css`
-  display: block;
-  max-width: 100%;
-  height: auto;
-`;
-
-export const title = (theme: Theme) => css`
-  margin: 0;
-  text-transform: uppercase;
-
+export const icon = (theme: Theme) => css`
   ${theme.breakpoints.up('sm')} {
     font-size: 40px;
   }
@@ -77,7 +77,6 @@ export const mainText = (theme: Theme) => css`
 export const text = (theme: Theme) => css`
   color: ${theme.palette.primary.dark};
   text-align: center;
-
   font-style: italic;
 
   ${theme.breakpoints.up('xl')} {

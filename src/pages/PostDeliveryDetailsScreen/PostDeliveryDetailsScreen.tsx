@@ -1,6 +1,7 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 import { Select } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import CustomFormSpy from 'components/CustomFormSpy';
@@ -34,9 +35,12 @@ function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
 
   return (
     <div>
-      <h2 css={classes.title}>
+      <Typography
+        css={classes.title}
+        component='h1'
+        variant='h5'>
         Provide {screen.replace(/_/g, ' ').toLowerCase()}
-      </h2>
+      </Typography>
       <Form<PostDeliveryDetailsValues>
         initialValues={initialValues}
         onSubmit={onSubmit}

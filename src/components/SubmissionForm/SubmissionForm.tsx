@@ -6,7 +6,6 @@ import withFormHandler from 'components/withFormScreenProps';
 import StepComponentProps from 'types/formScreen';
 import FormSubmissionValues from 'types/formSubmission';
 import { validateIsRequired } from 'utils/validation';
-import * as classes from './styles';
 
 type Props = StepComponentProps<FormSubmissionValues>;
 
@@ -21,7 +20,6 @@ function SubmissionForm({ initialValues, onSubmit, screen }: Props) {
           onSubmit={handleSubmit}>
           <Box sx={{ mb: 2 }}>
             <Checkboxes
-              css={classes.checkbox}
               data={{
                 label: 'I agree with the delivery rules',
                 value: true,

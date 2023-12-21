@@ -1,5 +1,6 @@
 import { Form } from 'react-final-form';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { Select } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
@@ -14,9 +15,12 @@ type Props = StepComponentProps<PaymentMethodValues>;
 function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>
+      <Typography
+        css={classes.title}
+        component='h1'
+        variant='h5'>
         Choose {screen.replace(/_/g, ' ').toLowerCase()}
-      </h2>
+      </Typography>
       <Form<PaymentMethodValues>
         initialValues={initialValues}
         onSubmit={onSubmit}

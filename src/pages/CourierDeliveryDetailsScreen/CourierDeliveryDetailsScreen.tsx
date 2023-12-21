@@ -30,9 +30,12 @@ function CourierDeliveryDetailsScreen({
 }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>
+      <Typography
+        css={classes.title}
+        component='h1'
+        variant='h5'>
         Provide {screen.replace(/_/g, ' ').toLowerCase()}
-      </h2>
+      </Typography>
       <Form<CourierDeliveryDetailsValues>
         initialValues={initialValues}
         onSubmit={(values) => {
@@ -130,7 +133,6 @@ function CourierDeliveryDetailsScreen({
                 sx={{ mb: 2 }}
               />
               <Checkboxes
-                css={classes.checkbox}
                 data={{
                   label: 'There is at least one elevator in the house',
                   value: true,

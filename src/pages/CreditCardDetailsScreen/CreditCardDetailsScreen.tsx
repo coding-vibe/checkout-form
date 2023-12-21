@@ -1,4 +1,5 @@
 import { Form } from 'react-final-form';
+import Typography from '@mui/material/Typography';
 import StepNavigator from 'components/StepNavigator';
 import CardExpiryField from 'components/CardExpiryField';
 import CardNumberField from 'components/CardNumberField';
@@ -22,9 +23,12 @@ type Props = StepComponentProps<CreditCardDetailsValues>;
 function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>
+      <Typography
+        css={classes.title}
+        component='h1'
+        variant='h5'>
         Provide {screen.replace(/_/g, ' ').toLowerCase()}
-      </h2>
+      </Typography>
       <Form<CreditCardDetailsValues>
         initialValues={initialValues}
         onSubmit={onSubmit}
