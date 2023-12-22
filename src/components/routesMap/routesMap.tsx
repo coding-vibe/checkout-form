@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter } from 'react-router-dom';
 import Layout from 'components/Layout';
 import routes from 'constants/routes';
 import CourierDeliveryDetailsScreen from 'pages/CourierDeliveryDetailsScreen';
@@ -12,7 +12,7 @@ import PostDeliveryDetailsScreen from 'pages/PostDeliveryDetailsScreen';
 import WizardFormProvider from 'components/WizardFormProvider';
 import DefaultRedirect from 'components/DefaultRedirect';
 
-const routesMap = createBrowserRouter([
+const routesMap = createHashRouter([
   {
     path: routes.ROOT,
     element: (
