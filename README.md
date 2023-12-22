@@ -2,22 +2,43 @@
 
 The "Checkout form" project is a web application that consists of a multi-step form, enabling users to complete all the necessary details for order shipment.
 
+- [**DEMO**](https://coding-vibe.github.io/checkout-form/)
+
 ## Project Description
 
-This project aims to simplify the order placement process for users. It features a user-friendly multi-step form with smooth navigation and custom validation. The form dynamically adapts to different devices, offering between four to six steps based on user choices during the form-filling process.
+### General
+
+This project aims to simplify the order placement process for users. It features a user-friendly multi-step form with smooth navigation and includes custom validation for each field to enhance the user experience. The form dynamically adapts to different devices, offering between four to six steps based on the user's selections.
+
+### Key Features
+
+**Dynamic Adaptation**
+
+- The form dynamically adapts based on the user's selections in previous steps. Steps are added or removed from the interface to tailor the form to the user's choices.
+
+**Modal Window for Leaving Page**
+
+- A modal window opens if the user attempts to leave the page before submission the form.
+
+**Edit Capability**
+
+- Users can make edits at any step before submitting the final step.
+
+**Local Storage for Form Data**
+
+- Data about filled form fields is stored in local storage. Even if the page is reloaded, the stored data is retrieved, preventing users from having to refill the form.
 
 ## Core Technologies
 
 The project was developed using the following core technologies:
 
-- Final Form
 - Material-UI (MUI)
 - MUI React Final Form (MUI RFF)
 - React
 - React Final Form
 - React Router DOM
 - TypeScript
-- Node v20.3.1
+- Node v20
 - npm v9.6.7
 
 ## Scripts
