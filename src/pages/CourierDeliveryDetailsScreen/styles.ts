@@ -5,6 +5,7 @@ export const title = (theme: Theme) => css`
   margin-bottom: 20px;
   color: ${theme.palette.primary.dark};
   text-align: center;
+  font-family: 'Oswald';
 `;
 
 export const fieldset = css`

@@ -1,5 +1,6 @@
 import { Form } from 'react-final-form';
 import { addDays, format } from 'date-fns';
+import lowerCase from 'lodash/lowerCase';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Checkboxes, DatePicker, TextField, TimePicker } from 'mui-rff';
@@ -34,7 +35,7 @@ function CourierDeliveryDetailsScreen({
         css={classes.title}
         component='h1'
         variant='h5'>
-        Provide {screen.replace(/_/g, ' ').toLowerCase()}
+        Provide {lowerCase(screen)}
       </Typography>
       <Form<CourierDeliveryDetailsValues>
         initialValues={initialValues}

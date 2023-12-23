@@ -2,6 +2,7 @@ import { Form } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { ARRAY_ERROR } from 'final-form';
 import arrayMutators from 'final-form-arrays';
+import lowerCase from 'lodash/lowerCase';
 import Button from '@mui/material/Button';
 import FormHelperText from '@mui/material/FormHelperText';
 import Typography from '@mui/material/Typography';
@@ -49,7 +50,7 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
         css={classes.title}
         component='h1'
         variant='h5'>
-        Provide your {screen.replace(/_/g, ' ').toLowerCase()}
+        Provide your {lowerCase(screen)}
       </Typography>
       <Form<PersonalDetailsValues>
         initialValues={initialValues}

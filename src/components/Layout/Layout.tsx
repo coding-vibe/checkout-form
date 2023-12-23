@@ -49,13 +49,13 @@ export default function Layout() {
                         to={step.url}
                         underline='hover'
                         variant='subtitle1'>
-                        {startCase(lowerCase(step.id.replace(/_/g, ' ')))}
+                        {startCase(lowerCase(step.id))}
                       </Link>
                     ) : (
                       <Typography
                         component='span'
                         variant='subtitle1'>
-                        {startCase(lowerCase(step.id.replace(/_/g, ' ')))}
+                        {startCase(lowerCase(step.id))}
                       </Typography>
                     )}
                   </StepLabel>

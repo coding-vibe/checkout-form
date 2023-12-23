@@ -40,11 +40,11 @@ export default function FullOrderDetails() {
               <Typography
                 component='h2'
                 variant='h6'>
-                {upperFirst(lowerCase(step.id.replace(/_/g, ' ')))}&nbsp;
+                {upperFirst(lowerCase(step.id))}&nbsp;
               </Typography>
               <Tooltip
                 title={`Click to return to '${upperFirst(
-                  lowerCase(step.id.replace(/_/g, ' ')),
+                  lowerCase(step.id),
                 )}' section`}>
                 <Link
                   component={RouterLink}

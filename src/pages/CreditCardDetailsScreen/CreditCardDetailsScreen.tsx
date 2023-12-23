@@ -1,4 +1,5 @@
 import { Form } from 'react-final-form';
+import lowerCase from 'lodash/lowerCase';
 import Typography from '@mui/material/Typography';
 import StepNavigator from 'components/StepNavigator';
 import CardExpiryField from 'components/CardExpiryField';
@@ -27,7 +28,7 @@ function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
         css={classes.title}
         component='h1'
         variant='h5'>
-        Provide {screen.replace(/_/g, ' ').toLowerCase()}
+        Provide {lowerCase(screen)}
       </Typography>
       <Form<CreditCardDetailsValues>
         initialValues={initialValues}

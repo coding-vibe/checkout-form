@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
+import { Theme } from '@mui/material';
 
-export const overlay = css`
+export const overlay = (theme: Theme) => css`
   color: #fff;
-  z-index: 1021;
+  z-index: ${theme.zIndex.drawer + 1};
 `;

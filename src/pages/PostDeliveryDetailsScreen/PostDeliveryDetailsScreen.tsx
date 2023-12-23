@@ -1,4 +1,5 @@
 import { Form } from 'react-final-form';
+import lowerCase from 'lodash/lowerCase';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
@@ -39,7 +40,7 @@ function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
         css={classes.title}
         component='h1'
         variant='h5'>
-        Provide {screen.replace(/_/g, ' ').toLowerCase()}
+        Provide {lowerCase(screen)}
       </Typography>
       <Form<PostDeliveryDetailsValues>
         initialValues={initialValues}

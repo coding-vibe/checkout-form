@@ -6,6 +6,7 @@ export const mainTitle = (theme: Theme) => css`
   padding: 10px;
   color: ${theme.palette.primary.dark};
   text-align: center;
+  font-family: 'Oswald';
 `;
 
 export const wrap = (theme: Theme) => css`

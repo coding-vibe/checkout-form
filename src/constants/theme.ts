@@ -21,7 +21,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Montserrat, san-serif',
+    fontFamily: ['Montserrat', 'Bebas Neue', 'Oswald', 'sans-serif'].join(','),
   },
 });
 

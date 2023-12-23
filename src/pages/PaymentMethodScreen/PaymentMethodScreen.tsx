@@ -1,4 +1,5 @@
 import { Form } from 'react-final-form';
+import lowerCase from 'lodash/lowerCase';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Select } from 'mui-rff';
@@ -19,7 +20,7 @@ function PaymentMethodScreen({ initialValues, onSubmit, screen }: Props) {
         css={classes.title}
         component='h1'
         variant='h5'>
-        Choose {screen.replace(/_/g, ' ').toLowerCase()}
+        Choose {lowerCase(screen)}
       </Typography>
       <Form<PaymentMethodValues>
         initialValues={initialValues}
