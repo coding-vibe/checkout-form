@@ -1,8 +1,10 @@
 import { useContext, useEffect } from 'react';
+import parseJSON from 'date-fns/parseJSON';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import FORM_STATE from 'constants/formState';
 import WizardFormContext, { ContextType } from 'contexts/WizardFormContext';
+import checkIsISOString from 'utils/checkIsISOString';
 import * as classes from './styles';
 
 export default function FormPersister() {
@@ -17,6 +19,10 @@ export default function FormPersister() {
       if (localStorageData) {
         const parsedLocalStorageData = JSON.parse(
           localStorageData,
+          (_, value: unknown) =>
+            typeof value === 'string' && checkIsISOString(value)
+              ? parseJSON(value)
+              : value,
         ) as ContextType['values'];
 
         onSaveFormValues(parsedLocalStorageData);
