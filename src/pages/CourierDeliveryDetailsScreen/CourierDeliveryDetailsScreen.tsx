@@ -1,5 +1,5 @@
 import { Form } from 'react-final-form';
-import { addDays, format } from 'date-fns';
+import { addDays } from 'date-fns';
 import lowerCase from 'lodash/lowerCase';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -39,19 +39,7 @@ function CourierDeliveryDetailsScreen({
       </Typography>
       <Form<CourierDeliveryDetailsValues>
         initialValues={initialValues}
-        onSubmit={(values) => {
-          const { time } = values;
-
-          const formattedValues = {
-            ...values,
-            // TODO: fix
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            time: format(time, 'p'),
-          };
-
-          onSubmit(formattedValues);
-        }}
+        onSubmit={onSubmit}
         render={({ handleSubmit }) => (
           <form
             id={screen}
