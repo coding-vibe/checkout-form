@@ -27,7 +27,7 @@ function withFormScreenProps<StepValues extends object>(
             form={currentStep.id}
             type='submit'
             variant='contained'>
-            Next step
+            Submit
           </Button>
         </div>
       </div>

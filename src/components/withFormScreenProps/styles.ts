@@ -9,7 +9,7 @@ export const title = (theme: Theme) => css`
 export const buttonWrap = (theme: Theme) => css`
   ${theme.breakpoints.up('sm')} {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     margin-top: 30px;
   }
 

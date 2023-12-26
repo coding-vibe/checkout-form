@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Checkboxes, DatePicker, TextField, TimePicker } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
+import { DATE_FORMAT, TIME_FORMAT } from 'constants/dateFormats';
 import CourierDeliveryDetailsValues from 'types/courierDeliveryDetails';
 import StepComponentProps from 'types/formScreen';
 import {
@@ -60,6 +61,7 @@ function CourierDeliveryDetailsScreen({
                   ),
                 }}
                 label='Date'
+                format={DATE_FORMAT}
                 minDate={MIN_DELIVERY_DATE}
                 name='date'
                 sx={{ mb: 2 }}
@@ -68,6 +70,7 @@ function CourierDeliveryDetailsScreen({
                 fieldProps={{
                   validate: validateIsRequired,
                 }}
+                format={TIME_FORMAT}
                 label='Time'
                 name='time'
               />
@@ -123,7 +126,7 @@ function CourierDeliveryDetailsScreen({
               />
               <Checkboxes
                 data={{
-                  label: 'There is at least one elevator in the house',
+                  label: 'There is an elevator in the house',
                   value: true,
                 }}
                 name='hasElevator'

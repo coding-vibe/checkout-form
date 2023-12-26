@@ -9,16 +9,17 @@ import StepIcon from '@mui/material/Step';
 import Stepper from '@mui/material/Stepper';
 import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
-import lowerCase from 'lodash/lowerCase';
-import startCase from 'lodash/startCase';
-import FormPersister from 'components/FormPersister';
+import convertToSentenceCase from 'utils/convertToSentenceCase';
+import FormScreens from 'constants/formScreens';
 import WizardFormContext from 'contexts/WizardFormContext';
+import { Step } from 'types/step';
 import * as classes from './styles';
 
 export default function Layout() {
   const { currentStep, firstUncompletedStep, isInitialized, values } =
     useContext(WizardFormContext);
   const navigate = useNavigate();
+
   const activeStepIndex =
     currentStep && values.indexOf(currentStep) !== -1
       ? values.indexOf(currentStep)
@@ -30,32 +31,45 @@ export default function Layout() {
     }
   };
 
+  const isLastStep = !!activeStepIndex && activeStepIndex === values.length - 1;
+
+  const stepsToShow = values.filter(
+    ({ id }) => id !== FormScreens.FORM_SUCCESS,
+  );
+
+  const formatStepName = (step: Step) =>
+    step.id === FormScreens.FORM_SUBMISSION
+      ? 'Review order'
+      : convertToSentenceCase(step.id);
+
   return (
     <div>
       {isInitialized && (
-        <div css={classes.wrap}>
+        <div>
           <div css={classes.stepperWrap}>
             <Stepper
               activeStep={activeStepIndex}
-              css={classes.stepper}
+              css={classes.desktopStepper}
               orientation='vertical'>
-              {values.map((step) => (
+              {stepsToShow.map((step) => (
                 <StepIcon key={step.id}>
                   <StepLabel>
-                    {(firstUncompletedStep && step.isCompleted) ||
-                    step.id === firstUncompletedStep?.id ? (
+                    {((firstUncompletedStep && step.isCompleted) ||
+                      step.id === firstUncompletedStep?.id) &&
+                    !isLastStep ? (
                       <Link
                         component={RouterLink}
                         to={step.url}
+                        css={classes.bold}
                         underline='hover'
-                        variant='subtitle1'>
-                        {startCase(lowerCase(step.id))}
+                        variant='h6'>
+                        {formatStepName(step)}
                       </Link>
                     ) : (
                       <Typography
                         component='span'
-                        variant='subtitle1'>
-                        {startCase(lowerCase(step.id))}
+                        variant='h6'>
+                        {formatStepName(step)}
                       </Typography>
                     )}
                   </StepLabel>
@@ -70,7 +84,7 @@ export default function Layout() {
               nextButton={
                 <Button
                   form={currentStep?.id}
-                  disabled={activeStepIndex === values.length - 1}
+                  disabled={isLastStep}
                   size='small'
                   type='submit'>
                   Next
@@ -79,7 +93,7 @@ export default function Layout() {
               }
               backButton={
                 <Button
-                  disabled={activeStepIndex === 0}
+                  disabled={activeStepIndex === 0 || isLastStep}
                   onClick={handleBack}
                   size='small'>
                   <KeyboardArrowLeft />
@@ -88,12 +102,13 @@ export default function Layout() {
               }
             />
           </div>
-          <div css={classes.contentWrap}>
-            <Outlet />
+          <div css={classes.outerContentWrap}>
+            <div css={classes.innerContentWrap}>
+              <Outlet />
+            </div>
           </div>
         </div>
       )}
-      <FormPersister />
     </div>
   );
 }

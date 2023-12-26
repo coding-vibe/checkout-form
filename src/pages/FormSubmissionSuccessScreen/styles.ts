@@ -5,7 +5,7 @@ export const wrap = (theme: Theme) => css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  gap: 50px;
 
   ${theme.breakpoints.up('md')} {
     padding: 0;
@@ -18,7 +18,7 @@ export const wrap = (theme: Theme) => css`
 
 export const image = css`
   display: block;
-  max-width: 100%;
+  max-width: 300px;
   height: auto;
 `;
 

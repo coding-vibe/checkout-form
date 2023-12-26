@@ -1,49 +1,37 @@
 import { css } from '@emotion/react';
 import { Theme } from '@mui/material';
 
-export const wrap = (theme: Theme) => css`
-  position: relative;
-  max-width: 1200px;
-
-  ${theme.breakpoints.up('sm')} {
-    display: flex;
-  }
-
-  ${theme.breakpoints.down('sm')} {
-    display: block;
-  }
-`;
+const STEPPER_WIDTH = '35%';
 
 export const stepperWrap = (theme: Theme) => css`
+  position: fixed;
   background-color: ${theme.palette.secondary.main};
 
   ${theme.breakpoints.up('sm')} {
-    min-width: 320px;
-    min-height: 100vh;
-    padding: 120px 60px;
+    display: flex;
+    justify-content: center;
+    width: ${STEPPER_WIDTH};
+    height: 100vh;
+    padding: 40px 25px;
     border-right: 1px solid ${theme.palette.primary.main};
   }
 
   ${theme.breakpoints.down('sm')} {
-    max-width: 0px;
-    min-height: 0px;
-    padding: 0px;
-    border-right: none;
+    z-index: 1000;
   }
 `;
 
-export const stepper = (theme: Theme) => css`
-  ${theme.breakpoints.up('sm')} {
-    position: fixed;
-    display: block;
-    min-height: inherit;
+export const desktopStepper = (theme: Theme) => css`
+  ${theme.breakpoints.down('sm')} {
+    display: none;
+  }
 
+  ${theme.breakpoints.up('sm')} {
     & .MuiStepConnector-root {
-      min-height: 40px;
+      display: flex;
     }
 
     & .MuiStepConnector-line {
-      min-height: 40px;
       border-color: ${theme.palette.primary.light};
     }
 
@@ -51,41 +39,40 @@ export const stepper = (theme: Theme) => css`
       font-size: 25px;
     }
   }
-
-  ${theme.breakpoints.down('sm')} {
-    display: none;
-  }
 `;
 
 export const mobileStepper = (theme: Theme) => css`
   ${theme.breakpoints.up('sm')} {
     display: none;
-    padding: 0;
-    background-color: none;
   }
 
   ${theme.breakpoints.down('sm')} {
     display: flex;
-    padding: 15px 30px;
-    background-color: inherit;
+    padding: 15px;
+    background-color: ${theme.palette.secondary.main};
   }
 `;
 
-export const contentWrap = (theme: Theme) => css`
-  ${theme.breakpoints.up('md')} {
-    padding: 120px 50px 0px;
-  }
+export const bold = css`
+  font-family: 'Oswald';
+  font-weight: 400;
+`;
 
-  ${theme.breakpoints.down('md')} {
-    padding: 120px 20px 0px;
+export const outerContentWrap = (theme: Theme) => css`
+  ${theme.breakpoints.up('sm')} {
+    padding-left: ${STEPPER_WIDTH};
   }
+`;
+
+export const innerContentWrap = (theme: Theme) => css`
+  max-width: 900px;
+  margin: 0 auto;
 
   ${theme.breakpoints.up('sm')} {
-    width: 100%;
-    margin: 0;
+    padding: 40px;
   }
 
   ${theme.breakpoints.down('sm')} {
-    padding: 50px 20px;
+    padding: 25px 20px 75px;
   }
 `;

@@ -18,10 +18,10 @@ function SubmissionForm({ initialValues, onSubmit, screen }: Props) {
         <form
           id={screen}
           onSubmit={handleSubmit}>
-          <Box sx={{ mb: 2 }}>
+          <Box>
             <Checkboxes
               data={{
-                label: 'I agree with the delivery rules',
+                label: 'I agree with the terms and conditions of the service',
                 value: true,
               }}
               fieldProps={{

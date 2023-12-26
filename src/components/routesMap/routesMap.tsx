@@ -11,6 +11,7 @@ import PersonalDetailsScreen from 'pages/PersonalDetailsScreen';
 import PostDeliveryDetailsScreen from 'pages/PostDeliveryDetailsScreen';
 import WizardFormProvider from 'components/WizardFormProvider';
 import DefaultRedirect from 'components/DefaultRedirect';
+import FormPersister from 'components/FormPersister';
 
 const routesMap = createHashRouter([
   {
@@ -18,6 +19,7 @@ const routesMap = createHashRouter([
     element: (
       <WizardFormProvider>
         <Layout />
+        <FormPersister />
       </WizardFormProvider>
     ),
     children: [
