@@ -2,8 +2,10 @@ import { Form } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import { ARRAY_ERROR } from 'final-form';
 import arrayMutators from 'final-form-arrays';
+import lowerCase from 'lodash/lowerCase';
 import Button from '@mui/material/Button';
 import FormHelperText from '@mui/material/FormHelperText';
+import Typography from '@mui/material/Typography';
 import { TextField } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
@@ -44,9 +46,12 @@ function PersonalDetailsScreen({ initialValues, onSubmit, screen }: Props) {
 
   return (
     <div>
-      <h2 css={classes.title}>
-        {`Provide your ${screen.toLocaleLowerCase()}`}
-      </h2>
+      <Typography
+        css={classes.title}
+        component='h1'
+        variant='h5'>
+        Provide your {lowerCase(screen)}
+      </Typography>
       <Form<PersonalDetailsValues>
         initialValues={initialValues}
         onSubmit={onSubmit}

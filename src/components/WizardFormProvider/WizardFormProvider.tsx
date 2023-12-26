@@ -55,6 +55,14 @@ export default function WizardFormProvider({ children }: Props) {
           'deliveryType' in screenValues
         ) {
           if (screenValues.deliveryType === DeliveryModes.COURIER) {
+            const isCourierDeliverySelected = !!prevFormValues.find(
+              ({ id }) => id === FormScreens.COURIER_DELIVERY_DETAILS,
+            );
+
+            if (isCourierDeliverySelected) {
+              return updatedValues;
+            }
+
             const filteredSteps = updatedValues.filter(
               ({ id }) => id !== FormScreens.POST_DELIVERY_DETAILS,
             );
@@ -67,6 +75,14 @@ export default function WizardFormProvider({ children }: Props) {
           }
 
           if (screenValues.deliveryType === DeliveryModes.POST_OFFICE) {
+            const isPostDeliverySelected = !!prevFormValues.find(
+              ({ id }) => id === FormScreens.POST_DELIVERY_DETAILS,
+            );
+
+            if (isPostDeliverySelected) {
+              return updatedValues;
+            }
+
             const filteredSteps = updatedValues.filter(
               ({ id }) => id !== FormScreens.COURIER_DELIVERY_DETAILS,
             );
@@ -87,6 +103,14 @@ export default function WizardFormProvider({ children }: Props) {
             return updatedValues.filter(
               ({ id }) => id !== FormScreens.CREDIT_CARD_DETAILS,
             );
+          }
+
+          const isCreditCardSelected = !!prevFormValues.find(
+            ({ id }) => id === FormScreens.CREDIT_CARD_DETAILS,
+          );
+
+          if (isCreditCardSelected) {
+            return updatedValues;
           }
 
           if (screenValues.paymentMethod === PaymentMethods.CREDIT_CARD) {

@@ -1,30 +1,39 @@
 import { css } from '@emotion/react';
 import { Theme } from '@mui/material';
+import { darken } from '@mui/system';
 
 export const mainTitle = (theme: Theme) => css`
-  margin: 40px 0px 16px;
-  padding: 10px;
   color: ${theme.palette.primary.dark};
-  font-size: 22px;
-  text-transform: capitalize;
+  text-align: center;
+  font-family: 'Oswald';
+
+  ${theme.breakpoints.up('sm')} {
+    margin-bottom: 40px;
+  }
+
+  ${theme.breakpoints.down('sm')} {
+    margin-bottom: 20px;
+  }
 `;
 
-export const wrap = css`
+export const wrap = (theme: Theme) => css`
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-`;
+  gap: 10px;
+  text-decoration: none;
 
-export const title = css`
-  font-size: 16px;
-  text-transform: capitalize;
+  &:hover {
+    color: ${darken(theme.palette.primary.main, 0.8)};
+    text-decoration: underline;
+  }
 `;
 
 export const fieldName = (theme: Theme) => css`
   color: ${theme.palette.primary.light};
-  font-size: 15px;
-  text-transform: capitalize;
 `;
 
 export const fieldValue = css`
-  font-size: 17px;
+  word-wrap: break-word;
 `;

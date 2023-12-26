@@ -1,5 +1,7 @@
 import { useContext, useEffect } from 'react';
+import upperCase from 'lodash/upperCase';
 import AwesomeIcon from '@mui/icons-material/AutoAwesome';
+import Typography from '@mui/material/Typography';
 import FORM_STATE from 'constants/formState';
 import FormScreens from 'constants/formScreens';
 import PaymentMethods from 'constants/paymentMethods';
@@ -29,7 +31,12 @@ export default function FormSubmissionSuccessScreen() {
         src='/rocket.png'
       />
       <div css={classes.titleBox}>
-        <h1 css={classes.title}>Thank you&nbsp;</h1>
+        <Typography
+          css={classes.title}
+          component='h1'
+          variant='h1'>
+          {upperCase('Thank you')}&nbsp;
+        </Typography>
         <AwesomeIcon css={classes.icon} />
       </div>
       <span css={classes.mainText}>

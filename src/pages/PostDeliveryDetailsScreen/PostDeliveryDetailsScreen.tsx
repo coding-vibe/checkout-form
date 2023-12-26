@@ -1,6 +1,8 @@
 import { Form } from 'react-final-form';
+import lowerCase from 'lodash/lowerCase';
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 import { Select } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import CustomFormSpy from 'components/CustomFormSpy';
@@ -34,7 +36,12 @@ function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
 
   return (
     <div>
-      <h2 css={classes.title}>{`Provide ${screen.toLocaleLowerCase()}`}</h2>
+      <Typography
+        css={classes.title}
+        component='h1'
+        variant='h5'>
+        Provide {lowerCase(screen)}
+      </Typography>
       <Form<PostDeliveryDetailsValues>
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -85,4 +92,6 @@ function PostDeliveryDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler(PostDeliveryDetailsScreen);
+export default withFormHandler<PostDeliveryDetailsValues>(
+  PostDeliveryDetailsScreen,
+);

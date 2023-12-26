@@ -5,15 +5,21 @@ export const wrap = (theme: Theme) => css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  gap: 50px;
 
   ${theme.breakpoints.up('md')} {
-    padding: 30px 0px;
+    padding: 0;
   }
 
   ${theme.breakpoints.down('md')} {
-    padding: 60px 0px;
+    padding: 0px 10px;
   }
+`;
+
+export const image = css`
+  display: block;
+  max-width: 300px;
+  height: auto;
 `;
 
 export const titleBox = css`
@@ -21,27 +27,40 @@ export const titleBox = css`
   align-items: center;
 `;
 
-export const icon = css`
-  font-size: 40px;
-`;
+export const title = (theme: Theme) => css`
+  margin: 0;
+  font-weight: 700;
 
-export const image = (theme: Theme) => css`
-  height: 400px;
-  width: 400px;
+  ${theme.breakpoints.up('sm')} {
+    font-size: 40px;
+  }
 
-  ${theme.breakpoints.down('md')} {
-    height: 300px;
-    width: 300px;
+  ${theme.breakpoints.down('sm')} {
+    font-size: 30px;
+  }
+
+  ${theme.breakpoints.down('xs')} {
+    font-size: 20px;
   }
 `;
 
-export const title = css`
-  margin: 0;
-  font-size: 40px;
-  text-transform: uppercase;
+export const icon = (theme: Theme) => css`
+  ${theme.breakpoints.up('sm')} {
+    font-size: 40px;
+  }
+
+  ${theme.breakpoints.down('sm')} {
+    font-size: 30px;
+  }
+
+  ${theme.breakpoints.down('xs')} {
+    font-size: 20px;
+  }
 `;
 
 export const mainText = (theme: Theme) => css`
+  text-align: center;
+
   ${theme.breakpoints.up('lg')} {
     font-size: 20px;
   }
@@ -57,6 +76,7 @@ export const mainText = (theme: Theme) => css`
 
 export const text = (theme: Theme) => css`
   color: ${theme.palette.primary.dark};
+  text-align: center;
   font-style: italic;
 
   ${theme.breakpoints.up('xl')} {

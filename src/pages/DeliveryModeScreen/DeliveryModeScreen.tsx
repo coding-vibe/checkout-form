@@ -1,5 +1,7 @@
 import { Form } from 'react-final-form';
+import lowerCase from 'lodash/lowerCase';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import { Select } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
@@ -14,7 +16,12 @@ type Props = StepComponentProps<DeliveryModeValues>;
 function DeliveryModeScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>{`Choose ${screen.toLocaleLowerCase()}`}</h2>
+      <Typography
+        css={classes.title}
+        component='h1'
+        variant='h5'>
+        Choose {lowerCase(screen)}
+      </Typography>
       <Form<DeliveryModeValues>
         initialValues={initialValues}
         onSubmit={onSubmit}

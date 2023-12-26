@@ -1,4 +1,6 @@
 import { Form } from 'react-final-form';
+import lowerCase from 'lodash/lowerCase';
+import Typography from '@mui/material/Typography';
 import StepNavigator from 'components/StepNavigator';
 import CardExpiryField from 'components/CardExpiryField';
 import CardNumberField from 'components/CardNumberField';
@@ -22,7 +24,12 @@ type Props = StepComponentProps<CreditCardDetailsValues>;
 function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>{`Provide ${screen.toLocaleLowerCase()}`}</h2>
+      <Typography
+        css={classes.title}
+        component='h1'
+        variant='h5'>
+        Provide {lowerCase(screen)}
+      </Typography>
       <Form<CreditCardDetailsValues>
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -80,4 +87,6 @@ function CreditCardDetailsScreen({ initialValues, onSubmit, screen }: Props) {
   );
 }
 
-export default withFormHandler(CreditCardDetailsScreen);
+export default withFormHandler<CreditCardDetailsValues>(
+  CreditCardDetailsScreen,
+);

@@ -1,10 +1,12 @@
 import { Form } from 'react-final-form';
 import { addDays } from 'date-fns';
+import lowerCase from 'lodash/lowerCase';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Checkboxes, DatePicker, TextField, TimePicker } from 'mui-rff';
 import StepNavigator from 'components/StepNavigator';
 import withFormHandler from 'components/withFormScreenProps';
+import { DATE_FORMAT, TIME_FORMAT } from 'constants/dateFormats';
 import CourierDeliveryDetailsValues from 'types/courierDeliveryDetails';
 import StepComponentProps from 'types/formScreen';
 import {
@@ -30,7 +32,12 @@ function CourierDeliveryDetailsScreen({
 }: Props) {
   return (
     <div>
-      <h2 css={classes.title}>{`Provide ${screen.toLocaleLowerCase()}`}</h2>
+      <Typography
+        css={classes.title}
+        component='h1'
+        variant='h5'>
+        Provide {lowerCase(screen)}
+      </Typography>
       <Form<CourierDeliveryDetailsValues>
         initialValues={initialValues}
         onSubmit={onSubmit}
@@ -41,7 +48,7 @@ function CourierDeliveryDetailsScreen({
             <fieldset css={classes.fieldset}>
               <Box sx={{ mb: 2 }}>
                 <Typography
-                  sx={{ fontWeight: 600 }}
+                  css={classes.legend}
                   variant='overline'>
                   <legend>Choose date and time for courier delivery</legend>
                 </Typography>
@@ -54,6 +61,7 @@ function CourierDeliveryDetailsScreen({
                   ),
                 }}
                 label='Date'
+                format={DATE_FORMAT}
                 minDate={MIN_DELIVERY_DATE}
                 name='date'
                 sx={{ mb: 2 }}
@@ -62,6 +70,7 @@ function CourierDeliveryDetailsScreen({
                 fieldProps={{
                   validate: validateIsRequired,
                 }}
+                format={TIME_FORMAT}
                 label='Time'
                 name='time'
               />
@@ -69,7 +78,7 @@ function CourierDeliveryDetailsScreen({
             <fieldset css={classes.fieldset}>
               <Box sx={{ mb: 2 }}>
                 <Typography
-                  sx={{ fontWeight: 600 }}
+                  css={classes.legend}
                   variant='overline'>
                   <legend>Enter address details for courier delivery</legend>
                 </Typography>
@@ -117,7 +126,7 @@ function CourierDeliveryDetailsScreen({
               />
               <Checkboxes
                 data={{
-                  label: 'There is at least one elevator in the house',
+                  label: 'There is an elevator in the house',
                   value: true,
                 }}
                 name='hasElevator'
