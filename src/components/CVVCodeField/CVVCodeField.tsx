@@ -17,6 +17,7 @@ export default function CVVCodeField({
       allowEmptyFormatting
       customInput={TextField}
       format='###'
+      inputProps={{ inputMode: 'numeric' }}
       onValueChange={handleChange}
       mask='*'
       name={name}

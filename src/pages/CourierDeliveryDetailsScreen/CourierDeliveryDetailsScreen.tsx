@@ -109,6 +109,7 @@ function CourierDeliveryDetailsScreen({
                   format: formatHandler,
                   parse: parseHandler,
                 }}
+                inputProps={{ inputMode: 'numeric' }}
                 label='Flat'
                 name='flat'
                 placeholder='Enter flat number'
@@ -119,6 +120,7 @@ function CourierDeliveryDetailsScreen({
                   format: formatHandler,
                   parse: parseHandler,
                 }}
+                inputProps={{ inputMode: 'numeric' }}
                 label='Intercom'
                 name='intercom'
                 placeholder='Enter intercom number'

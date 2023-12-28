@@ -20,6 +20,7 @@ export default function CardExpiryField({
       allowEmptyFormatting
       customInput={TextField}
       format='##/##'
+      inputProps={{ inputMode: 'numeric' }}
       onValueChange={handleChange}
       mask='_'
       name={name}
