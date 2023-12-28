@@ -14,10 +14,10 @@ export default function CVVCodeField({
 
   return (
     <PatternFormat
-      inputMode='numeric'
       allowEmptyFormatting
       customInput={TextField}
       format='###'
+      inputProps={{ inputMode: 'numeric' }}
       onValueChange={handleChange}
       mask='*'
       name={name}

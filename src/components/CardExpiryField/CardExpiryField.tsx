@@ -17,10 +17,10 @@ export default function CardExpiryField({
 
   return (
     <ExpirationDateInput
-      inputMode='numeric'
       allowEmptyFormatting
       customInput={TextField}
       format='##/##'
+      inputProps={{ inputMode: 'numeric' }}
       onValueChange={handleChange}
       mask='_'
       name={name}
