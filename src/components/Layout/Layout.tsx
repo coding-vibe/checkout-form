@@ -59,16 +59,16 @@ export default function Layout() {
                     !isLastStep ? (
                       <Link
                         component={RouterLink}
-                        to={step.url}
                         css={classes.bold}
+                        to={step.url}
                         underline='hover'
                         variant='h6'>
                         {formatStepName(step)}
                       </Link>
                     ) : (
                       <Typography
-                        css={classes.bold}
                         component='span'
+                        css={classes.bold}
                         variant='h6'>
                         {formatStepName(step)}
                       </Typography>
