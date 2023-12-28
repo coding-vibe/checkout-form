@@ -109,12 +109,14 @@ function CourierDeliveryDetailsScreen({
                   format: formatHandler,
                   parse: parseHandler,
                 }}
+                inputMode='numeric'
                 label='Flat'
                 name='flat'
                 placeholder='Enter flat number'
                 sx={{ mb: 2 }}
               />
               <TextField
+                inputMode='numeric'
                 fieldProps={{
                   format: formatHandler,
                   parse: parseHandler,

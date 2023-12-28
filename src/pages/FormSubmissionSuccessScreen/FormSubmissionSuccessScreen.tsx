@@ -28,7 +28,7 @@ export default function FormSubmissionSuccessScreen() {
       <img
         alt='rocket'
         css={classes.image}
-        src='/rocket.png'
+        src='./rocket.png'
       />
       <div css={classes.titleBox}>
         <Typography

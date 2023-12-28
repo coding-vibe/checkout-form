@@ -67,6 +67,7 @@ export default function Layout() {
                       </Link>
                     ) : (
                       <Typography
+                        css={classes.bold}
                         component='span'
                         variant='h6'>
                         {formatStepName(step)}

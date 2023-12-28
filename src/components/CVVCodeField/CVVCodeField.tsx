@@ -14,6 +14,7 @@ export default function CVVCodeField({
 
   return (
     <PatternFormat
+      inputMode='numeric'
       allowEmptyFormatting
       customInput={TextField}
       format='###'
